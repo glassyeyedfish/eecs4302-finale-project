@@ -3,15 +3,15 @@ package proglang;
 import java.util.ArrayList;
 import java.util.List;
 
-import antlr.ProgLangBaseVisitor;
-import antlr.ProgLangParser.PLAdditionContext;
-import antlr.ProgLangParser.PLAssignmnetContext;
-import antlr.ProgLangParser.PLBoolLiteralContext;
-import antlr.ProgLangParser.PLDeclarationContext;
-import antlr.ProgLangParser.PLIfBlockContext;
-import antlr.ProgLangParser.PLIntLiteralContext;
-import antlr.ProgLangParser.PLProgramContext;
-import antlr.ProgLangParser.PLVariableContext;
+import progantlr.ProgLangBaseVisitor;
+import progantlr.ProgLangParser.PLAdditionContext;
+import progantlr.ProgLangParser.PLAssignmnetContext;
+import progantlr.ProgLangParser.PLBoolLiteralContext;
+import progantlr.ProgLangParser.PLDeclarationContext;
+import progantlr.ProgLangParser.PLIfBlockContext;
+import progantlr.ProgLangParser.PLIntLiteralContext;
+import progantlr.ProgLangParser.PLProgramContext;
+import progantlr.ProgLangParser.PLVariableContext;
 
 public class AntlrToPLProgram extends ProgLangBaseVisitor<AbstractPLStatement> {
 	

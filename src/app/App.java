@@ -8,10 +8,14 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import antlr.ProgLangLexer;
-import antlr.ProgLangParser;
+import progantlr.ProgLangLexer;
+import progantlr.ProgLangParser;
 import proglang.AntlrToPLProgram;
 import proglang.PLProgram;
+import testantlr.TestLangLexer;
+import testantlr.TestLangParser;
+import testlang.AntlrToTLProgram;
+import testlang.TLProgram;
 
 /*
  * Note. 
@@ -27,25 +31,43 @@ public class App {
 		}
 		
 		String fileName = args[0];
-		ProgLangParser parser = getParser(fileName);
+		
+		// PROG LANG
+		/*PLParser parser = getParser(fileName);
 		ParseTree AST = parser.prog();
 		
 		if (ErrorListener.hasError) {
 			System.exit(1);
 		}
 		
-		// BEGIN
+		
 		AntlrToPLProgram plVisitor = new AntlrToPLProgram();
 		PLProgram proglang = (PLProgram) plVisitor.visit(AST);
 		
 		System.out.println(" === OUTPUT ===");
 		System.out.println(proglang.prettyPrint());
 
-		writeToHTML(proglang);
+		writeToHTML(proglang);*/
+		
+		// TEST LANG
+		
+		TestLangParser parser = getTLParser(fileName);
+		ParseTree AST = parser.prog();
+		
+		if (ErrorListener.hasError) {
+			System.exit(1);
+		}
+		AntlrToTLProgram tlVisitor = new AntlrToTLProgram();
+		TLProgram testlang = (TLProgram) tlVisitor.visit(AST);
+		
+		System.out.println(" === OUTPUT ===");
+		System.out.println(testlang.prettyPrint());
+
+		writeToHTML(testlang);
 		
 	}
 	
-	private static void writeToHTML(PLProgram proglang) {
+	private static void writeToHTML(TLProgram testlang) {
 		try {
 			FileWriter html = new FileWriter("index.html");
 			html.write("<!DOCTYPE html>\n");
@@ -53,7 +75,7 @@ public class App {
 			html.append("<head><title>Test</title></head>\n");
 			html.append("<body>\n");
 			html.append("<pre>\n");
-			html.append(proglang.prettyPrint());
+			html.append(testlang.prettyPrint());
 			html.append("</pre>\n");
 			html.append("</body>\n");
 			html.append("</html>\n");
@@ -63,7 +85,24 @@ public class App {
 		}
 	}
 	
-	private static ProgLangParser getParser(String fileName) {
+	private static TestLangParser getTLParser(String fileName) {
+		TestLangParser parser = null;
+		
+		try {
+			CharStream input = CharStreams.fromFileName(fileName);			
+			TestLangLexer lexer = new TestLangLexer(input);
+			CommonTokenStream tokens = new CommonTokenStream(lexer);
+			parser = new TestLangParser(tokens);
+			
+			parser.removeErrorListeners();
+			parser.addErrorListener(new ErrorListener());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return parser;	
+	}
+	
+	private static ProgLangParser getPLParser(String fileName) {
 		ProgLangParser parser = null;
 		
 		try {
@@ -77,10 +116,7 @@ public class App {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return parser;
-
-		
-		
+		return parser;	
 	}
 
 }
