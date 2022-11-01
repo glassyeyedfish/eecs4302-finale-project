@@ -49,15 +49,28 @@ public class App {
 		
 		for (AbstractTLStatement s: testlang.statements) {
 			if (s instanceof TLRun) {
-				ProgLangParser parser = getPLParser(((TLRun) s).id + ".txt");
+				String progId = ((TLRun) s).id;
+				ProgLangParser parser = getPLParser(progId + ".txt");
 				ParseTree AST = parser.prog();
 
+				// Syntax error handling
 				if (ErrorListener.hasError) {
 					System.exit(1);
 				}
 				
 				AntlrToPLProgram plVisitor = new AntlrToPLProgram();
 				PLProgram proglang = (PLProgram) plVisitor.visit(AST);
+				
+				// Print semantic errors and exit if there are any
+				if (!plVisitor.semanticErrors.isEmpty()) {
+					System.err.print("Semantic errors while parsing: ");
+					System.err.println(progId);
+					for (String msg: plVisitor.semanticErrors) {
+						System.err.println(msg);
+					}
+					System.exit(1);
+				}
+				
 				proglangs.add(proglang);
 			}
 		}

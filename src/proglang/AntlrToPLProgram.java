@@ -3,6 +3,8 @@ package proglang;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.antlr.v4.runtime.Token;
+
 import progantlr.ProgLangBaseVisitor;
 import progantlr.ProgLangParser.PLAdditionContext;
 import progantlr.ProgLangParser.PLAssignmnetContext;
@@ -16,10 +18,16 @@ import progantlr.ProgLangParser.PLVariableContext;
 public class AntlrToPLProgram extends ProgLangBaseVisitor<AbstractPLStatement> {
 	
 	public List<String> semanticErrors;
+	public List<String> vars;
+	
+	/* List of currently checked semantic errors:
+	 * 	- variable has already been declared
+	 */
 	
 	public AntlrToPLProgram() {
 		super();
 		this.semanticErrors = new ArrayList<>();
+		this.vars = new ArrayList<>();
 	}
 	
 	@Override
@@ -35,6 +43,25 @@ public class AntlrToPLProgram extends ProgLangBaseVisitor<AbstractPLStatement> {
 
 	@Override
 	public PLDeclaration visitPLDeclaration(PLDeclarationContext ctx) {
+		String declId = ctx.ID().getText();
+		// Check if var is already declared.
+		if (vars.contains(declId)) {
+			Token idToken = ctx.ID().getSymbol();
+			int line = idToken.getLine();
+			int col = idToken.getCharPositionInLine() + 1;
+			
+			semanticErrors.add(
+					"Error: variable '"
+					+ declId
+					+ "' already declared ("
+					+ line 
+					+ ", " 
+					+ col 
+					+ ")");
+		} else {
+			vars.add(declId);
+		}
+		
 		PLDeclaration decl = new PLDeclaration(
 				ctx.TYPE().getText(),
 				ctx.ID().getText());
