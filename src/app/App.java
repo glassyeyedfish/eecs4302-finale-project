@@ -2,20 +2,18 @@ package app;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import progantlr.ProgLangLexer;
-import progantlr.ProgLangParser;
-import proglang.AntlrToPLProgram;
-import proglang.PLProgram;
-import testantlr.TestLangLexer;
-import testantlr.TestLangParser;
-import testlang.AntlrToTLProgram;
-import testlang.TLProgram;
+import progantlr.*;
+import proglang.*;
+import testantlr.*;
+import testlang.*;
 
 /*
  * Note. 
@@ -26,44 +24,47 @@ import testlang.TLProgram;
 public class App {
 	public static void main(String[] args) {
 		if (args.length != 1) {
-			System.err.print("file name");
+			System.err.print("USAGE: [file name]");
 			System.exit(1);
 		}
 		
-		String fileName = args[0];
-		
-		// PROG LANG
-		/*PLParser parser = getParser(fileName);
-		ParseTree AST = parser.prog();
-		
-		if (ErrorListener.hasError) {
-			System.exit(1);
+		/* Load the test file and parse it. */
+		TLProgram testlang;
+		{
+			String fileName = args[0];
+			TestLangParser parser = getTLParser(fileName);
+			ParseTree AST = parser.prog();
+			
+			if (ErrorListener.hasError) {
+				System.exit(1);
+			}
+			AntlrToTLProgram tlVisitor = new AntlrToTLProgram();
+			testlang = (TLProgram) tlVisitor.visit(AST);
 		}
 		
+		/* Run the tests. */
 		
-		AntlrToPLProgram plVisitor = new AntlrToPLProgram();
-		PLProgram proglang = (PLProgram) plVisitor.visit(AST);
+		/* Parse and load each program into a list. */
+		List<PLProgram> proglangs = new ArrayList<>();
 		
-		System.out.println(" === OUTPUT ===");
-		System.out.println(proglang.prettyPrint());
+		for (AbstractTLStatement s: testlang.statements) {
+			if (s instanceof TLRun) {
+				ProgLangParser parser = getPLParser(((TLRun) s).id + ".txt");
+				ParseTree AST = parser.prog();
 
-		writeToHTML(proglang);*/
-		
-		// TEST LANG
-		
-		TestLangParser parser = getTLParser(fileName);
-		ParseTree AST = parser.prog();
-		
-		if (ErrorListener.hasError) {
-			System.exit(1);
+				if (ErrorListener.hasError) {
+					System.exit(1);
+				}
+				
+				AntlrToPLProgram plVisitor = new AntlrToPLProgram();
+				PLProgram proglang = (PLProgram) plVisitor.visit(AST);
+				proglangs.add(proglang);
+			}
 		}
-		AntlrToTLProgram tlVisitor = new AntlrToTLProgram();
-		TLProgram testlang = (TLProgram) tlVisitor.visit(AST);
 		
-		System.out.println(" === OUTPUT ===");
-		System.out.println(testlang.prettyPrint());
-
-		writeToHTML(testlang);
+		for (PLProgram p: proglangs) {
+			System.out.println(p.prettyPrint());
+		}
 		
 	}
 	
@@ -120,3 +121,20 @@ public class App {
 	}
 
 }
+
+//PROG LANG
+/*PLParser parser = getParser(fileName);
+ParseTree AST = parser.prog();
+
+if (ErrorListener.hasError) {
+	System.exit(1);
+}
+
+
+AntlrToPLProgram plVisitor = new AntlrToPLProgram();
+PLProgram proglang = (PLProgram) plVisitor.visit(AST);
+
+System.out.println(" === OUTPUT ===");
+System.out.println(proglang.prettyPrint());
+
+writeToHTML(proglang);*/

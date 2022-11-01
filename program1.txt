@@ -1,0 +1,7 @@
+PROGRAM program1
+	BOOL :: b
+	b = TRUE
+	IF b THEN
+		b = FALSE
+	END IF
+END PROGRAM
