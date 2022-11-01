@@ -2,16 +2,18 @@ package app;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import antlr.ProgLangLexer;
-import antlr.ProgLangParser;
-import proglang.AntlrToPLProgram;
-import proglang.PLProgram;
+import progantlr.*;
+import proglang.*;
+import testantlr.*;
+import testlang.*;
 
 /*
  * Note. 
@@ -22,30 +24,64 @@ import proglang.PLProgram;
 public class App {
 	public static void main(String[] args) {
 		if (args.length != 1) {
-			System.err.print("file name");
+			System.err.print("USAGE: [file name]");
 			System.exit(1);
 		}
 		
-		String fileName = args[0];
-		ProgLangParser parser = getParser(fileName);
-		ParseTree AST = parser.prog();
-		
-		if (ErrorListener.hasError) {
-			System.exit(1);
+		/* Load the test file and parse it. */
+		TLProgram testlang;
+		{
+			String fileName = args[0];
+			TestLangParser parser = getTLParser(fileName);
+			ParseTree AST = parser.prog();
+			
+			if (ErrorListener.hasError) {
+				System.exit(1);
+			}
+			AntlrToTLProgram tlVisitor = new AntlrToTLProgram();
+			testlang = (TLProgram) tlVisitor.visit(AST);
 		}
 		
-		// BEGIN
-		AntlrToPLProgram plVisitor = new AntlrToPLProgram();
-		PLProgram proglang = (PLProgram) plVisitor.visit(AST);
+		/* Run the tests. */
 		
-		System.out.println(" === OUTPUT ===");
-		System.out.println(proglang.prettyPrint());
+		/* Parse and load each program into a list. */
+		List<PLProgram> proglangs = new ArrayList<>();
+		
+		for (AbstractTLStatement s: testlang.statements) {
+			if (s instanceof TLRun) {
+				String progId = ((TLRun) s).id;
+				ProgLangParser parser = getPLParser(progId + ".txt");
+				ParseTree AST = parser.prog();
 
-		writeToHTML(proglang);
+				// Syntax error handling
+				if (ErrorListener.hasError) {
+					System.exit(1);
+				}
+				
+				AntlrToPLProgram plVisitor = new AntlrToPLProgram();
+				PLProgram proglang = (PLProgram) plVisitor.visit(AST);
+				
+				// Print semantic errors and exit if there are any
+				if (!plVisitor.semanticErrors.isEmpty()) {
+					System.err.print("Semantic errors while parsing: ");
+					System.err.println(progId);
+					for (String msg: plVisitor.semanticErrors) {
+						System.err.println(msg);
+					}
+					System.exit(1);
+				}
+				
+				proglangs.add(proglang);
+			}
+		}
+		
+		for (PLProgram p: proglangs) {
+			System.out.println(p.prettyPrint());
+		}
 		
 	}
 	
-	private static void writeToHTML(PLProgram proglang) {
+	private static void writeToHTML(TLProgram testlang) {
 		try {
 			FileWriter html = new FileWriter("index.html");
 			html.write("<!DOCTYPE html>\n");
@@ -53,7 +89,7 @@ public class App {
 			html.append("<head><title>Test</title></head>\n");
 			html.append("<body>\n");
 			html.append("<pre>\n");
-			html.append(proglang.prettyPrint());
+			html.append(testlang.prettyPrint());
 			html.append("</pre>\n");
 			html.append("</body>\n");
 			html.append("</html>\n");
@@ -63,7 +99,24 @@ public class App {
 		}
 	}
 	
-	private static ProgLangParser getParser(String fileName) {
+	private static TestLangParser getTLParser(String fileName) {
+		TestLangParser parser = null;
+		
+		try {
+			CharStream input = CharStreams.fromFileName(fileName);			
+			TestLangLexer lexer = new TestLangLexer(input);
+			CommonTokenStream tokens = new CommonTokenStream(lexer);
+			parser = new TestLangParser(tokens);
+			
+			parser.removeErrorListeners();
+			parser.addErrorListener(new ErrorListener());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return parser;	
+	}
+	
+	private static ProgLangParser getPLParser(String fileName) {
 		ProgLangParser parser = null;
 		
 		try {
@@ -77,10 +130,24 @@ public class App {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return parser;
-
-		
-		
+		return parser;	
 	}
 
 }
+
+//PROG LANG
+/*PLParser parser = getParser(fileName);
+ParseTree AST = parser.prog();
+
+if (ErrorListener.hasError) {
+	System.exit(1);
+}
+
+
+AntlrToPLProgram plVisitor = new AntlrToPLProgram();
+PLProgram proglang = (PLProgram) plVisitor.visit(AST);
+
+System.out.println(" === OUTPUT ===");
+System.out.println(proglang.prettyPrint());
+
+writeToHTML(proglang);*/

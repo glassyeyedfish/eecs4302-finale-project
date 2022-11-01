@@ -1,0 +1,4 @@
+PROGRAM program0
+	BOOL :: a
+	a = FALSE
+END PROGRAM
