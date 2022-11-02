@@ -1,8 +1,8 @@
 package proglang;
 
 public class PLAssignment extends AbstractPLStatement {
-	String id;
-	AbstractPLStatement expr;
+	public String id;
+	public AbstractPLStatement expr;
 	
 	public PLAssignment(String id, AbstractPLStatement expr) {
 		this.id = id;
@@ -11,6 +11,16 @@ public class PLAssignment extends AbstractPLStatement {
 
 	@Override
 	public String prettyPrint() {
-		return id + " = " + expr.prettyPrint() + "\n";
+		return this.lineNum
+				+ "\t"
+				+ this.id 
+				+ " = " 
+				+ expr.prettyPrint() 
+				+ "\n";
+	}
+
+	@Override
+	public int linesInStatement() {
+		return 1;
 	}
 }

@@ -12,14 +12,9 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 import progantlr.*;
 import proglang.*;
+import proglang.processor.PLProcessor;
 import testantlr.*;
 import testlang.*;
-
-/*
- * Note. 
- * 	This class in the initial starter project is not expected to compile.
- * 	But it should compile after the skeleton code is generated into the `antlr` package. 
- */
 
 public class App {
 	public static void main(String[] args) {
@@ -63,7 +58,7 @@ public class App {
 				
 				// Print semantic errors and exit if there are any
 				if (!plVisitor.semanticErrors.isEmpty()) {
-					System.err.print("Semantic errors while parsing: ");
+					System.err.print("The following errors occured while parsing: ");
 					System.err.println(progId);
 					for (String msg: plVisitor.semanticErrors) {
 						System.err.println(msg);
@@ -77,10 +72,12 @@ public class App {
 		
 		for (PLProgram p: proglangs) {
 			System.out.println(p.prettyPrint());
+			PLProcessor progProcessor = new PLProcessor(p);
+			System.out.println("Coverage: " + progProcessor.getStatementCoverage());
 		}
-		
 	}
 	
+	@SuppressWarnings("unused")
 	private static void writeToHTML(TLProgram testlang) {
 		try {
 			FileWriter html = new FileWriter("index.html");

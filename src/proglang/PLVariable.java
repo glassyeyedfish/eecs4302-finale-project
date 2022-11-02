@@ -12,4 +12,9 @@ public class PLVariable extends AbstractPLStatement {
 		return id;
 	}
 
+	@Override
+	public int linesInStatement() {
+		return 0;
+	}
+
 }

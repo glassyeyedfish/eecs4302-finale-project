@@ -16,4 +16,9 @@ public class PLBoolLiteral extends AbstractPLStatement {
 		}
 	}
 
+	@Override
+	public int linesInStatement() {
+		return 0;
+	}
+
 }

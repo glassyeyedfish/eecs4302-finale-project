@@ -16,6 +16,8 @@ public class PLProgram extends AbstractPLStatement {
 	public String prettyPrint() {
 		StringBuilder result = new StringBuilder();
 		
+		result.append(this.lineNum);
+		result.append("\t");
 		result.append("PROGRAM ");
 		result.append(id);
 		result.append("\n");
@@ -24,8 +26,21 @@ public class PLProgram extends AbstractPLStatement {
 			result.append(s.prettyPrint());
 		}
 		
+		result.append(this.linesInStatement());
+		result.append("\t");
 		result.append("END PROGRAM\n");
 		
 		return result.toString();
+	}
+
+	@Override
+	public int linesInStatement() {
+		int result = 2;
+		
+		for (AbstractPLStatement s: statements) {
+			result += s.linesInStatement();
+		}
+		
+		return result;
 	}
 }
