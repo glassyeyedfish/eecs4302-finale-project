@@ -25,6 +25,14 @@ public class AntlrToPLProgram extends ProgLangBaseVisitor<AbstractPLStatement> {
 	 * 	- variable has already been declared
 	 */
 	
+	/* List of possible semantic errors:
+	 * 	- using undeclared variable
+	 *  - type mismatch errors:
+	 *  	- if statement condition must be bool
+	 *  	- assigning wrong type to variable
+	 *  	- using wrong type with operation
+	 */
+	
 	public AntlrToPLProgram() {
 		super();
 		this.currentLineNum = 1;

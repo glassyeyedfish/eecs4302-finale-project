@@ -4,10 +4,11 @@ grammar ProgLang;
 	package progantlr;
 }
 
+// Forces declarations to be at the top
 prog: 'PROGRAM' ID
+	(decl)+
 	(
-		  decl 
-		| assign
+		  assign
 		| ifblock
 	)+ 
 	'END PROGRAM' 

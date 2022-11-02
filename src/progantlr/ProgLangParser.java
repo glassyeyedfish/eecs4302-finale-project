@@ -154,29 +154,37 @@ public class ProgLangParser extends Parser {
 			match(T__0);
 			setState(11);
 			match(ID);
-			setState(15); 
+			setState(13); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
-				setState(15);
+				{
+				setState(12);
+				decl();
+				}
+				}
+				setState(15); 
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+			} while ( _la==TYPE );
+			setState(19); 
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			do {
+				{
+				setState(19);
 				_errHandler.sync(this);
 				switch (_input.LA(1)) {
-				case TYPE:
-					{
-					setState(12);
-					decl();
-					}
-					break;
 				case ID:
 					{
-					setState(13);
+					setState(17);
 					assign();
 					}
 					break;
 				case T__4:
 					{
-					setState(14);
+					setState(18);
 					ifblock();
 					}
 					break;
@@ -184,13 +192,13 @@ public class ProgLangParser extends Parser {
 					throw new NoViableAltException(this);
 				}
 				}
-				setState(17); 
+				setState(21); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__4) | (1L << TYPE) | (1L << ID))) != 0) );
-			setState(19);
+			} while ( _la==T__4 || _la==ID );
+			setState(23);
 			match(T__1);
-			setState(20);
+			setState(24);
 			match(EOF);
 			}
 		}
@@ -242,11 +250,11 @@ public class ProgLangParser extends Parser {
 			_localctx = new PLDeclarationContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(22);
+			setState(26);
 			match(TYPE);
-			setState(23);
+			setState(27);
 			match(T__2);
-			setState(24);
+			setState(28);
 			match(ID);
 			}
 		}
@@ -300,11 +308,11 @@ public class ProgLangParser extends Parser {
 			_localctx = new PLAssignmnetContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(26);
+			setState(30);
 			match(ID);
-			setState(27);
+			setState(31);
 			match(T__3);
-			setState(28);
+			setState(32);
 			expr(0);
 			}
 		}
@@ -370,29 +378,29 @@ public class ProgLangParser extends Parser {
 			_localctx = new PLIfBlockContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(30);
+			setState(34);
 			match(T__4);
-			setState(31);
+			setState(35);
 			expr(0);
-			setState(32);
+			setState(36);
 			match(T__5);
-			setState(35); 
+			setState(39); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
-				setState(35);
+				setState(39);
 				_errHandler.sync(this);
 				switch (_input.LA(1)) {
 				case ID:
 					{
-					setState(33);
+					setState(37);
 					assign();
 					}
 					break;
 				case T__4:
 					{
-					setState(34);
+					setState(38);
 					ifblock();
 					}
 					break;
@@ -400,11 +408,11 @@ public class ProgLangParser extends Parser {
 					throw new NoViableAltException(this);
 				}
 				}
-				setState(37); 
+				setState(41); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			} while ( _la==T__4 || _la==ID );
-			setState(39);
+			setState(43);
 			match(T__6);
 			}
 		}
@@ -519,7 +527,7 @@ public class ProgLangParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(45);
+			setState(49);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case ID:
@@ -528,7 +536,7 @@ public class ProgLangParser extends Parser {
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
-				setState(42);
+				setState(46);
 				match(ID);
 				}
 				break;
@@ -537,7 +545,7 @@ public class ProgLangParser extends Parser {
 				_localctx = new PLIntLiteralContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(43);
+				setState(47);
 				match(INT_LIT);
 				}
 				break;
@@ -546,7 +554,7 @@ public class ProgLangParser extends Parser {
 				_localctx = new PLBoolLiteralContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(44);
+				setState(48);
 				match(BOOL_LIT);
 				}
 				break;
@@ -554,9 +562,9 @@ public class ProgLangParser extends Parser {
 				throw new NoViableAltException(this);
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(52);
+			setState(56);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,5,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,6,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
@@ -565,18 +573,18 @@ public class ProgLangParser extends Parser {
 					{
 					_localctx = new PLAdditionContext(new ExprContext(_parentctx, _parentState));
 					pushNewRecursionContext(_localctx, _startState, RULE_expr);
-					setState(47);
+					setState(51);
 					if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
-					setState(48);
+					setState(52);
 					match(T__7);
-					setState(49);
+					setState(53);
 					expr(5);
 					}
 					} 
 				}
-				setState(54);
+				setState(58);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,5,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,6,_ctx);
 			}
 			}
 		}
@@ -607,22 +615,23 @@ public class ProgLangParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\20:\4\2\t\2\4\3\t"+
-		"\3\4\4\t\4\4\5\t\5\4\6\t\6\3\2\3\2\3\2\3\2\3\2\6\2\22\n\2\r\2\16\2\23"+
-		"\3\2\3\2\3\2\3\3\3\3\3\3\3\3\3\4\3\4\3\4\3\4\3\5\3\5\3\5\3\5\3\5\6\5&"+
-		"\n\5\r\5\16\5\'\3\5\3\5\3\6\3\6\3\6\3\6\5\6\60\n\6\3\6\3\6\3\6\7\6\65"+
-		"\n\6\f\6\16\68\13\6\3\6\2\3\n\7\2\4\6\b\n\2\2\2<\2\f\3\2\2\2\4\30\3\2"+
-		"\2\2\6\34\3\2\2\2\b \3\2\2\2\n/\3\2\2\2\f\r\7\3\2\2\r\21\7\16\2\2\16\22"+
-		"\5\4\3\2\17\22\5\6\4\2\20\22\5\b\5\2\21\16\3\2\2\2\21\17\3\2\2\2\21\20"+
-		"\3\2\2\2\22\23\3\2\2\2\23\21\3\2\2\2\23\24\3\2\2\2\24\25\3\2\2\2\25\26"+
-		"\7\4\2\2\26\27\7\2\2\3\27\3\3\2\2\2\30\31\7\13\2\2\31\32\7\5\2\2\32\33"+
-		"\7\16\2\2\33\5\3\2\2\2\34\35\7\16\2\2\35\36\7\6\2\2\36\37\5\n\6\2\37\7"+
-		"\3\2\2\2 !\7\7\2\2!\"\5\n\6\2\"%\7\b\2\2#&\5\6\4\2$&\5\b\5\2%#\3\2\2\2"+
-		"%$\3\2\2\2&\'\3\2\2\2\'%\3\2\2\2\'(\3\2\2\2()\3\2\2\2)*\7\t\2\2*\t\3\2"+
-		"\2\2+,\b\6\1\2,\60\7\16\2\2-\60\7\f\2\2.\60\7\r\2\2/+\3\2\2\2/-\3\2\2"+
-		"\2/.\3\2\2\2\60\66\3\2\2\2\61\62\f\6\2\2\62\63\7\n\2\2\63\65\5\n\6\7\64"+
-		"\61\3\2\2\2\658\3\2\2\2\66\64\3\2\2\2\66\67\3\2\2\2\67\13\3\2\2\28\66"+
-		"\3\2\2\2\b\21\23%\'/\66";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\20>\4\2\t\2\4\3\t"+
+		"\3\4\4\t\4\4\5\t\5\4\6\t\6\3\2\3\2\3\2\6\2\20\n\2\r\2\16\2\21\3\2\3\2"+
+		"\6\2\26\n\2\r\2\16\2\27\3\2\3\2\3\2\3\3\3\3\3\3\3\3\3\4\3\4\3\4\3\4\3"+
+		"\5\3\5\3\5\3\5\3\5\6\5*\n\5\r\5\16\5+\3\5\3\5\3\6\3\6\3\6\3\6\5\6\64\n"+
+		"\6\3\6\3\6\3\6\7\69\n\6\f\6\16\6<\13\6\3\6\2\3\n\7\2\4\6\b\n\2\2\2@\2"+
+		"\f\3\2\2\2\4\34\3\2\2\2\6 \3\2\2\2\b$\3\2\2\2\n\63\3\2\2\2\f\r\7\3\2\2"+
+		"\r\17\7\16\2\2\16\20\5\4\3\2\17\16\3\2\2\2\20\21\3\2\2\2\21\17\3\2\2\2"+
+		"\21\22\3\2\2\2\22\25\3\2\2\2\23\26\5\6\4\2\24\26\5\b\5\2\25\23\3\2\2\2"+
+		"\25\24\3\2\2\2\26\27\3\2\2\2\27\25\3\2\2\2\27\30\3\2\2\2\30\31\3\2\2\2"+
+		"\31\32\7\4\2\2\32\33\7\2\2\3\33\3\3\2\2\2\34\35\7\13\2\2\35\36\7\5\2\2"+
+		"\36\37\7\16\2\2\37\5\3\2\2\2 !\7\16\2\2!\"\7\6\2\2\"#\5\n\6\2#\7\3\2\2"+
+		"\2$%\7\7\2\2%&\5\n\6\2&)\7\b\2\2\'*\5\6\4\2(*\5\b\5\2)\'\3\2\2\2)(\3\2"+
+		"\2\2*+\3\2\2\2+)\3\2\2\2+,\3\2\2\2,-\3\2\2\2-.\7\t\2\2.\t\3\2\2\2/\60"+
+		"\b\6\1\2\60\64\7\16\2\2\61\64\7\f\2\2\62\64\7\r\2\2\63/\3\2\2\2\63\61"+
+		"\3\2\2\2\63\62\3\2\2\2\64:\3\2\2\2\65\66\f\6\2\2\66\67\7\n\2\2\679\5\n"+
+		"\6\78\65\3\2\2\29<\3\2\2\2:8\3\2\2\2:;\3\2\2\2;\13\3\2\2\2<:\3\2\2\2\t"+
+		"\21\25\27)+\63:";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
