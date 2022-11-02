@@ -1,8 +1,8 @@
 package proglang;
 
 public class PLAssignment extends AbstractPLStatement {
-	String id;
-	AbstractPLStatement expr;
+	public String id;
+	public AbstractPLStatement expr;
 	
 	public PLAssignment(String id, AbstractPLStatement expr) {
 		this.id = id;

@@ -1,8 +1,8 @@
 package proglang;
 
 public class PLAddition extends AbstractPLStatement {
-	AbstractPLStatement left;
-	AbstractPLStatement right;
+	public AbstractPLStatement left;
+	public AbstractPLStatement right;
 	
 	public PLAddition(AbstractPLStatement left, AbstractPLStatement right) {
 		this.left = left;

@@ -12,6 +12,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 
 import progantlr.*;
 import proglang.*;
+import proglang.processor.PLProcessor;
 import testantlr.*;
 import testlang.*;
 
@@ -71,8 +72,9 @@ public class App {
 		
 		for (PLProgram p: proglangs) {
 			System.out.println(p.prettyPrint());
+			PLProcessor progProcessor = new PLProcessor(p);
+			System.out.println("Coverage: " + progProcessor.getStatementCoverage());
 		}
-		
 	}
 	
 	@SuppressWarnings("unused")
