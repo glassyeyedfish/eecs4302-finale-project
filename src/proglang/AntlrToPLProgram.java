@@ -26,20 +26,20 @@ public class AntlrToPLProgram extends ProgLangBaseVisitor<AbstractPLStatement> {
 	
 	/*
 	 * TODO:
-	 * 	- Implement and test "checkExprType()" function.
+	 * 	- Finish implementing
 	 */
 	
 	/* List of currently checked semantic errors:
 	 * 	- variable has already been declared
 	 * 	- using undeclared variable
 	 *  - type mismatch errors:
+	 *  	- using wrong type with operation
 	 */
 	
 	/* List of possible semantic errors:
 	 *  - type mismatch errors:
 	 *  	- if statement condition must be bool
 	 *  	- assigning wrong type to variable
-	 *  	- using wrong type with operation
 	 *  - variable used before assigned (ideally this one is not needed)
 	 */
 	
@@ -58,6 +58,26 @@ public class AntlrToPLProgram extends ProgLangBaseVisitor<AbstractPLStatement> {
 	// Checks the following type errors:
 	// 	- Using wrong type with operation
 	private String checkExprType(AbstractPLStatement expr) {
+		if (expr instanceof PLAddition) {
+			String leftType = checkExprType(((PLAddition) expr).left);
+			String rightType = checkExprType(((PLAddition) expr).right);
+			if (leftType.equals("INT") && rightType.equals("INT")) {
+				return "INT";
+			} else {
+				this.semanticErrors.add(
+						"Type Error: trying to evaluate '+' using non INT at line: "
+						+ expr.lineNum);
+				return "ERROR";
+			}
+		} else if (expr instanceof PLVariable) {
+			return varToTypeMap.get(((PLVariable) expr).id);
+		} else if (expr instanceof PLIntLiteral) {
+			return "INT";
+		} else if (expr instanceof PLBoolLiteral) {
+			return "BOOL";
+		}
+			
+		// This should NEVER be reached!
 		return null;
 	}
 	

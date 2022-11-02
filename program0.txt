@@ -1,7 +1,4 @@
 PROGRAM program0
-	BOOL :: a
-	a = FALSE
-	IF a THEN
-		a = TRUE
-	END IF
+	INT :: a
+	a = 1 + 1
 END PROGRAM
