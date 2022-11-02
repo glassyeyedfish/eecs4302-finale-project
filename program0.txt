@@ -1,4 +1,19 @@
 PROGRAM program0
-	BOOL :: a
+	BOOL :: a 
+	BOOL :: b
 	a = FALSE
+	IF a THEN
+		a = TRUE
+		IF a THEN
+			a = FALSE
+			a = TRUE
+			a = FALSE
+			IF a THEN
+				a = TRUE
+			END IF
+			a = FALSE
+		END IF
+		b = TRUE
+		a = FALSE
+	END IF
 END PROGRAM

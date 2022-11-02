@@ -11,6 +11,16 @@ public class PLDeclaration extends AbstractPLStatement {
 
 	@Override
 	public String prettyPrint() {
-		return type + " :: " + id + "\n";
+		return this.lineNum
+				+ "\t" 
+				+ this.type 
+				+ " :: " 
+				+ this.id 
+				+ "\n";
+	}
+
+	@Override
+	public int linesInStatement() {
+		return 1;
 	}
 }

@@ -11,4 +11,9 @@ public class PLIntLiteral extends AbstractPLStatement {
 	public String prettyPrint() {
 		return value.toString();
 	}
+
+	@Override
+	public int linesInStatement() {
+		return 0;
+	}
 }

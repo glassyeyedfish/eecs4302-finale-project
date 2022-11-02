@@ -9,12 +9,15 @@ public class PLAddition extends AbstractPLStatement {
 		this.right = right;
 	}
 
-
-
 	@Override
 	public String prettyPrint() {
 		// TODO Auto-generated method stub
 		return left.prettyPrint() + " + " + right.prettyPrint();
+	}
+
+	@Override
+	public int linesInStatement() {
+		return 0;
 	}
 
 }
