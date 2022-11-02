@@ -1,19 +1,8 @@
 PROGRAM program0
-	BOOL :: a 
+	INT :: a
 	BOOL :: b
-	a = FALSE
+	a = b
 	IF a THEN
-		a = TRUE
-		IF a THEN
-			a = FALSE
-			a = TRUE
-			a = FALSE
-			IF a THEN
-				a = TRUE
-			END IF
-			a = FALSE
-		END IF
-		b = TRUE
-		a = FALSE
+		a = b
 	END IF
 END PROGRAM
