@@ -34,12 +34,11 @@ public class AntlrToPLProgram extends ProgLangBaseVisitor<AbstractPLStatement> {
 	 * 	- using undeclared variable
 	 *  - type mismatch errors:
 	 *  	- using wrong type with operation
-	 */
-	
-	/* List of possible semantic errors:
-	 *  - type mismatch errors:
 	 *  	- if statement condition must be bool
 	 *  	- assigning wrong type to variable
+	 */
+	
+	/* List of possible semantic errors to be checked:
 	 *  - variable used before assigned (ideally this one is not needed)
 	 */
 	
@@ -65,7 +64,7 @@ public class AntlrToPLProgram extends ProgLangBaseVisitor<AbstractPLStatement> {
 				return "INT";
 			} else {
 				this.semanticErrors.add(
-						"Type Error: trying to evaluate '+' using non INT at line: "
+						"Type Error: must use INT with '+' at line: "
 						+ expr.lineNum);
 				return "ERROR";
 			}
@@ -84,12 +83,33 @@ public class AntlrToPLProgram extends ProgLangBaseVisitor<AbstractPLStatement> {
 	// Checks the following type errors:
 	//	- if statement condition must be bool
 	//  - assigning wrong type to variable
-	private void checkTypeErrors(PLProgram prog) {
-		for (AbstractPLStatement s: prog.statements) {
-			if (s instanceof PLIfBlock) {
-				System.out.println(checkExprType(((PLIfBlock) s).condition));
-			} else if (s instanceof PLAssignment) {
-				System.out.println(checkExprType(((PLAssignment) s).expr));
+	private void checkTypeErrors(AbstractPLStatement s) {
+		if (s instanceof PLProgram) {
+			// Check all statements in the program for type errors
+			for (AbstractPLStatement statement: ((PLProgram) s).statements) {
+				checkTypeErrors(statement);
+			}
+		} else if (s instanceof PLIfBlock) {
+			// Check if condition in if-statement is a boolean
+			if (
+				!checkExprType(((PLIfBlock) s).condition).equals("BOOL")
+			) {
+				this.semanticErrors.add(
+						"Type Error: if statement condition must be BOOL at: " 
+						+ s.lineNum);
+			}
+			// Next, check all statements inside the if block for type errors
+			for (AbstractPLStatement statement: ((PLIfBlock) s).statements) {
+				checkTypeErrors(statement);
+			}
+		} else if (s instanceof PLAssignment) {
+			// Check if value being assigned has the correct type
+			if (
+				!checkExprType(((PLAssignment) s).expr).equals(
+				varToTypeMap.get(((PLAssignment) s).id))
+			) {
+				this.semanticErrors.add(
+						"Type Error: type mismatch at line: " + s.lineNum);
 			}
 		}
 	}

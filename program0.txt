@@ -1,4 +1,8 @@
 PROGRAM program0
 	INT :: a
-	a = 1 + 1
+	BOOL :: b
+	a = b
+	IF a THEN
+		a = b
+	END IF
 END PROGRAM
