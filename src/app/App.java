@@ -15,12 +15,6 @@ import proglang.*;
 import testantlr.*;
 import testlang.*;
 
-/*
- * Note. 
- * 	This class in the initial starter project is not expected to compile.
- * 	But it should compile after the skeleton code is generated into the `antlr` package. 
- */
-
 public class App {
 	public static void main(String[] args) {
 		if (args.length != 1) {
