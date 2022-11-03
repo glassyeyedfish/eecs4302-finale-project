@@ -10,6 +10,8 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
+import coverage.*;
+import html.HTML;
 import progantlr.*;
 import proglang.*;
 import proglang.processor.PLProcessor;
@@ -70,11 +72,21 @@ public class App {
 			}
 		}
 		
+		CoverageReport report = new CoverageReport();
+		
 		for (PLProgram p: proglangs) {
-			System.out.println(p.prettyPrint());
+			String prettyPrint = p.prettyPrint();
+
 			PLProcessor progProcessor = new PLProcessor(p);
-			System.out.println("Coverage: " + progProcessor.getStatementCoverage());
+			List<Integer> coverage = progProcessor.getStatementCoverage();
+			
+			report.addProgram(prettyPrint, coverage);
 		}
+		
+		report.print();
+		
+		HTML html = new HTML(report);
+		html.outputToFile("index");
 	}
 	
 	@SuppressWarnings("unused")
