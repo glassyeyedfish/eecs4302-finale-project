@@ -2,10 +2,17 @@ package coverage;
 
 import java.util.*;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class ProgramCoverageData {
-	String prettyPrint;
+	@Expose
 	List<String> lines;
+	@Expose
+	@SerializedName("coverage")
 	List<Integer> coverageLines;
+
+	String prettyPrint;
 	
 	public ProgramCoverageData(String prettyPrint, List<Integer> lines) {
 		this.prettyPrint = prettyPrint;

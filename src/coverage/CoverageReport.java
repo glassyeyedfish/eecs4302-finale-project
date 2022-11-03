@@ -2,6 +2,9 @@ package coverage;
 
 import java.util.*;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 public class CoverageReport {
 	List<ProgramCoverageData> programs;
 	
@@ -17,32 +20,9 @@ public class CoverageReport {
 		this.programs.add(program);
 	}
 	
-	public String toJson() {
-		StringBuilder result = new StringBuilder();
-		
-		// """json"""
-		result.append("[");
-		
-		for (int i = 0; i < programs.size(); i++) {
-			if (i > 0) result.append(", ");
-			ProgramCoverageData prog = programs.get(i);
-			
-			result.append("{");
-			result.append("\"lines\": [");
-			for (int j = 0; j < prog.lines.size(); j++) {
-				if (j > 0) result.append(", ");
-
-				String line = prog.lines.get(j);
-				result.append("\"" + line + "\"");
-			}
-			result.append("], ");
-			result.append("\"coverage\": " + prog.coverageLines.toString());
-			result.append("}");
-		}
-		
-		result.append("]");
-		
-		return result.toString();
+	public String toJson() {		
+		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+		return gson.toJson(this.programs);
 	}
 	
 	public void print() {
