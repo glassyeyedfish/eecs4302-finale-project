@@ -11,5 +11,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/antlr-4.9.3-complete.jar"/>
+	<classpathentry kind="lib" path="lib/gson-2.10.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
