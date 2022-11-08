@@ -3,6 +3,7 @@ package app;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.antlr.v4.runtime.CharStream;
@@ -79,8 +80,9 @@ public class App {
 
 			PLProcessor progProcessor = new PLProcessor(p);
 			List<Integer> coverage = progProcessor.getStatementCoverage();
+			HashSet<String> allDefsCoverage = progProcessor.getAllDefsCoverage();
 			
-			report.addProgram(prettyPrint, coverage);
+			report.addProgram(prettyPrint, coverage, allDefsCoverage);
 		}
 		
 		report.print();

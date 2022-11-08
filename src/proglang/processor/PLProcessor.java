@@ -1,9 +1,6 @@
 package proglang.processor;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import proglang.AbstractPLStatement;
 import proglang.PLAddition;
@@ -18,20 +15,22 @@ import proglang.PLVariable;
 public class PLProcessor {
 
 	PLProgram program;
-	
+	private HashSet<String> variableDefs = new HashSet<>();
+	private HashSet<String> variablesUses = new HashSet<>();
 	public PLProcessor(PLProgram program) {
 		this.program = program;
 	}
 	
-	public List<Integer> getStatementCoverage() {
+	public List<Integer> getStatementCoverage() { // todo: refactor out traversal logic to avoid redundant work for cov
 		List<Integer> lines = new ArrayList<>();
 		Map<String, Integer> ints = new HashMap<>();
 		Map<String, Boolean> bools = new HashMap<>();
 		
 		lines.add(program.lineNum);
 		for (AbstractPLStatement statement : program.statements) {
-			lines.add(((AbstractPLStatement) statement).lineNum);
+			lines.add(statement.lineNum);
 			if (statement instanceof PLDeclaration) {
+				variableDefs.add(((PLDeclaration) statement).id);
 				switch (((PLDeclaration) statement).type) {
 				case "INT":
 					ints.put(((PLDeclaration) statement).id, null);
@@ -42,6 +41,7 @@ public class PLProcessor {
 				}
 			}
 			else if (statement instanceof PLAssignment) {
+				variablesUses.add(((PLAssignment) statement).id);
 				if (ints.containsKey((((PLAssignment) statement).id))) {
 					ints.put(((PLAssignment) statement).id, evaluateArithmetic(((PLAssignment) statement).expr, ints));
 				}
@@ -52,7 +52,7 @@ public class PLProcessor {
 			else if (statement instanceof PLIfBlock) {
 				if (evaluatePredicate(((PLIfBlock) statement).condition, bools)) {
 					for (AbstractPLStatement ifBlockStatement : ((PLIfBlock) statement).statements) {
-						lines.add(((AbstractPLStatement) ifBlockStatement).lineNum);
+						lines.add(ifBlockStatement.lineNum);
 						if (ifBlockStatement instanceof PLDeclaration) {
 							switch (((PLDeclaration) ifBlockStatement).type) {
 							case "INT":
@@ -64,6 +64,7 @@ public class PLProcessor {
 							}
 						}
 						else if (ifBlockStatement instanceof PLAssignment) {
+							variablesUses.add(((PLAssignment) statement).id);
 							if (ints.containsKey((((PLAssignment) ifBlockStatement).id))) {
 								ints.put(((PLAssignment) ifBlockStatement).id, evaluateArithmetic(((PLAssignment) ifBlockStatement).expr, ints));
 							}
@@ -79,12 +80,19 @@ public class PLProcessor {
 		lines.add(program.linesInStatement());
 		return lines;
 	}
-	
+
+	public HashSet<String> getAllDefsCoverage(){
+		HashSet<String> clonedVariableDefs = (HashSet<String>) variableDefs.clone();
+		clonedVariableDefs.removeAll(this.variablesUses);
+		return clonedVariableDefs;
+	}
+
 	private Integer evaluateArithmetic(AbstractPLStatement expr, Map<String, Integer> map) {
 		if (expr instanceof PLIntLiteral) {
 			return ((PLIntLiteral) expr).value;
 		}
 		else if (expr instanceof PLVariable) {
+			variablesUses.add(((PLVariable) expr).id);
 			return map.get(((PLVariable) expr).id);
 		}
 		else if (expr instanceof PLAddition) {
@@ -98,12 +106,10 @@ public class PLProcessor {
 			return ((PLBoolLiteral) expr).value;
 		}
 		else if (expr instanceof PLVariable) {
+			variablesUses.add(((PLVariable) expr).id);
 			return map.get(((PLVariable) expr).id);
 		}
 		return null;
 	}
-	
-	private boolean isTypeExpression(AbstractPLStatement statement) {
-		return statement instanceof PLAddition || statement instanceof PLVariable || statement instanceof PLBoolLiteral; 
-	}
+
 }

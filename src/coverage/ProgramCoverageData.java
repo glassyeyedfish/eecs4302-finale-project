@@ -12,12 +12,17 @@ public class ProgramCoverageData {
 	@SerializedName("coverage")
 	List<Integer> coverageLines;
 
+	@Expose
+	@SerializedName("all_defs_coverage")
+	HashSet<String> allDefsCoverage;
+
 	String prettyPrint;
 	
-	public ProgramCoverageData(String prettyPrint, List<Integer> lines) {
+	public ProgramCoverageData(String prettyPrint, List<Integer> lines, HashSet<String> allDefsCoverage) {
 		this.prettyPrint = prettyPrint;
 		this.lines = this.getLinesFromPrettyPrint(prettyPrint);
 		this.coverageLines = lines;
+		this.allDefsCoverage = allDefsCoverage;
 	}
 	
 	private List<String> getLinesFromPrettyPrint(String prettyPrint) {

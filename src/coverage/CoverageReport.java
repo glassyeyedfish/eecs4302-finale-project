@@ -1,9 +1,11 @@
 package coverage;
 
-import java.util.*;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
 public class CoverageReport {
 	List<ProgramCoverageData> programs;
@@ -12,8 +14,11 @@ public class CoverageReport {
 		this.programs = new ArrayList<>();
 	}
 	
-	public void addProgram(String prettyPrint, List<Integer> coverageLines) {
-		this.addProgram(new ProgramCoverageData(prettyPrint, coverageLines));
+	public void addProgram(String prettyPrint, List<Integer> coverageLines, HashSet<String> allDefsCoverage) {
+		/* TODO: clean up method signatures, starting with changings how various coverages originate
+			from within PLProcessor
+		 */
+		this.addProgram(new ProgramCoverageData(prettyPrint, coverageLines, allDefsCoverage));
 	}
 	
 	public void addProgram(ProgramCoverageData program) {
