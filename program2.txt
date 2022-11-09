@@ -1,5 +1,6 @@
-PROGRAM program1
+PROGRAM program2
 	BOOL :: a
 	INT :: b
 	a = TRUE
+	b = 42
 END PROGRAM

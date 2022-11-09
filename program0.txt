@@ -1,8 +1,13 @@
 PROGRAM program0
-	INT :: a
+	BOOL :: a
 	BOOL :: b
-	a = b
+	INT :: c
+	a = TRUE
+	b = FALSE
 	IF a THEN
-		a = b
+		c = 1
+	END IF
+	IF b THEN
+		c = -1
 	END IF
 END PROGRAM
