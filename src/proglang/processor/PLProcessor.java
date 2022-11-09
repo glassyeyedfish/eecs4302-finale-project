@@ -64,7 +64,7 @@ public class PLProcessor {
 							}
 						}
 						else if (ifBlockStatement instanceof PLAssignment) {
-							variablesUses.add(((PLAssignment) statement).id);
+							variablesUses.add(((PLAssignment) ifBlockStatement).id);
 							if (ints.containsKey((((PLAssignment) ifBlockStatement).id))) {
 								ints.put(((PLAssignment) ifBlockStatement).id, evaluateArithmetic(((PLAssignment) ifBlockStatement).expr, ints));
 							}
