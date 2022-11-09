@@ -26,15 +26,7 @@ ifblock: 'IF' expr 'THEN'
 	'END IF'										#PLIfBlock
 	;
 
-expr: '!' expr										#PLNot
-	| 'LOG' '(' expr ')'							#PLLog
-	| 'SIN' '(' expr ')'							#PLSin
-	| 'COS' '(' expr ')'							#PLCos
-	| 'TAN' '(' expr ')'							#PLTan
-	| expr_or										#PLExprFallthrough
-	;
-
-expr_or: expr_or '||' expr_and						#PLOr
+expr: expr '||' expr_and							#PLOr
 	| expr_and										#PLOrFallthrough
 	;
 	
@@ -69,6 +61,11 @@ expr_exp: expr_exp '**' expr_base					#PLExponent
 	;
 
 expr_base:  '(' expr ')'							#PLBrackets
+	| '!' expr									#PLNot
+	| 'LOG' '(' expr ')'						#PLLog
+	| 'SIN' '(' expr ')'						#PLSin
+	| 'COS' '(' expr ')'						#PLCos
+	| 'TAN' '(' expr ')'						#PLTan
 	| ID											#PLVariable
 	| INT_LIT										#PLIntLiteral
 	| BOOL_LIT										#PLBoolLiteral

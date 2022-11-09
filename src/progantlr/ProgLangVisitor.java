@@ -41,57 +41,15 @@ public interface ProgLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPLIfBlock(ProgLangParser.PLIfBlockContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code PLNot}
-	 * labeled alternative in {@link ProgLangParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPLNot(ProgLangParser.PLNotContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code PLLog}
-	 * labeled alternative in {@link ProgLangParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPLLog(ProgLangParser.PLLogContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code PLSin}
-	 * labeled alternative in {@link ProgLangParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPLSin(ProgLangParser.PLSinContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code PLCos}
-	 * labeled alternative in {@link ProgLangParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPLCos(ProgLangParser.PLCosContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code PLTan}
-	 * labeled alternative in {@link ProgLangParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPLTan(ProgLangParser.PLTanContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code PLExprFallthrough}
-	 * labeled alternative in {@link ProgLangParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPLExprFallthrough(ProgLangParser.PLExprFallthroughContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code PLOrFallthrough}
-	 * labeled alternative in {@link ProgLangParser#expr_or}.
+	 * labeled alternative in {@link ProgLangParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitPLOrFallthrough(ProgLangParser.PLOrFallthroughContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code PLOr}
-	 * labeled alternative in {@link ProgLangParser#expr_or}.
+	 * labeled alternative in {@link ProgLangParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
@@ -229,6 +187,41 @@ public interface ProgLangVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitPLBrackets(ProgLangParser.PLBracketsContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code PLNot}
+	 * labeled alternative in {@link ProgLangParser#expr_base}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPLNot(ProgLangParser.PLNotContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code PLLog}
+	 * labeled alternative in {@link ProgLangParser#expr_base}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPLLog(ProgLangParser.PLLogContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code PLSin}
+	 * labeled alternative in {@link ProgLangParser#expr_base}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPLSin(ProgLangParser.PLSinContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code PLCos}
+	 * labeled alternative in {@link ProgLangParser#expr_base}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPLCos(ProgLangParser.PLCosContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code PLTan}
+	 * labeled alternative in {@link ProgLangParser#expr_base}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPLTan(ProgLangParser.PLTanContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code PLVariable}
 	 * labeled alternative in {@link ProgLangParser#expr_base}.
