@@ -8,13 +8,42 @@ import java.util.Map;
 import org.antlr.v4.runtime.Token;
 
 import progantlr.ProgLangBaseVisitor;
+import progantlr.ProgLangParser.ElseblockContext;
+import progantlr.ProgLangParser.ElseifblockContext;
 import progantlr.ProgLangParser.PLAdditionContext;
+import progantlr.ProgLangParser.PLAddsubFallthroughContext;
+import progantlr.ProgLangParser.PLAndContext;
+import progantlr.ProgLangParser.PLAndFallthroughContext;
 import progantlr.ProgLangParser.PLAssignmnetContext;
 import progantlr.ProgLangParser.PLBoolLiteralContext;
+import progantlr.ProgLangParser.PLBracketsContext;
+import progantlr.ProgLangParser.PLCosContext;
 import progantlr.ProgLangParser.PLDeclarationContext;
+import progantlr.ProgLangParser.PLDivisionContext;
+import progantlr.ProgLangParser.PLEqFallthroughContext;
+import progantlr.ProgLangParser.PLEqualsContext;
+import progantlr.ProgLangParser.PLExpFallthroughContext;
+import progantlr.ProgLangParser.PLExponentContext;
+import progantlr.ProgLangParser.PLFloatLiteralContext;
+import progantlr.ProgLangParser.PLGreaterEqualsContext;
+import progantlr.ProgLangParser.PLGreaterThanContext;
 import progantlr.ProgLangParser.PLIfBlockContext;
+import progantlr.ProgLangParser.PLIneqFallthroughContext;
 import progantlr.ProgLangParser.PLIntLiteralContext;
+import progantlr.ProgLangParser.PLLessEqualsContext;
+import progantlr.ProgLangParser.PLLessThanContext;
+import progantlr.ProgLangParser.PLLogContext;
+import progantlr.ProgLangParser.PLMuldivFallthroughContext;
+import progantlr.ProgLangParser.PLMutiplicationContext;
+import progantlr.ProgLangParser.PLNotContext;
+import progantlr.ProgLangParser.PLNotEqualsContext;
+import progantlr.ProgLangParser.PLOrContext;
+import progantlr.ProgLangParser.PLOrFallthroughContext;
+import progantlr.ProgLangParser.PLPrintContext;
 import progantlr.ProgLangParser.PLProgramContext;
+import progantlr.ProgLangParser.PLSinContext;
+import progantlr.ProgLangParser.PLSubtractionContext;
+import progantlr.ProgLangParser.PLTanContext;
 import progantlr.ProgLangParser.PLVariableContext;
 
 public class AntlrToPLProgram extends ProgLangBaseVisitor<AbstractPLStatement> {
@@ -38,10 +67,6 @@ public class AntlrToPLProgram extends ProgLangBaseVisitor<AbstractPLStatement> {
 	 *  	- assigning wrong type to variable
 	 */
 	
-	/* List of possible semantic errors to be checked:
-	 *  - variable used before assigned (ideally this one is not needed)
-	 */
-	
 	public AntlrToPLProgram() {
 		super();
 		this.currentLineNum = 1;
@@ -50,7 +75,11 @@ public class AntlrToPLProgram extends ProgLangBaseVisitor<AbstractPLStatement> {
 		this.varToTypeMap = new HashMap<>();
 	}
 	
-	// FUNCTION FOR TYPE CHECKING
+	
+	
+	// FUNCTION FOR TYPE CHECKING /////////////////////////////////////////////
+	
+	
 	
 	// Returns the type of an expression (BOOL, INT) or (ERROR) if there was
 	// a type mismatch
@@ -114,7 +143,11 @@ public class AntlrToPLProgram extends ProgLangBaseVisitor<AbstractPLStatement> {
 		}
 	}
 	
-	// END OF FUNCTIONS FOR TYPE CHECKING
+	
+	
+	// END OF FUNCTIONS FOR TYPE CHECKING //////////////////////////////////////
+	
+	
 	
 	@Override
 	public PLProgram visitPLProgram(PLProgramContext ctx) {
@@ -203,12 +236,227 @@ public class AntlrToPLProgram extends ProgLangBaseVisitor<AbstractPLStatement> {
 	}
 
 	@Override
-	public PLBoolLiteral visitPLBoolLiteral(PLBoolLiteralContext ctx) {
-		PLBoolLiteral lit = new PLBoolLiteral(
-				ctx.BOOL_LIT().getText().equals("TRUE") ? true : false);
-		lit.lineNum = this.currentLineNum;
+	public PLPrint visitPLPrint(PLPrintContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitPLPrint(ctx);
+	}
 	
-		return lit;
+	
+	/// IF BLOCK STUFF ///////////////////////////////////////////////////////
+	
+
+	@Override
+	public PLIfBlock visitPLIfBlock(PLIfBlockContext ctx) {
+		PLIfBlock ifblock = new PLIfBlock(
+				this.visit(ctx.expr()));
+		ifblock.lineNum = this.currentLineNum;
+		
+		for (int i = 3; i < ctx.getChildCount() - 1; i++) {
+			this.currentLineNum++;
+			ifblock.statements.add(
+					this.visit(ctx.getChild(i)));
+		}
+		
+		this.currentLineNum++;
+		
+		return ifblock;
+	}
+
+	@Override
+	public AbstractPLStatement visitElseifblock(ElseifblockContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitElseifblock(ctx);
+	}
+
+	@Override
+	public AbstractPLStatement visitElseblock(ElseblockContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitElseblock(ctx);
+	}
+	
+	
+	/// EXPRESSION NON-TERMINALS /////////////////////////////////////////////
+
+	
+	
+	// ||
+	@Override
+	public PLOr visitPLOr(PLOrContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitPLOr(ctx);
+	}
+	
+	@Override
+	public AbstractPLStatement visitPLOrFallthrough(PLOrFallthroughContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitPLOrFallthrough(ctx);
+	}
+
+	
+	
+	// &&
+	@Override
+	public PLAnd visitPLAnd(PLAndContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitPLAnd(ctx);
+	}
+
+	@Override
+	public AbstractPLStatement visitPLAndFallthrough(PLAndFallthroughContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitPLAndFallthrough(ctx);
+	}
+
+	@Override
+	public AbstractPLStatement visitPLEquals(PLEqualsContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitPLEquals(ctx);
+	}
+
+	
+	
+	// ==, !=
+	@Override
+	public PLEquals visitPLEqFallthrough(PLEqFallthroughContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitPLEqFallthrough(ctx);
+	}
+	
+	@Override
+	public PLNotEquals visitPLNotEquals(PLNotEqualsContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitPLNotEquals(ctx);
+	}
+
+	
+	
+	// <, >, <=, >=
+	@Override
+	public PLLessThan visitPLLessThan(PLLessThanContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitPLLessThan(ctx);
+	}
+	
+	@Override
+	public PLGreaterThan visitPLGreaterThan(PLGreaterThanContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitPLGreaterThan(ctx);
+	}
+
+	@Override
+	public AbstractPLStatement visitPLLessEquals(PLLessEqualsContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitPLLessEquals(ctx);
+	}
+
+	@Override
+	public AbstractPLStatement visitPLGreaterEquals(PLGreaterEqualsContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitPLGreaterEquals(ctx);
+	}
+
+	@Override
+	public AbstractPLStatement visitPLIneqFallthrough(PLIneqFallthroughContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitPLIneqFallthrough(ctx);
+	}
+	
+	
+	
+	// +, -
+	@Override
+	public PLAddition visitPLAddition(PLAdditionContext ctx) {
+		PLAddition add = new PLAddition(
+				this.visit(ctx.expr_addsub()),
+				this.visit(ctx.expr_muldiv()));
+		add.lineNum = this.currentLineNum;
+		
+		return add;
+	}
+	
+	@Override
+	public AbstractPLStatement visitPLSubtraction(PLSubtractionContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitPLSubtraction(ctx);
+	}
+	
+	@Override
+	public AbstractPLStatement visitPLAddsubFallthrough(PLAddsubFallthroughContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitPLAddsubFallthrough(ctx);
+	}
+	
+	
+	
+	// *, /
+	@Override
+	public AbstractPLStatement visitPLMutiplication(PLMutiplicationContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitPLMutiplication(ctx);
+	}
+
+	@Override
+	public AbstractPLStatement visitPLDivision(PLDivisionContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitPLDivision(ctx);
+	}
+
+	@Override
+	public AbstractPLStatement visitPLMuldivFallthrough(PLMuldivFallthroughContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitPLMuldivFallthrough(ctx);
+	}
+
+	
+	
+	// **
+	@Override
+	public AbstractPLStatement visitPLExponent(PLExponentContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitPLExponent(ctx);
+	}
+
+	@Override
+	public AbstractPLStatement visitPLExpFallthrough(PLExpFallthroughContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitPLExpFallthrough(ctx);
+	}
+
+	// unary, terminals
+	@Override
+	public AbstractPLStatement visitPLBrackets(PLBracketsContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitPLBrackets(ctx);
+	}
+
+	@Override
+	public AbstractPLStatement visitPLNot(PLNotContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitPLNot(ctx);
+	}
+
+	@Override
+	public AbstractPLStatement visitPLLog(PLLogContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitPLLog(ctx);
+	}
+
+	@Override
+	public AbstractPLStatement visitPLSin(PLSinContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitPLSin(ctx);
+	}
+
+	@Override
+	public AbstractPLStatement visitPLCos(PLCosContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitPLCos(ctx);
+	}
+
+	@Override
+	public AbstractPLStatement visitPLTan(PLTanContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitPLTan(ctx);
 	}
 
 	@Override
@@ -238,36 +486,24 @@ public class AntlrToPLProgram extends ProgLangBaseVisitor<AbstractPLStatement> {
 	}
 
 	@Override
-	public PLIfBlock visitPLIfBlock(PLIfBlockContext ctx) {
-		PLIfBlock ifblock = new PLIfBlock(
-				this.visit(ctx.expr()));
-		ifblock.lineNum = this.currentLineNum;
-		
-		for (int i = 3; i < ctx.getChildCount() - 1; i++) {
-			this.currentLineNum++;
-			ifblock.statements.add(
-					this.visit(ctx.getChild(i)));
-		}
-		
-		this.currentLineNum++;
-		
-		return ifblock;
-	}
-
-	@Override
-	public PLAddition visitPLAddition(PLAdditionContext ctx) {
-		PLAddition add = new PLAddition(
-				this.visit(ctx.expr_addsub()),
-				this.visit(ctx.expr_muldiv()));
-		add.lineNum = this.currentLineNum;
-		
-		return add;
+	public AbstractPLStatement visitPLFloatLiteral(PLFloatLiteralContext ctx) {
+		// TODO Auto-generated method stub
+		return super.visitPLFloatLiteral(ctx);
 	}
 
 	@Override
 	public PLIntLiteral visitPLIntLiteral(PLIntLiteralContext ctx) {
 		PLIntLiteral lit = new PLIntLiteral(
 				Integer.parseInt(ctx.INT_LIT().getText()));
+		lit.lineNum = this.currentLineNum;
+	
+		return lit;
+	}
+	
+	@Override
+	public PLBoolLiteral visitPLBoolLiteral(PLBoolLiteralContext ctx) {
+		PLBoolLiteral lit = new PLBoolLiteral(
+				ctx.BOOL_LIT().getText().equals("TRUE") ? true : false);
 		lit.lineNum = this.currentLineNum;
 	
 		return lit;
