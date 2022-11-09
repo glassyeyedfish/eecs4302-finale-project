@@ -26,7 +26,7 @@ public class CoverageReport {
 	}
 	
 	public String toJson() {		
-		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
+		Gson gson = new GsonBuilder().disableHtmlEscaping().excludeFieldsWithoutExposeAnnotation().create();
 		return gson.toJson(this.programs);
 	}
 	
@@ -34,6 +34,7 @@ public class CoverageReport {
 		for (ProgramCoverageData prog: programs) {
 			System.out.println(prog.prettyPrint);
 			System.out.println("Coverage: " + prog.coverageLines);
+			System.out.println("All-defs coverage: " + prog.allDefsCoverage);
 		}
 	}
 }

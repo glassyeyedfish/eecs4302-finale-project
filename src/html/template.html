@@ -36,7 +36,7 @@ Prism.languages.fortran={"quoted-number":{pattern:/[BOZ](['"])[A-F0-9]+\1/i,alia
     window.data = >>>json<<<;
 
     function render() {
-      for (const { lines, coverage } of window.data) {
+      for (const { lines, coverage = [], all_defs_coverage = [] } of window.data) {
         const code = document.createElement('code');
         code.className = 'language-fortran';
         code.textContent = lines.join('\n');
@@ -58,9 +58,23 @@ Prism.languages.fortran={"quoted-number":{pattern:/[BOZ](['"])[A-F0-9]+\1/i,alia
         const covered = coverage.length;
         const total = lines.length;
         const percentage = Math.round(covered / total * 100);
-        const coverageSpan = document.createElement('span');
-        coverageSpan.textContent = `Code Coverage: ${covered} / ${total} (${percentage}%)`;
-        div.appendChild(coverageSpan);
+        const coverageEl = document.createElement('p');
+        coverageEl.textContent = `Code Coverage: ${covered} / ${total} (${percentage}%)`;
+        div.appendChild(coverageEl);
+
+        const allDefsCoverageEl = document.createElement('p');
+        if (all_defs_coverage.length > 0) {
+          allDefsCoverageEl.textContent = `All Defs Coverage: Unused variables: ${all_defs_coverage.map(v => `\`${v}\``).join(', ')}`;
+        } else {
+          allDefsCoverageEl.textContent = `All Defs Coverage: All definitions are covered! 🎉`;
+
+          const img = document.createElement('img');
+          img.src = 'https://cdn.discordapp.com/attachments/1034648494306246756/1039693620065865778/unknown.png';
+          img.style.width = '50px';
+          img.style.height = '50px';
+          allDefsCoverageEl.appendChild(img);
+        }
+        div.appendChild(allDefsCoverageEl);
 
         // output to the root div
         document.getElementById('root').appendChild(div);
