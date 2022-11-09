@@ -1,8 +1,7 @@
 package html;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.nio.file.Files;
+import java.io.*;
+import java.util.stream.Collectors;
 
 import coverage.*;
 
@@ -14,9 +13,11 @@ public class HTML {
 	}
 	
 	private String getTemplate() {
-		File f = new File(getClass().getResource("/html/template.html").getFile());
 		try {			
-			return new String(Files.readAllBytes(f.toPath()));
+			InputStream in = getClass().getResourceAsStream("/html/template.html");
+			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+			// join with newlines
+			return reader.lines().collect(Collectors.joining(System.lineSeparator()));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -25,7 +26,7 @@ public class HTML {
 	
 	public void outputToFile(String fileName) {
 		String template = this.getTemplate();
-		template = template.replaceAll(">>>json<<<", this.data.toJson());
+		template = template.replace(">>>json<<<", this.data.toJson());
 
 		try {			
 			FileWriter html = new FileWriter(fileName + ".html");
