@@ -1,0 +1,3 @@
+TEST PROGRAM test1
+	RUN program1
+END TEST PROGRAM
