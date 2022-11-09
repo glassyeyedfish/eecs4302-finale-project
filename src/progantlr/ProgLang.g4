@@ -12,7 +12,8 @@ prog: 'PROGRAM' ID
 	EOF  											#PLProgram
 	;
 
-decl: TYPE '::' ID									#PLDeclaration
+decl: TYPE '::' ID '=' 
+	(INT_LIT | FLOAT_LIT | BOOL_LIT)				#PLDeclaration
 	;
 
 assign: ID '=' expr									#PLAssignmnet
@@ -76,15 +77,17 @@ expr_base:  '(' expr ')'							#PLBrackets
 	| 'SIN' '(' expr ')'						#PLSin
 	| 'COS' '(' expr ')'						#PLCos
 	| 'TAN' '(' expr ')'						#PLTan
-	| ID											#PLVariable
-	| INT_LIT										#PLIntLiteral
-	| BOOL_LIT										#PLBoolLiteral
+	| ID										#PLVariable
+	| INT_LIT									#PLIntLiteral
+	| FLOAT_LIT									#PLFloatLiteral
+	| BOOL_LIT									#PLBoolLiteral
 	;
 
-TYPE: 'INT' | 'BOOL' ;
+TYPE: 'INT' | 'FLOAT' | 'BOOL' ;
 
-INT_LIT:'0'|'-'?[1-9][0-9]*;
-BOOL_LIT:'TRUE'|'FALSE';
+INT_LIT: '0'|'-'?[1-9][0-9]*;
+FLOAT_LIT: ('0'|'-'?[1-9][0-9]*)'.'[0-9]+;
+BOOL_LIT: 'TRUE'|'FALSE';
 
 ID: [a-z][a-z0-9_]*;
 

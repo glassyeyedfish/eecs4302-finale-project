@@ -33,7 +33,7 @@ Prism.languages.fortran={"quoted-number":{pattern:/[BOZ](['"])[A-F0-9]+\1/i,alia
 <body>
   <div id="root"></div>
   <script>
-    window.data = [{"lines":["PROGRAM program0","INT :: a","a = 1","END PROGRAM"],"coverage":[1,2,3,4],"all_defs_coverage":[]}];
+    window.data = [{"lines":["PROGRAM program0","INT :: a","BOOL :: b","b = TRUE","IF b THEN","a = 1","END IF","END PROGRAM"],"coverage":[1,2,3,4,5,6,7,8],"all_defs_coverage":[]}];
 
     function render() {
       for (const { lines, coverage = [], all_defs_coverage = [] } of window.data) {

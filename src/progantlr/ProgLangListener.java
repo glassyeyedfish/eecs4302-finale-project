@@ -426,6 +426,18 @@ public interface ProgLangListener extends ParseTreeListener {
 	 */
 	void exitPLIntLiteral(ProgLangParser.PLIntLiteralContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code PLFloatLiteral}
+	 * labeled alternative in {@link ProgLangParser#expr_base}.
+	 * @param ctx the parse tree
+	 */
+	void enterPLFloatLiteral(ProgLangParser.PLFloatLiteralContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code PLFloatLiteral}
+	 * labeled alternative in {@link ProgLangParser#expr_base}.
+	 * @param ctx the parse tree
+	 */
+	void exitPLFloatLiteral(ProgLangParser.PLFloatLiteralContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code PLBoolLiteral}
 	 * labeled alternative in {@link ProgLangParser#expr_base}.
 	 * @param ctx the parse tree

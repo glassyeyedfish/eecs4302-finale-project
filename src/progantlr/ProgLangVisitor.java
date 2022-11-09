@@ -256,6 +256,13 @@ public interface ProgLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPLIntLiteral(ProgLangParser.PLIntLiteralContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code PLFloatLiteral}
+	 * labeled alternative in {@link ProgLangParser#expr_base}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPLFloatLiteral(ProgLangParser.PLFloatLiteralContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code PLBoolLiteral}
 	 * labeled alternative in {@link ProgLangParser#expr_base}.
 	 * @param ctx the parse tree

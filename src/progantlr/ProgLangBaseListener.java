@@ -438,6 +438,18 @@ public class ProgLangBaseListener implements ProgLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterPLFloatLiteral(ProgLangParser.PLFloatLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPLFloatLiteral(ProgLangParser.PLFloatLiteralContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterPLBoolLiteral(ProgLangParser.PLBoolLiteralContext ctx) { }
 	/**
 	 * {@inheritDoc}
