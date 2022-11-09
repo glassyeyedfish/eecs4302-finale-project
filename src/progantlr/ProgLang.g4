@@ -23,7 +23,17 @@ assign: ID '=' expr									#PLAssignmnet
 	
 ifblock: 'IF' expr 'THEN'
 	(assign | ifblock)+
+	(elseifblock)*
+	(elseblock)?
 	'END IF'										#PLIfBlock
+	;
+	
+elseifblock: 'ELSE IF' expr 'THEN'
+	(assign | ifblock)+
+	;
+	
+elseblock: 'ELSE'
+	(assign | ifblock)+
 	;
 
 expr: expr '||' expr_and							#PLOr

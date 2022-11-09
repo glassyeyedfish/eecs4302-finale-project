@@ -41,6 +41,18 @@ public interface ProgLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPLIfBlock(ProgLangParser.PLIfBlockContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link ProgLangParser#elseifblock}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitElseifblock(ProgLangParser.ElseifblockContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ProgLangParser#elseblock}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitElseblock(ProgLangParser.ElseblockContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code PLOrFallthrough}
 	 * labeled alternative in {@link ProgLangParser#expr}.
 	 * @param ctx the parse tree
