@@ -40,6 +40,13 @@ public class ProgLangBaseVisitor<T> extends AbstractParseTreeVisitor<T> implemen
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitPLPrint(ProgLangParser.PLPrintContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitPLIfBlock(ProgLangParser.PLIfBlockContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}

@@ -54,6 +54,18 @@ public class ProgLangBaseListener implements ProgLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterPLPrint(ProgLangParser.PLPrintContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPLPrint(ProgLangParser.PLPrintContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterPLIfBlock(ProgLangParser.PLIfBlockContext ctx) { }
 	/**
 	 * {@inheritDoc}

@@ -7,10 +7,7 @@ grammar ProgLang;
 // Forces declarations to be at the top
 prog: 'PROGRAM' ID
 	(decl)+
-	(
-		  assign
-		| ifblock
-	)+ 
+	(assign | print | ifblock)+
 	'END PROGRAM' 
 	EOF  											#PLProgram
 	;
@@ -21,19 +18,22 @@ decl: TYPE '::' ID									#PLDeclaration
 assign: ID '=' expr									#PLAssignmnet
 	;
 	
+print: 'PRINT' expr									#PLPrint
+	;
+	
 ifblock: 'IF' expr 'THEN'
-	(assign | ifblock)+
+	(assign | print | ifblock)+
 	(elseifblock)*
 	(elseblock)?
 	'END IF'										#PLIfBlock
 	;
 	
 elseifblock: 'ELSE IF' expr 'THEN'
-	(assign | ifblock)+
+	(assign | print | ifblock)+
 	;
 	
 elseblock: 'ELSE'
-	(assign | ifblock)+
+	(assign | print | ifblock)+
 	;
 
 expr: expr '||' expr_and							#PLOr

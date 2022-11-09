@@ -1,14 +1,7 @@
 PROGRAM program0
 	INT :: a
-	IF a THEN
-		a = 1
-	ELSE IF a THEN
-		a = 2
-	ELSE IF a THEN
-		IF a THEN
-			a = 10000
-		END IF
-	ELSE
-		a = a
+	IF a != b THEN
+		PRINT 1
+		PRINT 33 * 111 ** 44
 	END IF
 END PROGRAM

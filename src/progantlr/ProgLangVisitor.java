@@ -34,6 +34,13 @@ public interface ProgLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPLAssignmnet(ProgLangParser.PLAssignmnetContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code PLPrint}
+	 * labeled alternative in {@link ProgLangParser#print}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPLPrint(ProgLangParser.PLPrintContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code PLIfBlock}
 	 * labeled alternative in {@link ProgLangParser#ifblock}.
 	 * @param ctx the parse tree

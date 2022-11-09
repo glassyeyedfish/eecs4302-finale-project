@@ -46,6 +46,18 @@ public interface ProgLangListener extends ParseTreeListener {
 	 */
 	void exitPLAssignmnet(ProgLangParser.PLAssignmnetContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code PLPrint}
+	 * labeled alternative in {@link ProgLangParser#print}.
+	 * @param ctx the parse tree
+	 */
+	void enterPLPrint(ProgLangParser.PLPrintContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code PLPrint}
+	 * labeled alternative in {@link ProgLangParser#print}.
+	 * @param ctx the parse tree
+	 */
+	void exitPLPrint(ProgLangParser.PLPrintContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code PLIfBlock}
 	 * labeled alternative in {@link ProgLangParser#ifblock}.
 	 * @param ctx the parse tree
