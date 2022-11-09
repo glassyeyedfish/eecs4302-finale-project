@@ -257,8 +257,8 @@ public class AntlrToPLProgram extends ProgLangBaseVisitor<AbstractPLStatement> {
 	@Override
 	public PLAddition visitPLAddition(PLAdditionContext ctx) {
 		PLAddition add = new PLAddition(
-				this.visit(ctx.expr(0)),
-				this.visit(ctx.expr(1)));
+				this.visit(ctx.expr_addsub()),
+				this.visit(ctx.expr_exp()));
 		add.lineNum = this.currentLineNum;
 		
 		return add;

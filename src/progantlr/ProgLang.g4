@@ -26,7 +26,15 @@ ifblock: 'IF' expr 'THEN'
 	'END IF'										#PLIfBlock
 	;
 
-expr: expr '||' expr_and							#PLOr
+expr: '!' expr										#PLNot
+	| 'LOG' '(' expr ')'							#PLLog
+	| 'SIN' '(' expr ')'							#PLSin
+	| 'COS' '(' expr ')'							#PLCos
+	| 'TAN' '(' expr ')'							#PLTan
+	| expr_or										#PLExprFallthrough
+	;
+
+expr_or: expr_or '||' expr_and						#PLOr
 	| expr_and										#PLOrFallthrough
 	;
 	
@@ -39,33 +47,28 @@ expr_eq: expr_eq '==' expr_ineq						#PLEquals
 	| expr_ineq										#PLEqFallthrough
 	;
 	
-expr_ineq: expr_ineq '<' expr_muldiv				#PLLessThan
-	| expr_ineq '>' expr_muldiv						#PLGreaterThan
-	| expr_ineq '<=' expr_muldiv					#PLLessEquals
-	| expr_ineq '>=' expr_muldiv					#PLGreaterEquals
-	| expr_muldiv									#PLIneqFallthrough
-	;
-
-expr_muldiv: expr_muldiv '*' expr_addsub			#PLMutiplication
-	| expr_muldiv '/' expr_addsub					#PLDivision
-	| expr_addsub									#PLMuldivFallthrough
+expr_ineq: expr_ineq '<' expr_addsub				#PLLessThan
+	| expr_ineq '>' expr_addsub						#PLGreaterThan
+	| expr_ineq '<=' expr_addsub					#PLLessEquals
+	| expr_ineq '>=' expr_addsub					#PLGreaterEquals
+	| expr_addsub									#PLIneqFallthrough
 	;
 	
-expr_addsub: expr_addsub '+' expr_exp				#PLAddition
-	| expr_addsub '-' expr_exp						#PLSubtraction
-	| expr_exp										#PLAddsubFallthrough
+expr_addsub: expr_addsub '+' expr_muldiv			#PLAddition
+	| expr_addsub '-' expr_muldiv					#PLSubtraction
+	| expr_muldiv									#PLAddsubFallthrough
+	;
+
+expr_muldiv: expr_muldiv '*' expr_exp				#PLMutiplication
+	| expr_muldiv '/' expr_exp						#PLDivision
+	| expr_exp										#PLMuldivFallthrough
 	;
 
 expr_exp: expr_exp '**' expr_base					#PLExponent
-	| expr_base										#PLExoFallthrough
+	| expr_base										#PLExpFallthrough
 	;
 
 expr_base:  '(' expr ')'							#PLBrackets
-	| '!' expr										#PLNot
-	| 'LOG' '(' expr ')'							#PLLog
-	| 'SIN' '(' expr ')'							#PLSin
-	| 'COS' '(' expr ')'							#PLCos
-	| 'TAN' '(' expr ')'							#PLTan
 	| ID											#PLVariable
 	| INT_LIT										#PLIntLiteral
 	| BOOL_LIT										#PLBoolLiteral

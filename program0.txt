@@ -1,4 +1,4 @@
 PROGRAM program0
 	INT :: a
-	a + a * a
+	a = a < a
 END PROGRAM
