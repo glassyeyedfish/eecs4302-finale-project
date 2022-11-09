@@ -6,9 +6,9 @@ java -jar compiler.jar src/tests/test2.txt
 
 Each test looks like this:
 
-TEST PROGRAM test0
-	RUN program0
+TEST PROGRAM some_test
+	RUN some_program
 END TEST PROGRAM
 
-In this example, the compiler will search for 'program0.txt' in the root 
-directory, and run all implemented tests on 'program0'.
+In this example, the compiler will search for 'some_program.txt' in the root 
+directory, and run all implemented tests on 'some_program'.

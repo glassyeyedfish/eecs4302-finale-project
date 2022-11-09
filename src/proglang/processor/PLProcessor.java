@@ -73,8 +73,8 @@ public class PLProcessor {
 							}
 						}
 					}
-					lines.add(statement.lineNum + statement.linesInStatement() - 1);
 				}
+				lines.add(statement.lineNum + statement.linesInStatement() - 1);
 			}
 		}
 		lines.add(program.linesInStatement());

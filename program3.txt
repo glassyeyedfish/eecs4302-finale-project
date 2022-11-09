@@ -1,0 +1,8 @@
+PROGRAM program3
+	BOOL :: a
+	INT :: b
+	a = TRUE
+	IF a THEN
+		b = 17 + 24
+	END IF
+END PROGRAM
