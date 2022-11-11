@@ -1,13 +1,7 @@
 PROGRAM program0
-	BOOL :: a
-	BOOL :: b
-	INT :: c
-	a = TRUE
-	b = FALSE
-	IF a THEN
-		c = 1
-	END IF
-	IF b THEN
-		c = -1
+	INT :: a = 1
+	BOOL :: b = TRUE
+	IF 0.0000 THEN
+		a = -1.0
 	END IF
 END PROGRAM

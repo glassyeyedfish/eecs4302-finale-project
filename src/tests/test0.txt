@@ -1,4 +1,3 @@
 TEST PROGRAM test0
 	RUN program0
-	RUN program3
 END TEST PROGRAM
