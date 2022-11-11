@@ -30,6 +30,42 @@ public class ProgLangBaseListener implements ProgLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterPLFunction(ProgLangParser.PLFunctionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPLFunction(ProgLangParser.PLFunctionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFunc_sig(ProgLangParser.Func_sigContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunc_sig(ProgLangParser.Func_sigContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFunc_sig_decl(ProgLangParser.Func_sig_declContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunc_sig_decl(ProgLangParser.Func_sig_declContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterPLDeclaration(ProgLangParser.PLDeclarationContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -42,13 +78,13 @@ public class ProgLangBaseListener implements ProgLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPLAssignmnet(ProgLangParser.PLAssignmnetContext ctx) { }
+	@Override public void enterPLAssignment(ProgLangParser.PLAssignmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPLAssignmnet(ProgLangParser.PLAssignmnetContext ctx) { }
+	@Override public void exitPLAssignment(ProgLangParser.PLAssignmentContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -66,13 +102,13 @@ public class ProgLangBaseListener implements ProgLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPLIfBlock(ProgLangParser.PLIfBlockContext ctx) { }
+	@Override public void enterPLConditional(ProgLangParser.PLConditionalContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPLIfBlock(ProgLangParser.PLIfBlockContext ctx) { }
+	@Override public void exitPLConditional(ProgLangParser.PLConditionalContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -150,49 +186,37 @@ public class ProgLangBaseListener implements ProgLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPLEqFallthrough(ProgLangParser.PLEqFallthroughContext ctx) { }
+	@Override public void enterPLEqualFallthrough(ProgLangParser.PLEqualFallthroughContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPLEqFallthrough(ProgLangParser.PLEqFallthroughContext ctx) { }
+	@Override public void exitPLEqualFallthrough(ProgLangParser.PLEqualFallthroughContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPLNotEquals(ProgLangParser.PLNotEqualsContext ctx) { }
+	@Override public void enterPLNotEqualTo(ProgLangParser.PLNotEqualToContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPLNotEquals(ProgLangParser.PLNotEqualsContext ctx) { }
+	@Override public void exitPLNotEqualTo(ProgLangParser.PLNotEqualToContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPLEquals(ProgLangParser.PLEqualsContext ctx) { }
+	@Override public void enterPLEqualTo(ProgLangParser.PLEqualToContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPLEquals(ProgLangParser.PLEqualsContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterPLIneqFallthrough(ProgLangParser.PLIneqFallthroughContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitPLIneqFallthrough(ProgLangParser.PLIneqFallthroughContext ctx) { }
+	@Override public void exitPLEqualTo(ProgLangParser.PLEqualToContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -210,13 +234,25 @@ public class ProgLangBaseListener implements ProgLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPLLessEquals(ProgLangParser.PLLessEqualsContext ctx) { }
+	@Override public void enterPLComparisonFallthrough(ProgLangParser.PLComparisonFallthroughContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPLLessEquals(ProgLangParser.PLLessEqualsContext ctx) { }
+	@Override public void exitPLComparisonFallthrough(ProgLangParser.PLComparisonFallthroughContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPLLessThanOrEqualTo(ProgLangParser.PLLessThanOrEqualToContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPLLessThanOrEqualTo(ProgLangParser.PLLessThanOrEqualToContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -234,13 +270,25 @@ public class ProgLangBaseListener implements ProgLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPLGreaterEquals(ProgLangParser.PLGreaterEqualsContext ctx) { }
+	@Override public void enterPLGreaterThanOrEqualTo(ProgLangParser.PLGreaterThanOrEqualToContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPLGreaterEquals(ProgLangParser.PLGreaterEqualsContext ctx) { }
+	@Override public void exitPLGreaterThanOrEqualTo(ProgLangParser.PLGreaterThanOrEqualToContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPLAddSubFallthrough(ProgLangParser.PLAddSubFallthroughContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPLAddSubFallthrough(ProgLangParser.PLAddSubFallthroughContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -258,18 +306,6 @@ public class ProgLangBaseListener implements ProgLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPLAddsubFallthrough(ProgLangParser.PLAddsubFallthroughContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitPLAddsubFallthrough(ProgLangParser.PLAddsubFallthroughContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterPLSubtraction(ProgLangParser.PLSubtractionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -282,61 +318,25 @@ public class ProgLangBaseListener implements ProgLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPLMuldivFallthrough(ProgLangParser.PLMuldivFallthroughContext ctx) { }
+	@Override public void enterPLMultFallthrough(ProgLangParser.PLMultFallthroughContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPLMuldivFallthrough(ProgLangParser.PLMuldivFallthroughContext ctx) { }
+	@Override public void exitPLMultFallthrough(ProgLangParser.PLMultFallthroughContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPLDivision(ProgLangParser.PLDivisionContext ctx) { }
+	@Override public void enterPLMultiplication(ProgLangParser.PLMultiplicationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPLDivision(ProgLangParser.PLDivisionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterPLMutiplication(ProgLangParser.PLMutiplicationContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitPLMutiplication(ProgLangParser.PLMutiplicationContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterPLExponent(ProgLangParser.PLExponentContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitPLExponent(ProgLangParser.PLExponentContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterPLExpFallthrough(ProgLangParser.PLExpFallthroughContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitPLExpFallthrough(ProgLangParser.PLExpFallthroughContext ctx) { }
+	@Override public void exitPLMultiplication(ProgLangParser.PLMultiplicationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -366,54 +366,6 @@ public class ProgLangBaseListener implements ProgLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPLLog(ProgLangParser.PLLogContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitPLLog(ProgLangParser.PLLogContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterPLSin(ProgLangParser.PLSinContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitPLSin(ProgLangParser.PLSinContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterPLCos(ProgLangParser.PLCosContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitPLCos(ProgLangParser.PLCosContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterPLTan(ProgLangParser.PLTanContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitPLTan(ProgLangParser.PLTanContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterPLVariable(ProgLangParser.PLVariableContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -426,37 +378,25 @@ public class ProgLangBaseListener implements ProgLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPLIntLiteral(ProgLangParser.PLIntLiteralContext ctx) { }
+	@Override public void enterPLInteger(ProgLangParser.PLIntegerContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPLIntLiteral(ProgLangParser.PLIntLiteralContext ctx) { }
+	@Override public void exitPLInteger(ProgLangParser.PLIntegerContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPLFloatLiteral(ProgLangParser.PLFloatLiteralContext ctx) { }
+	@Override public void enterPLBoolean(ProgLangParser.PLBooleanContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPLFloatLiteral(ProgLangParser.PLFloatLiteralContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterPLBoolLiteral(ProgLangParser.PLBoolLiteralContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitPLBoolLiteral(ProgLangParser.PLBoolLiteralContext ctx) { }
+	@Override public void exitPLBoolean(ProgLangParser.PLBooleanContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

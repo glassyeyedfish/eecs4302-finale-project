@@ -14,7 +14,7 @@ prog: 'PROGRAM' ID
 func: 'FUNC' ID '(' func_sig ')' ( '::' TYPE)?
 	(decl)+
 	(assign | print | ifblock)+
-	'END FUNC'										#Function
+	'END FUNC'										#PLFunction
 	;
 	
 func_sig: func_sig_decl (',' func_sig_decl)*
@@ -27,7 +27,7 @@ decl: TYPE '::' ID '='
 	(INT_LIT | BOOL_LIT)							#PLDeclaration
 	;
 
-assign: ID '=' expr									#PLAssignmnet
+assign: ID '=' expr									#PLAssignment
 	;
 	
 print: 'PRINT' expr									#PLPrint
@@ -37,7 +37,7 @@ ifblock: 'IF' expr 'THEN'
 	(assign | print | ifblock)+
 	(elseifblock)*
 	(elseblock)?
-	'END IF'										#PLIfBlock
+	'END IF'										#PLConditional
 	;
 	
 elseifblock: 'ELSE IF' expr 'THEN'
@@ -56,31 +56,32 @@ expr_and: expr_and '&&' expr_eq						#PLAnd
 	| expr_eq										#PLAndFallthrough
 	;
 	
-expr_eq: expr_eq '==' expr_ineq						#PLEquals
-	| expr_eq '!=' expr_ineq						#PLNotEquals
-	| expr_ineq										#PLEqFallthrough
+expr_eq: expr_eq '==' expr_ineq						#PLEqualTo
+	| expr_eq '!=' expr_ineq						#PLNotEqualTo
+	| expr_ineq										#PLEqualFallthrough
 	;
 	
 expr_ineq: expr_ineq '<' expr_addsub				#PLLessThan
 	| expr_ineq '>' expr_addsub						#PLGreaterThan
-	| expr_ineq '<=' expr_addsub					#PLLessEquals
-	| expr_ineq '>=' expr_addsub					#PLGreaterEquals
-	| expr_addsub									#PLIneqFallthrough
+	| expr_ineq '<=' expr_addsub					#PLLessThanOrEqualTo
+	| expr_ineq '>=' expr_addsub					#PLGreaterThanOrEqualTo
+	| expr_addsub									#PLComparisonFallthrough
 	;
 	
 expr_addsub: expr_addsub '+' expr_mult				#PLAddition
 	| expr_addsub '-' expr_mult						#PLSubtraction
-	| expr_mult										#PLAddsubFallthrough
+	| expr_mult										#PLAddSubFallthrough
 	;
 
-expr_mult: expr_mult '*' expr_base					#PLMutiplication
+expr_mult: expr_mult '*' expr_base					#PLMultiplication
 	| expr_base										#PLMultFallthrough
+	;
 
 expr_base:  '(' expr ')'							#PLBrackets
 	| '!' expr										#PLNot
 	| ID											#PLVariable
-	| INT_LIT										#PLIntLiteral
-	| BOOL_LIT										#PLBoolLiteral
+	| INT_LIT										#PLInteger
+	| BOOL_LIT										#PLBoolean
 	;
 
 TYPE: 'INT' | 'BOOL' ;
