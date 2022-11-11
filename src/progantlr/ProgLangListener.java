@@ -22,6 +22,38 @@ public interface ProgLangListener extends ParseTreeListener {
 	 */
 	void exitPLProgram(ProgLangParser.PLProgramContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code PLFunction}
+	 * labeled alternative in {@link ProgLangParser#func}.
+	 * @param ctx the parse tree
+	 */
+	void enterPLFunction(ProgLangParser.PLFunctionContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code PLFunction}
+	 * labeled alternative in {@link ProgLangParser#func}.
+	 * @param ctx the parse tree
+	 */
+	void exitPLFunction(ProgLangParser.PLFunctionContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ProgLangParser#func_sig}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunc_sig(ProgLangParser.Func_sigContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ProgLangParser#func_sig}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunc_sig(ProgLangParser.Func_sigContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ProgLangParser#func_sig_decl}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunc_sig_decl(ProgLangParser.Func_sig_declContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ProgLangParser#func_sig_decl}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunc_sig_decl(ProgLangParser.Func_sig_declContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code PLDeclaration}
 	 * labeled alternative in {@link ProgLangParser#decl}.
 	 * @param ctx the parse tree
@@ -34,17 +66,17 @@ public interface ProgLangListener extends ParseTreeListener {
 	 */
 	void exitPLDeclaration(ProgLangParser.PLDeclarationContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code PLAssignmnet}
+	 * Enter a parse tree produced by the {@code PLAssignment}
 	 * labeled alternative in {@link ProgLangParser#assign}.
 	 * @param ctx the parse tree
 	 */
-	void enterPLAssignmnet(ProgLangParser.PLAssignmnetContext ctx);
+	void enterPLAssignment(ProgLangParser.PLAssignmentContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code PLAssignmnet}
+	 * Exit a parse tree produced by the {@code PLAssignment}
 	 * labeled alternative in {@link ProgLangParser#assign}.
 	 * @param ctx the parse tree
 	 */
-	void exitPLAssignmnet(ProgLangParser.PLAssignmnetContext ctx);
+	void exitPLAssignment(ProgLangParser.PLAssignmentContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code PLPrint}
 	 * labeled alternative in {@link ProgLangParser#print}.
@@ -58,17 +90,17 @@ public interface ProgLangListener extends ParseTreeListener {
 	 */
 	void exitPLPrint(ProgLangParser.PLPrintContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code PLIfBlock}
+	 * Enter a parse tree produced by the {@code PLConditional}
 	 * labeled alternative in {@link ProgLangParser#ifblock}.
 	 * @param ctx the parse tree
 	 */
-	void enterPLIfBlock(ProgLangParser.PLIfBlockContext ctx);
+	void enterPLConditional(ProgLangParser.PLConditionalContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code PLIfBlock}
+	 * Exit a parse tree produced by the {@code PLConditional}
 	 * labeled alternative in {@link ProgLangParser#ifblock}.
 	 * @param ctx the parse tree
 	 */
-	void exitPLIfBlock(ProgLangParser.PLIfBlockContext ctx);
+	void exitPLConditional(ProgLangParser.PLConditionalContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ProgLangParser#elseifblock}.
 	 * @param ctx the parse tree
@@ -138,53 +170,41 @@ public interface ProgLangListener extends ParseTreeListener {
 	 */
 	void exitPLAndFallthrough(ProgLangParser.PLAndFallthroughContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code PLEqFallthrough}
+	 * Enter a parse tree produced by the {@code PLEqualFallthrough}
 	 * labeled alternative in {@link ProgLangParser#expr_eq}.
 	 * @param ctx the parse tree
 	 */
-	void enterPLEqFallthrough(ProgLangParser.PLEqFallthroughContext ctx);
+	void enterPLEqualFallthrough(ProgLangParser.PLEqualFallthroughContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code PLEqFallthrough}
+	 * Exit a parse tree produced by the {@code PLEqualFallthrough}
 	 * labeled alternative in {@link ProgLangParser#expr_eq}.
 	 * @param ctx the parse tree
 	 */
-	void exitPLEqFallthrough(ProgLangParser.PLEqFallthroughContext ctx);
+	void exitPLEqualFallthrough(ProgLangParser.PLEqualFallthroughContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code PLNotEquals}
+	 * Enter a parse tree produced by the {@code PLNotEqualTo}
 	 * labeled alternative in {@link ProgLangParser#expr_eq}.
 	 * @param ctx the parse tree
 	 */
-	void enterPLNotEquals(ProgLangParser.PLNotEqualsContext ctx);
+	void enterPLNotEqualTo(ProgLangParser.PLNotEqualToContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code PLNotEquals}
+	 * Exit a parse tree produced by the {@code PLNotEqualTo}
 	 * labeled alternative in {@link ProgLangParser#expr_eq}.
 	 * @param ctx the parse tree
 	 */
-	void exitPLNotEquals(ProgLangParser.PLNotEqualsContext ctx);
+	void exitPLNotEqualTo(ProgLangParser.PLNotEqualToContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code PLEquals}
+	 * Enter a parse tree produced by the {@code PLEqualTo}
 	 * labeled alternative in {@link ProgLangParser#expr_eq}.
 	 * @param ctx the parse tree
 	 */
-	void enterPLEquals(ProgLangParser.PLEqualsContext ctx);
+	void enterPLEqualTo(ProgLangParser.PLEqualToContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code PLEquals}
+	 * Exit a parse tree produced by the {@code PLEqualTo}
 	 * labeled alternative in {@link ProgLangParser#expr_eq}.
 	 * @param ctx the parse tree
 	 */
-	void exitPLEquals(ProgLangParser.PLEqualsContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code PLIneqFallthrough}
-	 * labeled alternative in {@link ProgLangParser#expr_ineq}.
-	 * @param ctx the parse tree
-	 */
-	void enterPLIneqFallthrough(ProgLangParser.PLIneqFallthroughContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code PLIneqFallthrough}
-	 * labeled alternative in {@link ProgLangParser#expr_ineq}.
-	 * @param ctx the parse tree
-	 */
-	void exitPLIneqFallthrough(ProgLangParser.PLIneqFallthroughContext ctx);
+	void exitPLEqualTo(ProgLangParser.PLEqualToContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code PLGreaterThan}
 	 * labeled alternative in {@link ProgLangParser#expr_ineq}.
@@ -198,17 +218,29 @@ public interface ProgLangListener extends ParseTreeListener {
 	 */
 	void exitPLGreaterThan(ProgLangParser.PLGreaterThanContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code PLLessEquals}
+	 * Enter a parse tree produced by the {@code PLComparisonFallthrough}
 	 * labeled alternative in {@link ProgLangParser#expr_ineq}.
 	 * @param ctx the parse tree
 	 */
-	void enterPLLessEquals(ProgLangParser.PLLessEqualsContext ctx);
+	void enterPLComparisonFallthrough(ProgLangParser.PLComparisonFallthroughContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code PLLessEquals}
+	 * Exit a parse tree produced by the {@code PLComparisonFallthrough}
 	 * labeled alternative in {@link ProgLangParser#expr_ineq}.
 	 * @param ctx the parse tree
 	 */
-	void exitPLLessEquals(ProgLangParser.PLLessEqualsContext ctx);
+	void exitPLComparisonFallthrough(ProgLangParser.PLComparisonFallthroughContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code PLLessThanOrEqualTo}
+	 * labeled alternative in {@link ProgLangParser#expr_ineq}.
+	 * @param ctx the parse tree
+	 */
+	void enterPLLessThanOrEqualTo(ProgLangParser.PLLessThanOrEqualToContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code PLLessThanOrEqualTo}
+	 * labeled alternative in {@link ProgLangParser#expr_ineq}.
+	 * @param ctx the parse tree
+	 */
+	void exitPLLessThanOrEqualTo(ProgLangParser.PLLessThanOrEqualToContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code PLLessThan}
 	 * labeled alternative in {@link ProgLangParser#expr_ineq}.
@@ -222,17 +254,29 @@ public interface ProgLangListener extends ParseTreeListener {
 	 */
 	void exitPLLessThan(ProgLangParser.PLLessThanContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code PLGreaterEquals}
+	 * Enter a parse tree produced by the {@code PLGreaterThanOrEqualTo}
 	 * labeled alternative in {@link ProgLangParser#expr_ineq}.
 	 * @param ctx the parse tree
 	 */
-	void enterPLGreaterEquals(ProgLangParser.PLGreaterEqualsContext ctx);
+	void enterPLGreaterThanOrEqualTo(ProgLangParser.PLGreaterThanOrEqualToContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code PLGreaterEquals}
+	 * Exit a parse tree produced by the {@code PLGreaterThanOrEqualTo}
 	 * labeled alternative in {@link ProgLangParser#expr_ineq}.
 	 * @param ctx the parse tree
 	 */
-	void exitPLGreaterEquals(ProgLangParser.PLGreaterEqualsContext ctx);
+	void exitPLGreaterThanOrEqualTo(ProgLangParser.PLGreaterThanOrEqualToContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code PLAddSubFallthrough}
+	 * labeled alternative in {@link ProgLangParser#expr_addsub}.
+	 * @param ctx the parse tree
+	 */
+	void enterPLAddSubFallthrough(ProgLangParser.PLAddSubFallthroughContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code PLAddSubFallthrough}
+	 * labeled alternative in {@link ProgLangParser#expr_addsub}.
+	 * @param ctx the parse tree
+	 */
+	void exitPLAddSubFallthrough(ProgLangParser.PLAddSubFallthroughContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code PLAddition}
 	 * labeled alternative in {@link ProgLangParser#expr_addsub}.
@@ -246,18 +290,6 @@ public interface ProgLangListener extends ParseTreeListener {
 	 */
 	void exitPLAddition(ProgLangParser.PLAdditionContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code PLAddsubFallthrough}
-	 * labeled alternative in {@link ProgLangParser#expr_addsub}.
-	 * @param ctx the parse tree
-	 */
-	void enterPLAddsubFallthrough(ProgLangParser.PLAddsubFallthroughContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code PLAddsubFallthrough}
-	 * labeled alternative in {@link ProgLangParser#expr_addsub}.
-	 * @param ctx the parse tree
-	 */
-	void exitPLAddsubFallthrough(ProgLangParser.PLAddsubFallthroughContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code PLSubtraction}
 	 * labeled alternative in {@link ProgLangParser#expr_addsub}.
 	 * @param ctx the parse tree
@@ -270,65 +302,29 @@ public interface ProgLangListener extends ParseTreeListener {
 	 */
 	void exitPLSubtraction(ProgLangParser.PLSubtractionContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code PLMuldivFallthrough}
-	 * labeled alternative in {@link ProgLangParser#expr_muldiv}.
+	 * Enter a parse tree produced by the {@code PLMultFallthrough}
+	 * labeled alternative in {@link ProgLangParser#expr_mult}.
 	 * @param ctx the parse tree
 	 */
-	void enterPLMuldivFallthrough(ProgLangParser.PLMuldivFallthroughContext ctx);
+	void enterPLMultFallthrough(ProgLangParser.PLMultFallthroughContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code PLMuldivFallthrough}
-	 * labeled alternative in {@link ProgLangParser#expr_muldiv}.
+	 * Exit a parse tree produced by the {@code PLMultFallthrough}
+	 * labeled alternative in {@link ProgLangParser#expr_mult}.
 	 * @param ctx the parse tree
 	 */
-	void exitPLMuldivFallthrough(ProgLangParser.PLMuldivFallthroughContext ctx);
+	void exitPLMultFallthrough(ProgLangParser.PLMultFallthroughContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code PLDivision}
-	 * labeled alternative in {@link ProgLangParser#expr_muldiv}.
+	 * Enter a parse tree produced by the {@code PLMultiplication}
+	 * labeled alternative in {@link ProgLangParser#expr_mult}.
 	 * @param ctx the parse tree
 	 */
-	void enterPLDivision(ProgLangParser.PLDivisionContext ctx);
+	void enterPLMultiplication(ProgLangParser.PLMultiplicationContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code PLDivision}
-	 * labeled alternative in {@link ProgLangParser#expr_muldiv}.
+	 * Exit a parse tree produced by the {@code PLMultiplication}
+	 * labeled alternative in {@link ProgLangParser#expr_mult}.
 	 * @param ctx the parse tree
 	 */
-	void exitPLDivision(ProgLangParser.PLDivisionContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code PLMutiplication}
-	 * labeled alternative in {@link ProgLangParser#expr_muldiv}.
-	 * @param ctx the parse tree
-	 */
-	void enterPLMutiplication(ProgLangParser.PLMutiplicationContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code PLMutiplication}
-	 * labeled alternative in {@link ProgLangParser#expr_muldiv}.
-	 * @param ctx the parse tree
-	 */
-	void exitPLMutiplication(ProgLangParser.PLMutiplicationContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code PLExponent}
-	 * labeled alternative in {@link ProgLangParser#expr_exp}.
-	 * @param ctx the parse tree
-	 */
-	void enterPLExponent(ProgLangParser.PLExponentContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code PLExponent}
-	 * labeled alternative in {@link ProgLangParser#expr_exp}.
-	 * @param ctx the parse tree
-	 */
-	void exitPLExponent(ProgLangParser.PLExponentContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code PLExpFallthrough}
-	 * labeled alternative in {@link ProgLangParser#expr_exp}.
-	 * @param ctx the parse tree
-	 */
-	void enterPLExpFallthrough(ProgLangParser.PLExpFallthroughContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code PLExpFallthrough}
-	 * labeled alternative in {@link ProgLangParser#expr_exp}.
-	 * @param ctx the parse tree
-	 */
-	void exitPLExpFallthrough(ProgLangParser.PLExpFallthroughContext ctx);
+	void exitPLMultiplication(ProgLangParser.PLMultiplicationContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code PLBrackets}
 	 * labeled alternative in {@link ProgLangParser#expr_base}.
@@ -354,54 +350,6 @@ public interface ProgLangListener extends ParseTreeListener {
 	 */
 	void exitPLNot(ProgLangParser.PLNotContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code PLLog}
-	 * labeled alternative in {@link ProgLangParser#expr_base}.
-	 * @param ctx the parse tree
-	 */
-	void enterPLLog(ProgLangParser.PLLogContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code PLLog}
-	 * labeled alternative in {@link ProgLangParser#expr_base}.
-	 * @param ctx the parse tree
-	 */
-	void exitPLLog(ProgLangParser.PLLogContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code PLSin}
-	 * labeled alternative in {@link ProgLangParser#expr_base}.
-	 * @param ctx the parse tree
-	 */
-	void enterPLSin(ProgLangParser.PLSinContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code PLSin}
-	 * labeled alternative in {@link ProgLangParser#expr_base}.
-	 * @param ctx the parse tree
-	 */
-	void exitPLSin(ProgLangParser.PLSinContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code PLCos}
-	 * labeled alternative in {@link ProgLangParser#expr_base}.
-	 * @param ctx the parse tree
-	 */
-	void enterPLCos(ProgLangParser.PLCosContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code PLCos}
-	 * labeled alternative in {@link ProgLangParser#expr_base}.
-	 * @param ctx the parse tree
-	 */
-	void exitPLCos(ProgLangParser.PLCosContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code PLTan}
-	 * labeled alternative in {@link ProgLangParser#expr_base}.
-	 * @param ctx the parse tree
-	 */
-	void enterPLTan(ProgLangParser.PLTanContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code PLTan}
-	 * labeled alternative in {@link ProgLangParser#expr_base}.
-	 * @param ctx the parse tree
-	 */
-	void exitPLTan(ProgLangParser.PLTanContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code PLVariable}
 	 * labeled alternative in {@link ProgLangParser#expr_base}.
 	 * @param ctx the parse tree
@@ -414,39 +362,27 @@ public interface ProgLangListener extends ParseTreeListener {
 	 */
 	void exitPLVariable(ProgLangParser.PLVariableContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code PLIntLiteral}
+	 * Enter a parse tree produced by the {@code PLInteger}
 	 * labeled alternative in {@link ProgLangParser#expr_base}.
 	 * @param ctx the parse tree
 	 */
-	void enterPLIntLiteral(ProgLangParser.PLIntLiteralContext ctx);
+	void enterPLInteger(ProgLangParser.PLIntegerContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code PLIntLiteral}
+	 * Exit a parse tree produced by the {@code PLInteger}
 	 * labeled alternative in {@link ProgLangParser#expr_base}.
 	 * @param ctx the parse tree
 	 */
-	void exitPLIntLiteral(ProgLangParser.PLIntLiteralContext ctx);
+	void exitPLInteger(ProgLangParser.PLIntegerContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code PLFloatLiteral}
+	 * Enter a parse tree produced by the {@code PLBoolean}
 	 * labeled alternative in {@link ProgLangParser#expr_base}.
 	 * @param ctx the parse tree
 	 */
-	void enterPLFloatLiteral(ProgLangParser.PLFloatLiteralContext ctx);
+	void enterPLBoolean(ProgLangParser.PLBooleanContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code PLFloatLiteral}
+	 * Exit a parse tree produced by the {@code PLBoolean}
 	 * labeled alternative in {@link ProgLangParser#expr_base}.
 	 * @param ctx the parse tree
 	 */
-	void exitPLFloatLiteral(ProgLangParser.PLFloatLiteralContext ctx);
-	/**
-	 * Enter a parse tree produced by the {@code PLBoolLiteral}
-	 * labeled alternative in {@link ProgLangParser#expr_base}.
-	 * @param ctx the parse tree
-	 */
-	void enterPLBoolLiteral(ProgLangParser.PLBoolLiteralContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code PLBoolLiteral}
-	 * labeled alternative in {@link ProgLangParser#expr_base}.
-	 * @param ctx the parse tree
-	 */
-	void exitPLBoolLiteral(ProgLangParser.PLBoolLiteralContext ctx);
+	void exitPLBoolean(ProgLangParser.PLBooleanContext ctx);
 }

@@ -20,6 +20,25 @@ public interface ProgLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPLProgram(ProgLangParser.PLProgramContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code PLFunction}
+	 * labeled alternative in {@link ProgLangParser#func}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPLFunction(ProgLangParser.PLFunctionContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ProgLangParser#func_sig}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunc_sig(ProgLangParser.Func_sigContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ProgLangParser#func_sig_decl}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunc_sig_decl(ProgLangParser.Func_sig_declContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code PLDeclaration}
 	 * labeled alternative in {@link ProgLangParser#decl}.
 	 * @param ctx the parse tree
@@ -27,12 +46,12 @@ public interface ProgLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPLDeclaration(ProgLangParser.PLDeclarationContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code PLAssignmnet}
+	 * Visit a parse tree produced by the {@code PLAssignment}
 	 * labeled alternative in {@link ProgLangParser#assign}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPLAssignmnet(ProgLangParser.PLAssignmnetContext ctx);
+	T visitPLAssignment(ProgLangParser.PLAssignmentContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code PLPrint}
 	 * labeled alternative in {@link ProgLangParser#print}.
@@ -41,12 +60,12 @@ public interface ProgLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPLPrint(ProgLangParser.PLPrintContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code PLIfBlock}
+	 * Visit a parse tree produced by the {@code PLConditional}
 	 * labeled alternative in {@link ProgLangParser#ifblock}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPLIfBlock(ProgLangParser.PLIfBlockContext ctx);
+	T visitPLConditional(ProgLangParser.PLConditionalContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link ProgLangParser#elseifblock}.
 	 * @param ctx the parse tree
@@ -88,33 +107,26 @@ public interface ProgLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPLAndFallthrough(ProgLangParser.PLAndFallthroughContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code PLEqFallthrough}
+	 * Visit a parse tree produced by the {@code PLEqualFallthrough}
 	 * labeled alternative in {@link ProgLangParser#expr_eq}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPLEqFallthrough(ProgLangParser.PLEqFallthroughContext ctx);
+	T visitPLEqualFallthrough(ProgLangParser.PLEqualFallthroughContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code PLNotEquals}
+	 * Visit a parse tree produced by the {@code PLNotEqualTo}
 	 * labeled alternative in {@link ProgLangParser#expr_eq}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPLNotEquals(ProgLangParser.PLNotEqualsContext ctx);
+	T visitPLNotEqualTo(ProgLangParser.PLNotEqualToContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code PLEquals}
+	 * Visit a parse tree produced by the {@code PLEqualTo}
 	 * labeled alternative in {@link ProgLangParser#expr_eq}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPLEquals(ProgLangParser.PLEqualsContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code PLIneqFallthrough}
-	 * labeled alternative in {@link ProgLangParser#expr_ineq}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPLIneqFallthrough(ProgLangParser.PLIneqFallthroughContext ctx);
+	T visitPLEqualTo(ProgLangParser.PLEqualToContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code PLGreaterThan}
 	 * labeled alternative in {@link ProgLangParser#expr_ineq}.
@@ -123,12 +135,19 @@ public interface ProgLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPLGreaterThan(ProgLangParser.PLGreaterThanContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code PLLessEquals}
+	 * Visit a parse tree produced by the {@code PLComparisonFallthrough}
 	 * labeled alternative in {@link ProgLangParser#expr_ineq}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPLLessEquals(ProgLangParser.PLLessEqualsContext ctx);
+	T visitPLComparisonFallthrough(ProgLangParser.PLComparisonFallthroughContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code PLLessThanOrEqualTo}
+	 * labeled alternative in {@link ProgLangParser#expr_ineq}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPLLessThanOrEqualTo(ProgLangParser.PLLessThanOrEqualToContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code PLLessThan}
 	 * labeled alternative in {@link ProgLangParser#expr_ineq}.
@@ -137,12 +156,19 @@ public interface ProgLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPLLessThan(ProgLangParser.PLLessThanContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code PLGreaterEquals}
+	 * Visit a parse tree produced by the {@code PLGreaterThanOrEqualTo}
 	 * labeled alternative in {@link ProgLangParser#expr_ineq}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPLGreaterEquals(ProgLangParser.PLGreaterEqualsContext ctx);
+	T visitPLGreaterThanOrEqualTo(ProgLangParser.PLGreaterThanOrEqualToContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code PLAddSubFallthrough}
+	 * labeled alternative in {@link ProgLangParser#expr_addsub}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitPLAddSubFallthrough(ProgLangParser.PLAddSubFallthroughContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code PLAddition}
 	 * labeled alternative in {@link ProgLangParser#expr_addsub}.
@@ -151,13 +177,6 @@ public interface ProgLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPLAddition(ProgLangParser.PLAdditionContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code PLAddsubFallthrough}
-	 * labeled alternative in {@link ProgLangParser#expr_addsub}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPLAddsubFallthrough(ProgLangParser.PLAddsubFallthroughContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code PLSubtraction}
 	 * labeled alternative in {@link ProgLangParser#expr_addsub}.
 	 * @param ctx the parse tree
@@ -165,40 +184,19 @@ public interface ProgLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPLSubtraction(ProgLangParser.PLSubtractionContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code PLMuldivFallthrough}
-	 * labeled alternative in {@link ProgLangParser#expr_muldiv}.
+	 * Visit a parse tree produced by the {@code PLMultFallthrough}
+	 * labeled alternative in {@link ProgLangParser#expr_mult}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPLMuldivFallthrough(ProgLangParser.PLMuldivFallthroughContext ctx);
+	T visitPLMultFallthrough(ProgLangParser.PLMultFallthroughContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code PLDivision}
-	 * labeled alternative in {@link ProgLangParser#expr_muldiv}.
+	 * Visit a parse tree produced by the {@code PLMultiplication}
+	 * labeled alternative in {@link ProgLangParser#expr_mult}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPLDivision(ProgLangParser.PLDivisionContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code PLMutiplication}
-	 * labeled alternative in {@link ProgLangParser#expr_muldiv}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPLMutiplication(ProgLangParser.PLMutiplicationContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code PLExponent}
-	 * labeled alternative in {@link ProgLangParser#expr_exp}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPLExponent(ProgLangParser.PLExponentContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code PLExpFallthrough}
-	 * labeled alternative in {@link ProgLangParser#expr_exp}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPLExpFallthrough(ProgLangParser.PLExpFallthroughContext ctx);
+	T visitPLMultiplication(ProgLangParser.PLMultiplicationContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code PLBrackets}
 	 * labeled alternative in {@link ProgLangParser#expr_base}.
@@ -214,34 +212,6 @@ public interface ProgLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPLNot(ProgLangParser.PLNotContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code PLLog}
-	 * labeled alternative in {@link ProgLangParser#expr_base}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPLLog(ProgLangParser.PLLogContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code PLSin}
-	 * labeled alternative in {@link ProgLangParser#expr_base}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPLSin(ProgLangParser.PLSinContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code PLCos}
-	 * labeled alternative in {@link ProgLangParser#expr_base}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPLCos(ProgLangParser.PLCosContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code PLTan}
-	 * labeled alternative in {@link ProgLangParser#expr_base}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPLTan(ProgLangParser.PLTanContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code PLVariable}
 	 * labeled alternative in {@link ProgLangParser#expr_base}.
 	 * @param ctx the parse tree
@@ -249,24 +219,17 @@ public interface ProgLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPLVariable(ProgLangParser.PLVariableContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code PLIntLiteral}
+	 * Visit a parse tree produced by the {@code PLInteger}
 	 * labeled alternative in {@link ProgLangParser#expr_base}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPLIntLiteral(ProgLangParser.PLIntLiteralContext ctx);
+	T visitPLInteger(ProgLangParser.PLIntegerContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code PLFloatLiteral}
+	 * Visit a parse tree produced by the {@code PLBoolean}
 	 * labeled alternative in {@link ProgLangParser#expr_base}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitPLFloatLiteral(ProgLangParser.PLFloatLiteralContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code PLBoolLiteral}
-	 * labeled alternative in {@link ProgLangParser#expr_base}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPLBoolLiteral(ProgLangParser.PLBoolLiteralContext ctx);
+	T visitPLBoolean(ProgLangParser.PLBooleanContext ctx);
 }

@@ -1,26 +1,26 @@
 package proglang;
 
-public class PLAssignment extends AbstractPLStatement {
-	public String id;
-	public AbstractPLStatement expr;
+import proglang.expressions.PLExpression;
+
+public class PLAssignment<T> extends PLStatement {
+	private String id;
+	private PLExpression<T> expression;
 	
-	public PLAssignment(String id, AbstractPLStatement expr) {
+	public PLAssignment(String id, PLExpression<T> expression, int lineNum) {
+		super(lineNum);
 		this.id = id;
-		this.expr = expr;
+		this.expression = expression;
 	}
 
-	@Override
-	public String prettyPrint() {
-		return this.lineNum
-				+ "\t"
-				+ this.id 
-				+ " = " 
-				+ expr.prettyPrint() 
-				+ "\n";
+	public String getId() {
+		return id;
 	}
 
-	@Override
-	public int linesInStatement() {
-		return 1;
+	public PLExpression<T> getExpression() {
+		return expression;
+	}
+	
+	public T evaluate() {
+		return expression.evaluate();
 	}
 }

@@ -1,26 +1,20 @@
 package proglang;
 
-public class PLDeclaration extends AbstractPLStatement {
-	public String type;
-	public String id;
-	
-	public PLDeclaration(String type, String id) {
-		this.type = type;
+public class PLDeclaration extends PLStatement {
+	private String id;
+	private String type;
+
+	public PLDeclaration(String id, String type, int lineNum) {
+		super(lineNum);
 		this.id = id;
+		this.type = type;
+	}
+	
+	public String getId() {
+		return id;
 	}
 
-	@Override
-	public String prettyPrint() {
-		return this.lineNum
-				+ "\t" 
-				+ this.type 
-				+ " :: " 
-				+ this.id 
-				+ "\n";
-	}
-
-	@Override
-	public int linesInStatement() {
-		return 1;
+	public String getType() {
+		return type;
 	}
 }
