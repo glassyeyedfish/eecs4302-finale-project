@@ -15,7 +15,7 @@ import coverage.*;
 import html.HTML;
 import progantlr.*;
 import proglang.*;
-import proglang.processor.PLProcessor;
+import proglang.processor.OldPLProcessor;
 import testantlr.*;
 import testlang.*;
 
@@ -78,7 +78,7 @@ public class App {
 		for (PLProgram p: proglangs) {
 			String prettyPrint = p.prettyPrint();
 
-			PLProcessor progProcessor = new PLProcessor(p);
+			OldPLProcessor progProcessor = new OldPLProcessor(p);
 			List<Integer> coverage = progProcessor.getStatementCoverage();
 			HashSet<String> allDefsCoverage = progProcessor.getAllDefsCoverage();
 			

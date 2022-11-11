@@ -12,12 +12,12 @@ import proglang.PLIntLiteral;
 import proglang.PLProgram;
 import proglang.PLVariable;
 
-public class PLProcessor {
+public class OldPLProcessor {
 
 	PLProgram program;
 	private HashSet<String> variableDefs = new HashSet<>();
 	private HashSet<String> variablesUses = new HashSet<>();
-	public PLProcessor(PLProgram program) {
+	public OldPLProcessor(PLProgram program) {
 		this.program = program;
 	}
 	
