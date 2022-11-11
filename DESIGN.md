@@ -86,3 +86,12 @@ PROGRAM prog0
 # Running the Compiler
 
 `java -jar compiler.jar -i src/*.tns -t tests/*.tns.tst -o index.html`
+
+# Overview of Compiler Structure
+
+1. Load all the source files for the programs and tests.
+2. Generate model classes for each program and test.
+	1. Throw any syntax or semantic errors if needed!
+3. Make sure each program and test has a pair.
+	1. Report programs without tests and tests without programs.
+4. Process each test and generate the HTML output.
