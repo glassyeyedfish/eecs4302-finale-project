@@ -19,4 +19,9 @@ public class PLPrint<T> extends PLStatement {
 	public String toString() {
 		return "Output: " + expression.evaluate(); 
 	}
+
+	@Override
+	public boolean hasVariable(String id) {
+		return expression.hasVariable(id);
+	}
 }

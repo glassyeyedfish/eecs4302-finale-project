@@ -15,4 +15,9 @@ public class PLIntegerLiteral extends PLArithmeticExpression {
 	public Integer evaluate() {
 		return num;
 	}
+
+	@Override
+	public boolean hasVariable(String id) {
+		return false;
+	}
 }

@@ -1,6 +1,6 @@
 package proglang;
 
-public class PLRecursiveBlock extends PLStatement {
+public abstract class PLRecursiveBlock extends PLStatement {
 	private int endLineNum;
 	
 	public PLRecursiveBlock(int lineNum, int endLineNum) {

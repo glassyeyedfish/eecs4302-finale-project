@@ -1,13 +1,27 @@
 package pipeline;
 
-import proglang.PLProgram;
-import testlang.TLProgram;
+import java.util.HashMap;
+import java.util.Map;
+
+import proglang.*;
+import testlang.*;
 
 public class PLProcessor {
-	public PLProcessorData data;
+	private Map<String, PLProcessorData> dataMap;
 
-	public PLProcessor(PLProcessorData data) {
-		this.data = data;
+	public PLProcessor() {
+		this.dataMap = new HashMap<>();
+	}
+	
+	/*
+	 * Accessor Methods
+	 */
+	public Map<String, PLProcessorData> getDataMap() {
+		return dataMap;
+	}
+	
+	public void clearDataMap() {
+		this.dataMap.clear();
 	}
 	
 	/*
@@ -16,7 +30,23 @@ public class PLProcessor {
 	 * 	- allDCPaths
 	 */
 	public void processPLProgram(PLProgram prog) {
-		// TODO implement
+		DCPath nextPath;
+		
+		// Loop through each function
+		for (PLFunction func: prog.getFunctions()) {
+			
+			// Start by looping through each function declaration.
+			// These are the starting points for every DCPath.
+			for (PLDeclaration decl: func.getDeclarations()) {
+				// Find all definition clear paths from this declaration.
+				nextPath = new DCPath(func.getStartLineNum(), decl.getId());
+				
+				for (PLStatement statement: func.getStatements()) {
+					statement.hasVariable(decl.getId());
+				}
+			}
+			
+		}
 	}
 	
 	/*

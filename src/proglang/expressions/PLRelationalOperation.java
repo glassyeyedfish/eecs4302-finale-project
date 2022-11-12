@@ -16,5 +16,8 @@ public abstract class PLRelationalOperation extends PLBooleanExpression {
 	public PLArithmeticExpression getRight() {
 		return right;
 	}
-
+	
+	public boolean hasVariable(String id) {
+		return getLeft().hasVariable(id) || getRight().hasVariable(id);
+	}
 }

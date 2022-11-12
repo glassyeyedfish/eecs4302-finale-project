@@ -17,4 +17,9 @@ public class PLIntegerVariable extends PLArithmeticExpression {
 	public Integer evaluate() {
 		return Store.getInstance().getIntVariable(id);
 	}
+
+	@Override
+	public boolean hasVariable(String id) {
+		return this.id.equals(id);
+	}
 }

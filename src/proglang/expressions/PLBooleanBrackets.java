@@ -15,4 +15,9 @@ public class PLBooleanBrackets extends PLBooleanExpression {
 	public Boolean evaluate() {
 		return expression.evaluate();
 	}
+
+	@Override
+	public boolean hasVariable(String id) {
+		return expression.hasVariable(id);
+	}
 }

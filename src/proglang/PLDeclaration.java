@@ -17,4 +17,9 @@ public class PLDeclaration extends PLStatement {
 	public String getType() {
 		return type;
 	}
+
+	@Override
+	public boolean hasVariable(String id) {
+		return (this.id.equals(id));
+	}
 }
