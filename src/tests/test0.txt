@@ -1,3 +1,14 @@
-TEST PROGRAM test0
-	RUN program0
-END TEST PROGRAM
+TEST program0
+
+	@Test
+	FUNC test0 ()
+		foo(1, FALSE)
+	END FUNC
+
+	@Test
+	FUNC test1 ()
+		bar(3, TRUE)
+		baz(300, TRUE)
+	END FUNC
+	
+END TEST

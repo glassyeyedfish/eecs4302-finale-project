@@ -41,8 +41,16 @@ public class PLProcessor {
 				// Find all definition clear paths from this declaration.
 				nextPath = new DCPath(func.getStartLineNum(), decl.getId());
 				
+				// Loop through each statement to see if we've hit the end of
+				// a DCPath.
 				for (PLStatement statement: func.getStatements()) {
-					statement.hasVariable(decl.getId());
+					if (statement.hasVariable(decl.getId())) {
+						// Yay! We hit the end!
+						// Now we can cut off this path, add it to the list,
+						// and see if we need to keep checking.
+						
+						// TODO continue algorithm from here
+					}
 				}
 			}
 			

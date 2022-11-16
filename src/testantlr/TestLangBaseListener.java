@@ -30,13 +30,49 @@ public class TestLangBaseListener implements TestLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTLRun(TestLangParser.TLRunContext ctx) { }
+	@Override public void enterTLTestFunc(TestLangParser.TLTestFuncContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTLRun(TestLangParser.TLRunContext ctx) { }
+	@Override public void exitTLTestFunc(TestLangParser.TLTestFuncContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTLFunctionCall(TestLangParser.TLFunctionCallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTLFunctionCall(TestLangParser.TLFunctionCallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTLInteger(TestLangParser.TLIntegerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTLInteger(TestLangParser.TLIntegerContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTLBoolean(TestLangParser.TLBooleanContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTLBoolean(TestLangParser.TLBooleanContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

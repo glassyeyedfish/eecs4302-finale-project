@@ -20,10 +20,31 @@ public interface TestLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTLProgram(TestLangParser.TLProgramContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code TLRun}
-	 * labeled alternative in {@link TestLangParser#run}.
+	 * Visit a parse tree produced by the {@code TLTestFunc}
+	 * labeled alternative in {@link TestLangParser#test_func}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTLRun(TestLangParser.TLRunContext ctx);
+	T visitTLTestFunc(TestLangParser.TLTestFuncContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TLFunctionCall}
+	 * labeled alternative in {@link TestLangParser#func_call}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTLFunctionCall(TestLangParser.TLFunctionCallContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TLInteger}
+	 * labeled alternative in {@link TestLangParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTLInteger(TestLangParser.TLIntegerContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TLBoolean}
+	 * labeled alternative in {@link TestLangParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTLBoolean(TestLangParser.TLBooleanContext ctx);
 }

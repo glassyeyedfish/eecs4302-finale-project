@@ -22,15 +22,51 @@ public interface TestLangListener extends ParseTreeListener {
 	 */
 	void exitTLProgram(TestLangParser.TLProgramContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code TLRun}
-	 * labeled alternative in {@link TestLangParser#run}.
+	 * Enter a parse tree produced by the {@code TLTestFunc}
+	 * labeled alternative in {@link TestLangParser#test_func}.
 	 * @param ctx the parse tree
 	 */
-	void enterTLRun(TestLangParser.TLRunContext ctx);
+	void enterTLTestFunc(TestLangParser.TLTestFuncContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code TLRun}
-	 * labeled alternative in {@link TestLangParser#run}.
+	 * Exit a parse tree produced by the {@code TLTestFunc}
+	 * labeled alternative in {@link TestLangParser#test_func}.
 	 * @param ctx the parse tree
 	 */
-	void exitTLRun(TestLangParser.TLRunContext ctx);
+	void exitTLTestFunc(TestLangParser.TLTestFuncContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TLFunctionCall}
+	 * labeled alternative in {@link TestLangParser#func_call}.
+	 * @param ctx the parse tree
+	 */
+	void enterTLFunctionCall(TestLangParser.TLFunctionCallContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TLFunctionCall}
+	 * labeled alternative in {@link TestLangParser#func_call}.
+	 * @param ctx the parse tree
+	 */
+	void exitTLFunctionCall(TestLangParser.TLFunctionCallContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TLInteger}
+	 * labeled alternative in {@link TestLangParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterTLInteger(TestLangParser.TLIntegerContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TLInteger}
+	 * labeled alternative in {@link TestLangParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitTLInteger(TestLangParser.TLIntegerContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TLBoolean}
+	 * labeled alternative in {@link TestLangParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterTLBoolean(TestLangParser.TLBooleanContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TLBoolean}
+	 * labeled alternative in {@link TestLangParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitTLBoolean(TestLangParser.TLBooleanContext ctx);
 }
