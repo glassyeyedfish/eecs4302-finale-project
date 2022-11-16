@@ -1,33 +1,34 @@
 package testlang;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class TLProgram extends AbstractTLStatement {
-	public String id;
-	public List<AbstractTLStatement> statements;
+public class TLProgram extends TLBlock {
+
+	private String name;
+	private List<TLTestFunc> testFunctions;
 	
-	public TLProgram(String id) {
-		this.id = id;
-		this.statements = new ArrayList<>();
+	public TLProgram(
+			String name, List<TLTestFunc> testFunctions, 
+			int startLineNum, int endLineNum
+	) {
+		super(startLineNum, endLineNum);
+		this.name = name;
+		this.testFunctions = testFunctions;
 	}
 
-	@Override
-	public String prettyPrint() {
-		StringBuilder result = new StringBuilder();
-		
-		result.append("TEST PROGRAM ");
-		result.append(id);
-		result.append("\n");
-		
-		for (AbstractTLStatement s: this.statements) {
-			result.append(s.prettyPrint());
-			result.append("\n");
-		}
-		
-		result.append("END TEST PROGRAM\n");
-		
-		return result.toString();
+	public String getName() {
+		return name;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public List<TLTestFunc> getTestFunctions() {
+		return testFunctions;
+	}
+
+	public void setTestFunctions(List<TLTestFunc> testFunctions) {
+		this.testFunctions = testFunctions;
+	}
 }
