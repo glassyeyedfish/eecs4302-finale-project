@@ -5,18 +5,19 @@ import java.util.Map;
 
 import proglang.*;
 import testlang.*;
+import testlang.model.TLProgram;
 
-public class PLProcessor {
-	private Map<String, PLProcessorData> dataMap;
+public class Processor {
+	private Map<String, ProcessorData> dataMap;
 
-	public PLProcessor() {
+	public Processor() {
 		this.dataMap = new HashMap<>();
 	}
 	
 	/*
 	 * Accessor Methods
 	 */
-	public Map<String, PLProcessorData> getDataMap() {
+	public Map<String, ProcessorData> getDataMap() {
 		return dataMap;
 	}
 	

@@ -1,24 +1,19 @@
 package app;
 
-import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import coverage.*;
-import html.HTML;
-import progantlr.*;
-import proglang.*;
-import proglang.processor.OldPLProcessor;
-import testantlr.*;
-import testlang.*;
-import testlang.antlrto.AntlrToTLProgram;
+import testlang.antlr.TestLangLexer;
+import testlang.antlr.TestLangParser;
+import testlang.model.TLProgram;
+import testlang.model.expressions.TLBoolean;
+import testlang.model.expressions.TLExpression;
+import testlang.model.expressions.TLInteger;
+import testlang.visitor.AntlrToTLProgram;
 
 public class WilliamTests {
 
@@ -42,7 +37,15 @@ public class WilliamTests {
 			testProgram = tlVisitor.visit(AST);
 		}
 		
-		System.out.println(testProgram.getTestFunctions());
+		TLExpression<?> expr = testProgram.getTestFunctions().get(0)
+				.getFunctionCalls().get(0)
+				.getArgs().get(0);
+		
+		if (expr instanceof TLInteger) {
+			System.out.println(((TLInteger) expr).getValue());
+		}else if (expr instanceof TLBoolean) {
+			System.out.println(((TLBoolean) expr).getValue());
+		}
 		
 	}
 	

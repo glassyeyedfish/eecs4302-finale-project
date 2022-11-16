@@ -1,4 +1,4 @@
-package testlang;
+package testlang.model;
 
 public abstract class TLStatement {
 	private int lineNum;

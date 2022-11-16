@@ -1,6 +1,6 @@
-package testlang.expressions;
+package testlang.model.expressions;
 
-public class TLInteger extends TLExpression<Integer> {
+public class TLInteger extends TLArithmeticExpression {
 	private Integer value;
 
 	public TLInteger(Integer value) {

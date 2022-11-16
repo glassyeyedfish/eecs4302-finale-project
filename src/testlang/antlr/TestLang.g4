@@ -1,7 +1,7 @@
 grammar TestLang;
 
 @header {
-	package testantlr;
+	package testlang.antlr;
 }
 
 prog: 'TEST' ID

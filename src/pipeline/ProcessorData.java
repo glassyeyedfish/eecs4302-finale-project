@@ -3,7 +3,7 @@ package pipeline;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PLProcessorData {
+public class ProcessorData {
 	
 	// NOTE: This class should render the CoverageData class obsolete.
 	
@@ -36,7 +36,7 @@ public class PLProcessorData {
 	public List<DCPath> coveredForAllPUses;
 	public List<DCPath> requiredForAllPUses;
 	
-	public PLProcessorData() {
+	public ProcessorData() {
 		this.allDCPaths = new ArrayList<>();
 		this.coveredDCPaths = new ArrayList<>();
 		this.coveredStatements = new ArrayList<>();

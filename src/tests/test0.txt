@@ -2,7 +2,8 @@ TEST program0
 
 	@Test
 	FUNC test0 ()
-		foo(1, FALSE)
+		foo(-218, FALSE, 3)
+		bar(TRUE, 0)
 	END FUNC
 
 	@Test

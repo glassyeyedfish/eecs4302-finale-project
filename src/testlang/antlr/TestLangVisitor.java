@@ -1,6 +1,6 @@
 // Generated from TestLang.g4 by ANTLR 4.9.3
 
-	package testantlr;
+	package testlang.antlr;
 
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 

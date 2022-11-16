@@ -1,4 +1,4 @@
-package testlang;
+package testlang.model;
 
 public abstract class TLBlock {
 	private int startLineNum;
