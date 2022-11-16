@@ -2,22 +2,20 @@ package app;
 
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
 
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import coverage.*;
-import html.HTML;
-import progantlr.*;
-import proglang.*;
-import proglang.processor.PLProcessor;
-import testantlr.*;
-import testlang.*;
+import proglang.antlr.ProgLangLexer;
+import proglang.antlr.ProgLangParser;
+import proglang.listener.ProgLangErrorListener;
+import proglang.model.PLProgram;
+import proglang.visitor.AntlrToProgram;
+import testantlr.TestLangLexer;
+import testantlr.TestLangParser;
+import testlang.TLProgram;
 
 public class App {
 	public static void main(String[] args) {
@@ -26,69 +24,87 @@ public class App {
 			System.exit(1);
 		}
 		
-		/* Load the test file and parse it. */
-		TLProgram testlang;
-		{
-			String fileName = args[0];
-			TestLangParser parser = getTLParser(fileName);
-			ParseTree AST = parser.prog();
+		String fileName = args[0];
+		ProgLangParser progParser = getPLParser(fileName);
+		ParseTree antlrAST = progParser.prog();
+		
+		if (!ProgLangErrorListener.hasError) {
+			AntlrToProgram progVisitor = new AntlrToProgram();
+			PLProgram prog = progVisitor.visit(antlrAST);
 			
-			if (ErrorListener.hasError) {
-				System.exit(1);
+			if (progVisitor.getSemanticErrors().isEmpty()) {
+				//evaluate
 			}
-			AntlrToTLProgram tlVisitor = new AntlrToTLProgram();
-			testlang = (TLProgram) tlVisitor.visit(AST);
-		}
-		
-		/* Run the tests. */
-		
-		/* Parse and load each program into a list. */
-		List<PLProgram> proglangs = new ArrayList<>();
-		
-		for (AbstractTLStatement s: testlang.statements) {
-			if (s instanceof TLRun) {
-				String progId = ((TLRun) s).id;
-				ProgLangParser parser = getPLParser(progId + ".txt");
-				ParseTree AST = parser.prog();
-
-				// Syntax error handling
-				if (ErrorListener.hasError) {
-					System.exit(1);
+			else {
+				for (String e : progVisitor.getSemanticErrors()) {
+					System.out.println(e);
 				}
-				
-				AntlrToPLProgram plVisitor = new AntlrToPLProgram();
-				PLProgram proglang = (PLProgram) plVisitor.visit(AST);
-				
-				// Print semantic errors and exit if there are any
-				if (!plVisitor.semanticErrors.isEmpty()) {
-					System.err.print("The following errors occured while parsing: ");
-					System.err.println(progId);
-					for (String msg: plVisitor.semanticErrors) {
-						System.err.println(msg);
-					}
-					System.exit(1);
-				}
-				
-				proglangs.add(proglang);
 			}
 		}
 		
-		CoverageReport report = new CoverageReport();
-		
-		for (PLProgram p: proglangs) {
-			String prettyPrint = p.prettyPrint();
-
-			PLProcessor progProcessor = new PLProcessor(p);
-			List<Integer> coverage = progProcessor.getStatementCoverage();
-			HashSet<String> allDefsCoverage = progProcessor.getAllDefsCoverage();
-			
-			report.addProgram(prettyPrint, coverage, allDefsCoverage);
-		}
-		
-		report.print();
-		
-		HTML html = new HTML(report);
-		html.outputToFile("index");
+//		/* Load the test file and parse it. */
+//		TLProgram testlang;
+//		{
+//			String fileName = args[0];
+//			TestLangParser parser = getTLParser(fileName);
+//			ParseTree AST = parser.prog();
+//			
+//			if (ErrorListener.hasError) {
+//				System.exit(1);
+//			}
+//			AntlrToTLProgram tlVisitor = new AntlrToTLProgram();
+//			testlang = (TLProgram) tlVisitor.visit(AST);
+//		}
+//		
+//		/* Run the tests. */
+//		
+//		/* Parse and load each program into a list. */
+//		List<PLProgram> proglangs = new ArrayList<>();
+//		
+//		for (AbstractTLStatement s: testlang.statements) {
+//			if (s instanceof TLRun) {
+//				String progId = ((TLRun) s).id;
+//				ProgLangParser parser = getPLParser(progId + ".txt");
+//				ParseTree AST = parser.prog();
+//
+//				// Syntax error handling
+//				if (ErrorListener.hasError) {
+//					System.exit(1);
+//				}
+//				
+//				AntlrToPLProgram plVisitor = new AntlrToPLProgram();
+//				PLProgram proglang = (PLProgram) plVisitor.visit(AST);
+//				
+//				// Print semantic errors and exit if there are any
+//				if (!plVisitor.semanticErrors.isEmpty()) {
+//					System.err.print("The following errors occured while parsing: ");
+//					System.err.println(progId);
+//					for (String msg: plVisitor.semanticErrors) {
+//						System.err.println(msg);
+//					}
+//					System.exit(1);
+//				}
+//				
+//				proglangs.add(proglang);
+//			}
+//		}
+//		
+//		CoverageReport report = new CoverageReport();
+//		
+//		for (PLProgram p: proglangs) {
+//			String prettyPrint = p.prettyPrint();
+//
+//			PLProcessor progProcessor = new PLProcessor(p);
+//			List<Integer> coverage = progProcessor.getStatementCoverage();
+//			HashSet<String> allDefsCoverage = progProcessor.getAllDefsCoverage();
+//			
+//			report.addProgram(prettyPrint, coverage, allDefsCoverage);
+//		}
+//		
+//		report.print();
+//		
+//		HTML html = new HTML(report);
+//		html.outputToFile("index");
 	}
 	
 	@SuppressWarnings("unused")

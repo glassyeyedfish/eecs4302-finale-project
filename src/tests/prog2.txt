@@ -1,0 +1,9 @@
+PROGRAM hello
+
+	FUNC foo(INT :: a, BOOL :: b) :: INT
+	END FUNC
+	
+	FUNC foo(INT :: a, BOOL :: b) :: INT
+	END FUNC
+	
+END PROGRAM

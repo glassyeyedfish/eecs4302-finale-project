@@ -1,0 +1,11 @@
+PROGRAM hello
+
+	FUNC main()
+		INT :: a
+		INT :: a
+		
+		a = b
+		c = a
+	END FUNC
+	
+END PROGRAM

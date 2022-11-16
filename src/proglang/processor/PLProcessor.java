@@ -4,13 +4,13 @@ import java.util.*;
 
 import proglang.AbstractPLStatement;
 import proglang.PLAddition;
-import proglang.PLAssignment;
 import proglang.PLBoolLiteral;
-import proglang.PLDeclaration;
 import proglang.PLIfBlock;
 import proglang.PLIntLiteral;
-import proglang.PLProgram;
 import proglang.PLVariable;
+import proglang.model.PLAssignment;
+import proglang.model.PLDeclaration;
+import proglang.model.PLProgram;
 
 public class PLProcessor {
 
