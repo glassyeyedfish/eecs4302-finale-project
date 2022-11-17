@@ -28,6 +28,7 @@ prnt:	'PRINT' '(' expr ')'						# Print
 
 if_block:	'IF' '(' expr ')' 'THEN'
 			(attr_asgmt | prnt | if_block)*			# Conditional
+			'END' 'IF'
 	    ;
 
 expr: '(' expr ')'									# Parentheses
