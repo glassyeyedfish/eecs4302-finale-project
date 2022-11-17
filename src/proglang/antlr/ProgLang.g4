@@ -13,9 +13,13 @@ func:	'FUNC' ID
 		')' 
 		('::' TYPE)?
 		(attr_decl)*
-		(attr_asgmt | prnt | if_block)*
+		(attr_asgmt | prnt | if_block | func_call)*
+		('return' expr)?
 		'END' 'FUNC'								# Function
 	;
+	
+func_call: ID '(' ((expr ',')* expr)? ')'			# FunctionCall
+		 ;
 
 attr_decl:	TYPE '::' ID							# AttributeDecl
 		 ;
@@ -27,12 +31,12 @@ prnt:	'PRINT' '(' expr ')'						# Print
 	;
 
 if_block:	'IF' '(' expr ')' 'THEN'
-			(attr_asgmt | prnt | if_block)*			# Conditional
-			'END' 'IF'
+			(attr_asgmt | prnt | if_block | func_call)*	
+			'END' 'IF'								# Conditional
 	    ;
 
 expr: '(' expr ')'									# Parentheses
-	| ID '(' ((args ',')* args)? ')'				# FunctionCall
+	| ID '(' ((expr ',')* expr)? ')'				# FunctionCallInExpression
 	| expr '*' expr									# Multiplication
 	| expr '+' expr									# Addition
 	| expr '-' expr									# Subtraction
@@ -48,9 +52,6 @@ expr: '(' expr ')'									# Parentheses
 	| ID											# Variable
 	| INT											# Integer
 	| BOOL											# Boolean
-	;
-	
-args: ID | INT | BOOL
 	;
 
 TYPE: 'INT' | 'BOOL' ;

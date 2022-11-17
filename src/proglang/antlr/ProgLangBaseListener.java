@@ -42,6 +42,18 @@ public class ProgLangBaseListener implements ProgLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterFunctionCall(ProgLangParser.FunctionCallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunctionCall(ProgLangParser.FunctionCallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterAttributeDecl(ProgLangParser.AttributeDeclContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -258,18 +270,6 @@ public class ProgLangBaseListener implements ProgLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunctionCall(ProgLangParser.FunctionCallContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFunctionCall(ProgLangParser.FunctionCallContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterBoolean(ProgLangParser.BooleanContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -294,13 +294,13 @@ public class ProgLangBaseListener implements ProgLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArgs(ProgLangParser.ArgsContext ctx) { }
+	@Override public void enterFunctionCallInExpression(ProgLangParser.FunctionCallInExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitArgs(ProgLangParser.ArgsContext ctx) { }
+	@Override public void exitFunctionCallInExpression(ProgLangParser.FunctionCallInExpressionContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

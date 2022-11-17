@@ -34,6 +34,18 @@ public interface ProgLangListener extends ParseTreeListener {
 	 */
 	void exitFunction(ProgLangParser.FunctionContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code FunctionCall}
+	 * labeled alternative in {@link ProgLangParser#func_call}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunctionCall(ProgLangParser.FunctionCallContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code FunctionCall}
+	 * labeled alternative in {@link ProgLangParser#func_call}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunctionCall(ProgLangParser.FunctionCallContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code AttributeDecl}
 	 * labeled alternative in {@link ProgLangParser#attr_decl}.
 	 * @param ctx the parse tree
@@ -250,18 +262,6 @@ public interface ProgLangListener extends ParseTreeListener {
 	 */
 	void exitAnd(ProgLangParser.AndContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code FunctionCall}
-	 * labeled alternative in {@link ProgLangParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void enterFunctionCall(ProgLangParser.FunctionCallContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code FunctionCall}
-	 * labeled alternative in {@link ProgLangParser#expr}.
-	 * @param ctx the parse tree
-	 */
-	void exitFunctionCall(ProgLangParser.FunctionCallContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code Boolean}
 	 * labeled alternative in {@link ProgLangParser#expr}.
 	 * @param ctx the parse tree
@@ -286,13 +286,15 @@ public interface ProgLangListener extends ParseTreeListener {
 	 */
 	void exitParentheses(ProgLangParser.ParenthesesContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link ProgLangParser#args}.
+	 * Enter a parse tree produced by the {@code FunctionCallInExpression}
+	 * labeled alternative in {@link ProgLangParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void enterArgs(ProgLangParser.ArgsContext ctx);
+	void enterFunctionCallInExpression(ProgLangParser.FunctionCallInExpressionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link ProgLangParser#args}.
+	 * Exit a parse tree produced by the {@code FunctionCallInExpression}
+	 * labeled alternative in {@link ProgLangParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitArgs(ProgLangParser.ArgsContext ctx);
+	void exitFunctionCallInExpression(ProgLangParser.FunctionCallInExpressionContext ctx);
 }
