@@ -1,0 +1,10 @@
+PROGRAM program0
+
+	FUNC foo () 
+	
+		INT :: a
+		a = 2
+	
+	END FUNC
+	
+END PROGRAM

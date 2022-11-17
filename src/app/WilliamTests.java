@@ -1,19 +1,24 @@
 package app;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
+import pipeline.Processor;
+import pipeline.ProcessorData;
+import proglang.antlr.ProgLangLexer;
+import proglang.antlr.ProgLangParser;
+import proglang.model.PLFunction;
+import proglang.model.PLProgram;
+import proglang.visitor.AntlrToProgram;
 import testlang.antlr.TestLangLexer;
 import testlang.antlr.TestLangParser;
-import testlang.model.TLProgram;
-import testlang.model.expressions.TLBoolean;
-import testlang.model.expressions.TLExpression;
-import testlang.model.expressions.TLInteger;
-import testlang.visitor.AntlrToTLProgram;
 
 public class WilliamTests {
 
@@ -23,7 +28,8 @@ public class WilliamTests {
 			System.exit(1);
 		}
 		
-		/* Load the test file and parse it. */
+		/*
+		// TL Stuff
 		TLProgram testProgram;
 		{
 			String fileName = args[0];
@@ -33,8 +39,8 @@ public class WilliamTests {
 			if (ErrorListener.hasError) {
 				System.exit(1);
 			}
-			AntlrToTLProgram tlVisitor = new AntlrToTLProgram();
-			testProgram = tlVisitor.visit(AST);
+			AntlrToTLProgram visitor = new AntlrToTLProgram();
+			testProgram = visitor.visit(AST);
 		}
 		
 		TLExpression<?> expr = testProgram.getTestFunctions().get(0)
@@ -46,7 +52,50 @@ public class WilliamTests {
 		} else if (expr instanceof TLBoolean) {
 			System.out.println(((TLBoolean) expr).getValue());
 		}
+		*/
 		
+		// PL Stuff
+		PLProgram program;
+		{
+			String fileName = args[0];
+			ProgLangParser parser = getPLParser(fileName);
+			ParseTree AST = parser.prog();
+			
+			if (ErrorListener.hasError) {
+				System.exit(1);
+			}
+			AntlrToProgram visitor = new AntlrToProgram();
+			program = visitor.visit(AST);
+		}
+		
+		Processor proc = new Processor();
+		Map<String, ProcessorData> dataMap = new HashMap<>();
+		
+		for (Entry<String, PLFunction> entry: program.getFunctions().entrySet()) {
+			dataMap.put(entry.getKey(), proc.processPLFunction(entry.getValue()));
+		}
+		
+		System.out.println(
+				program.getFunctions().get("foo")
+				.getStatements()
+		);
+	}
+	
+	private static ProgLangParser getPLParser(String fileName) {
+		ProgLangParser parser = null;
+		
+		try {
+			CharStream input = CharStreams.fromFileName(fileName);			
+			ProgLangLexer lexer = new ProgLangLexer(input);
+			CommonTokenStream tokens = new CommonTokenStream(lexer);
+			parser = new ProgLangParser(tokens);
+			
+			parser.removeErrorListeners();
+			parser.addErrorListener(new ErrorListener());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return parser;	
 	}
 	
 	private static TestLangParser getTLParser(String fileName) {

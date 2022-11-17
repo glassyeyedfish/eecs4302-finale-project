@@ -1,7 +1,0 @@
-PROGRAM program0
-	INT :: a = 1
-	BOOL :: b = TRUE
-	IF 0.0000 THEN
-		a = -1.0
-	END IF
-END PROGRAM

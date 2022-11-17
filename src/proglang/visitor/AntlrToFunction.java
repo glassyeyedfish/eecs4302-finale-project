@@ -33,6 +33,12 @@ public class AntlrToFunction extends ProgLangBaseVisitor<PLFunction> {
 			}
 		}
 		
+		/*
+		for (Attr_declContext decl: ctx.attr_decl()) {
+			func.addDeclaration((PLDeclaration) antlrToStatement.visit(decl));
+		}
+		 */
+		
 		return func;
 	}
 }

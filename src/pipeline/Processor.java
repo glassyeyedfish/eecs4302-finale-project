@@ -1,38 +1,17 @@
 package pipeline;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import proglang.*;
 import proglang.model.*;
-import testlang.*;
-import testlang.model.TLProgram;
+import testlang.model.*;
 
 public class Processor {
-	private Map<String, ProcessorData> dataMap;
-
-	public Processor() {
-		this.dataMap = new HashMap<>();
-	}
-	
-	/*
-	 * Accessor Methods
-	 */
-	public Map<String, ProcessorData> getDataMap() {
-		return dataMap;
-	}
-	
-	public void clearDataMap() {
-		this.dataMap.clear();
-	}
 	
 	/*
 	 * Walk through PLProgram and generate the following data:
 	 * 	
 	 * 	- allDCPaths
 	 */
-	public void processPLProgram(PLProgram prog) {
-		DCPath nextPath;
+	public ProcessorData processPLFunction(PLFunction prog) {
+		return null;
 	}
 	
 	/*
