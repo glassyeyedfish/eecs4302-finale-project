@@ -43,7 +43,7 @@ public class WilliamTests {
 		
 		if (expr instanceof TLInteger) {
 			System.out.println(((TLInteger) expr).getValue());
-		}else if (expr instanceof TLBoolean) {
+		} else if (expr instanceof TLBoolean) {
 			System.out.println(((TLBoolean) expr).getValue());
 		}
 		
