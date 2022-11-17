@@ -15,15 +15,16 @@ public class AntlrToProgram extends ProgLangBaseVisitor<PLProgram> {
 	
 	public AntlrToProgram() {
 		semanticErrors = new ArrayList<>();
-		antlrToFunction = new AntlrToFunction(semanticErrors);
 	}
 	
 	@Override
 	public PLProgram visitProgram(ProgramContext ctx) {
 		PLProgram p = new PLProgram(ctx.ID().getText(), ctx.getStart().getLine(), ctx.getStop().getLine());
 		
+		antlrToFunction = new AntlrToFunction(semanticErrors, p);
+		
 		for (int i = 0; i < ctx.getChildCount(); i++) {
-			PLFunction func = antlrToFunction.visit(ctx.getChild(i));
+			PLFunction<?> func = antlrToFunction.visit(ctx.getChild(i));
 			if (func != null) {
 				if (p.getFunctions().keySet().contains(func.getName())) {
 					semanticErrors.add("Error: function " + func.getName() + "already declared (line: " + func.getStartLineNum() + ").");

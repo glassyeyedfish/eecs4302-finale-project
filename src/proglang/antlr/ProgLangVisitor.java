@@ -27,6 +27,13 @@ public interface ProgLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFunction(ProgLangParser.FunctionContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code FunctionCall}
+	 * labeled alternative in {@link ProgLangParser#func_call}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunctionCall(ProgLangParser.FunctionCallContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code AttributeDecl}
 	 * labeled alternative in {@link ProgLangParser#attr_decl}.
 	 * @param ctx the parse tree
@@ -153,13 +160,6 @@ public interface ProgLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAnd(ProgLangParser.AndContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code FunctionCall}
-	 * labeled alternative in {@link ProgLangParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFunctionCall(ProgLangParser.FunctionCallContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code Boolean}
 	 * labeled alternative in {@link ProgLangParser#expr}.
 	 * @param ctx the parse tree
@@ -174,9 +174,10 @@ public interface ProgLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitParentheses(ProgLangParser.ParenthesesContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link ProgLangParser#args}.
+	 * Visit a parse tree produced by the {@code FunctionCallInExpression}
+	 * labeled alternative in {@link ProgLangParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitArgs(ProgLangParser.ArgsContext ctx);
+	T visitFunctionCallInExpression(ProgLangParser.FunctionCallInExpressionContext ctx);
 }

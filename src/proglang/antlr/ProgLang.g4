@@ -9,33 +9,34 @@ prog:	'PROGRAM' ID (func)+ 'END PROGRAM' EOF		# Program
 
 func:	'FUNC' ID 
 		'(' 
-		((func_sig ',')* func_sig)? 
+		((attr_decl ',')* attr_decl)? 
 		')' 
 		('::' TYPE)?
 		(attr_decl)*
-		(attr_asgmt | prnt | if_block)*
-		'END FUNC'									# Function
+		(attr_asgmt | prnt | if_block | func_call)*
+		('return' expr)?
+		'END' 'FUNC'								# Function
 	;
 	
-func_sig: TYPE '::' ID
-	;
+func_call: ID '(' ((expr ',')* expr)? ')'			# FunctionCall
+		 ;
 
-attr_decl:	TYPE '::' ID '='						# AttributeDecl
-	;
+attr_decl:	TYPE '::' ID							# AttributeDecl
+		 ;
 
 attr_asgmt: ID '=' expr								# AttributeAsgmt
-	;
+		  ;
 
 prnt:	'PRINT' '(' expr ')'						# Print
 	;
 
 if_block:	'IF' '(' expr ')' 'THEN'
-			(attr_asgmt | prnt | if_block)*			
-			'END IF'								# Conditional
-	    ;											
+			(attr_asgmt | prnt | if_block | func_call)*	
+			'END' 'IF'								# Conditional
+	    ;
 
 expr: '(' expr ')'									# Parentheses
-	| ID '(' ((args ',')* args)? ')'				# FunctionCall
+	| ID '(' ((expr ',')* expr)? ')'				# FunctionCallInExpression
 	| expr '*' expr									# Multiplication
 	| expr '+' expr									# Addition
 	| expr '-' expr									# Subtraction
@@ -52,15 +53,10 @@ expr: '(' expr ')'									# Parentheses
 	| INT											# Integer
 	| BOOL											# Boolean
 	;
-	
-args: ID | INT | BOOL
-	;
 
 TYPE: 'INT' | 'BOOL' ;
-
 INT: '0'|'-'?[1-9][0-9]*;
 BOOL: 'TRUE'|'FALSE';
-
 ID: [a-z][a-z0-9_]*;
 COMMENT: '!!' ~[\r\n]* -> skip ;
 WS: [ \t\n\r]+ -> skip ;
