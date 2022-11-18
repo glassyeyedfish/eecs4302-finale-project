@@ -4,12 +4,14 @@ TEST program0
 	FUNC test0 ()
 		foo(-218, FALSE, 3)
 		bar(TRUE, 0)
+		ASSERT(bop(TRUE, 3))
 	END FUNC
 
 	@Test
 	FUNC test1 ()
 		bar(3, TRUE)
 		baz(300, TRUE)
+		ASSERTEQUALS(baz(1), 2)
 	END FUNC
 	
 END TEST

@@ -54,6 +54,30 @@ public class TestLangBaseListener implements TestLangListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterTLAssertEquals(TestLangParser.TLAssertEqualsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTLAssertEquals(TestLangParser.TLAssertEqualsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTLAssert(TestLangParser.TLAssertContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTLAssert(TestLangParser.TLAssertContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterTLInteger(TestLangParser.TLIntegerContext ctx) { }
 	/**
 	 * {@inheritDoc}
