@@ -33,4 +33,10 @@ public class PLConditional extends PLRecursiveBlock {
 		}
 		conditions.get(booleanExpression).add(stmt);
 	}
+
+	@Override
+	public boolean hasVariable(String key) {
+		// TODO Implement properly
+		return false;
+	}
 }

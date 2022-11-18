@@ -19,6 +19,15 @@ public class DCPath {
 		this.id = id;
 	}
 
+	public DCPath(int lineFrom, int lineTo, boolean isCUse, boolean pUseCondition, String id) {
+		super();
+		this.lineFrom = lineFrom;
+		this.lineTo = lineTo;
+		this.isCUse = isCUse;
+		this.pUseCondition = pUseCondition;
+		this.id = id;
+	}
+
 	public int getLineFrom() {
 		return lineFrom;
 	}
@@ -57,5 +66,34 @@ public class DCPath {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	@Override
+	public String toString() {
+		if (this.isCUse) {
+			return "(" 
+					+ this.lineFrom 
+					+ ", " 
+					+ this.lineTo
+					+ ", "
+					+ this.id
+					+ ")";
+		} else {
+			return "(" 
+					+ this.lineFrom 
+					+ ", (" 
+					+ this.lineTo
+					+ ", "
+					+ this.pUseCondition
+					+ "), "
+					+ this.id
+					+ ")";
+		}
+			
+	}
+	
+	@Override
+	public DCPath clone() {
+		return new DCPath(lineFrom, lineTo, isCUse, pUseCondition, id);
 	}
 }

@@ -13,4 +13,9 @@ public class PLReturn<T> extends PLStatement {
 	public T evaluate() {
 		return expr.evaluate();
 	}
+
+	@Override
+	public boolean hasVariable(String key) {
+		return expr.hasVariable(key);
+	}
 }

@@ -76,8 +76,7 @@ public class WilliamTests {
 		}
 		
 		System.out.println(
-				program.getFunctions().get("foo")
-				.getStatements()
+				dataMap.get("main").allDCPaths
 		);
 	}
 	

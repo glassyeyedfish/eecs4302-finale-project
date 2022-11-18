@@ -16,4 +16,9 @@ public abstract class PLBooleanOperation extends PLBooleanExpression {
 	public PLBooleanExpression getRight() {
 		return right;
 	}
+
+	@Override
+	public boolean hasVariable(String key) {
+		return getLeft().hasVariable(key) || getRight().hasVariable(key);
+	}
 }

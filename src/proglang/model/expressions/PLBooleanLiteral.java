@@ -15,4 +15,9 @@ public class PLBooleanLiteral extends PLBooleanExpression {
 	public Boolean evaluate() {
 		return bool;
 	}
+
+	@Override
+	public boolean hasVariable(String key) {
+		return false;
+	}
 }

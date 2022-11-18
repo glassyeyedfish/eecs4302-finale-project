@@ -19,4 +19,10 @@ public class PLPrint<T> extends PLStatement {
 	public String toString() {
 		return "Output: " + expression.evaluate(); 
 	}
+
+	@Override
+	public boolean hasVariable(String key) {
+		// TODO Auto-generated method stub
+		return expression.hasVariable(key);
+	}
 }

@@ -1,5 +1,5 @@
 package proglang.processor;
-
+/*
 import java.util.*;
 
 import proglang.AbstractPLStatement;
@@ -11,9 +11,9 @@ import proglang.PLVariable;
 import proglang.model.PLAssignment;
 import proglang.model.PLDeclaration;
 import proglang.model.PLProgram;
-
+*/
 public class PLProcessor {
-
+/*
 	PLProgram program;
 	private HashSet<String> variableDefs = new HashSet<>();
 	private HashSet<String> variablesUses = new HashSet<>();
@@ -111,5 +111,5 @@ public class PLProcessor {
 		}
 		return null;
 	}
-
+*/
 }

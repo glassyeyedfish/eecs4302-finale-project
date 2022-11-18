@@ -31,4 +31,12 @@ public class PLIntegerFunctionCall extends PLArithmeticExpression {
 		return null;
 	}
 
+	@Override
+	public boolean hasVariable(String key) {
+		for (PLExpression<?> expr: arguments) {
+			if (expr.hasVariable(key)) return true;
+		}
+		return false;
+	}
+
 }

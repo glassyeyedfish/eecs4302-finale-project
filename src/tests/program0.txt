@@ -1,9 +1,15 @@
 PROGRAM program0
 
-	FUNC foo () 
+	FUNC main() 
 	
 		INT :: a
-		a = 2
+		BOOL :: b
+		
+		PRINT(a)
+		PRINT(a + 1)
+		
+		PRINT(b)
+		PRINT(b && TRUE)
 	
 	END FUNC
 	

@@ -15,4 +15,9 @@ public class PLArithmeticBrackets extends PLArithmeticExpression {
 	public Integer evaluate() {
 		return expression.evaluate();
 	}
+
+	@Override
+	public boolean hasVariable(String key) {
+		return this.expression.hasVariable(key);
+	}
 }

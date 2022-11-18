@@ -54,7 +54,7 @@ public class AntlrToFunction extends ProgLangBaseVisitor<PLFunction<?>> {
 			else if (stmt instanceof PLReturn<?>) {
 				func.setReturn((PLReturn<Integer>) stmt);
 			}
-			else {
+			else if (stmt instanceof PLStatement) {
 				func.addStatement(stmt);
 			}
 		}
@@ -74,7 +74,7 @@ public class AntlrToFunction extends ProgLangBaseVisitor<PLFunction<?>> {
 			else if (stmt instanceof PLReturn<?>) {
 				func.setReturn((PLReturn<Boolean>) stmt);
 			}
-			else {
+			else if (stmt instanceof PLStatement) {
 				func.addStatement(stmt);
 			}
 		}
@@ -93,7 +93,7 @@ public class AntlrToFunction extends ProgLangBaseVisitor<PLFunction<?>> {
 			else if (stmt instanceof PLReturn<?>) {
 				semanticErrors.add("Error: void functions cannot have a return statement (line " + func.getStartLineNum() + ")");
 			}
-			else {
+			else if (stmt instanceof PLStatement) {
 				func.addStatement(stmt);
 			}
 		}

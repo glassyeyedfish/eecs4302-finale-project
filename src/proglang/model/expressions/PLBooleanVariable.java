@@ -17,4 +17,9 @@ public class PLBooleanVariable extends PLBooleanExpression {
 	public Boolean evaluate() {
 		return Store.getInstance().getBoolVariable(id);
 	}
+
+	@Override
+	public boolean hasVariable(String key) {
+		return this.id.equals(key);
+	}
 }

@@ -27,4 +27,12 @@ public class PLFunctionCall extends PLStatement {
 	public void addArgument(PLExpression<?> arg) {
 		this.addArgument(arg);
 	}
+
+	@Override
+	public boolean hasVariable(String key) {
+		for (PLExpression<?> expr: arguments) {
+			if (expr.hasVariable(key)) return true;
+		}
+		return false;
+	}
 }

@@ -10,4 +10,6 @@ public abstract class PLStatement {
 	public int getLineNum() {
 		return lineNum;
 	}
+
+	public abstract boolean hasVariable(String key);
 }
