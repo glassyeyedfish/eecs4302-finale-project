@@ -1,0 +1,13 @@
+PROGRAM bool_function_semantics
+
+	FUNC main()
+	END FUNC
+	
+	FUNC foo(BOOL :: b) :: BOOL
+		return 1
+	END FUNC
+	
+	FUNC bar(INT :: b) :: BOOL
+	END FUNC
+
+END PROGRAM

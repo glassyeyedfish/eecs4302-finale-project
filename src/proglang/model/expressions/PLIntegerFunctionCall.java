@@ -22,7 +22,7 @@ public class PLIntegerFunctionCall extends PLArithmeticExpression {
 	}
 	
 	public void addArgument(PLExpression<?> arg) {
-		this.addArgument(arg);
+		this.arguments.add(arg);
 	}
 	
 	@Override

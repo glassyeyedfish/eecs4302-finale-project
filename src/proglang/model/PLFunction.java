@@ -11,6 +11,7 @@ public class PLFunction<T> extends PLBlock {
 	private Map<String, PLDeclaration> declarations;
 	private Map<String, PLDeclaration> parameters;
 	private List<PLStatement> instructions;
+	private List<String> parameterTypes;
 	private PLReturn<T> rtrnStmt;
 	
 	public PLFunction(String id, int startLineNum, int endLineNum) {
@@ -19,6 +20,7 @@ public class PLFunction<T> extends PLBlock {
 		this.instructions = new ArrayList<>();
 		this.declarations = new HashMap<>();
 		this.parameters = new LinkedHashMap<>();
+		this.parameterTypes = new ArrayList<>();
 	}
 	
 	public String getName() {
@@ -37,6 +39,10 @@ public class PLFunction<T> extends PLBlock {
 		return this.parameters;
 	}
 	
+	public List<String> getParameterTypes() {
+		return this.parameterTypes;
+	}
+	
 	public void addDeclaration(PLDeclaration decl) {
 		this.declarations.put(decl.getId(), decl);
 	}
@@ -44,6 +50,11 @@ public class PLFunction<T> extends PLBlock {
 	public void addParameter(PLDeclaration decl) {
 		this.declarations.put(id, decl);
 		this.parameters.put(id, decl);
+		this.parameterTypes.add(decl.getType());
+	}
+	
+	public void addParameterType(String type) {
+		this.parameterTypes.add(type);
 	}
 	
 	public void addStatement(PLStatement stmt) {

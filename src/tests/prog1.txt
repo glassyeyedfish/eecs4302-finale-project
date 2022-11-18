@@ -1,6 +1,9 @@
-PROGRAM hello
+PROGRAM prog1
 
-	FUNC foo(INT :: a, BOOL :: b) :: INT
+	FUNC main() :: INT
 	END FUNC
-	
+
+	FUNC foo()
+	END FUNC
+
 END PROGRAM

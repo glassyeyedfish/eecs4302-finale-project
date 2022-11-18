@@ -1,0 +1,11 @@
+PROGRAM main_function_missing
+
+	FUNC foo(INT :: a) :: BOOL
+		return TRUE
+	END FUNC
+	
+	FUNC bar(BOOL :: b) :: INT
+		return 1 + 2
+	END FUNC
+
+END PROGRAM

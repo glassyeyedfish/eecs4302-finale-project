@@ -1,0 +1,35 @@
+PROGRAM function_call_semantics
+
+	FUNC main()
+		INT :: a
+		
+		bar()			!!valid
+		bar(1)			!!invalid
+		
+		foo(1, TRUE)	!!valid
+		foo(1, FALSE)	!!valid
+		foo(TRUE, 1)	!!invalid - type mismatch
+		foo(FALSE, 1)	!!invalid - type mismatch
+		foo(1, 1)		!!invalid - type mismatch
+		foo(1)			!!invalid - insufficient
+		foo(TRUE)		!!invalid - type mismatch and insufficient
+		
+		a = foo(1, TRUE)
+		a = foo(1, FALSE)
+		a = foo(TRUE, 1)
+		a = foo(FALSE, 1)
+		a = foo(1, 1)
+		a = foo(1)
+		a = foo(TRUE)
+		a = bar()
+		
+	END FUNC
+	
+	FUNC foo(INT :: a, BOOL :: b) :: INT
+		return a
+	END FUNC
+	
+	FUNC bar()
+	END FUNC
+
+END PROGRAM
