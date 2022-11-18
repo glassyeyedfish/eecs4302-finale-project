@@ -3,6 +3,7 @@ package proglang.model;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import proglang.model.expressions.PLBooleanExpression;
 
@@ -36,7 +37,15 @@ public class PLConditional extends PLRecursiveBlock {
 
 	@Override
 	public boolean hasVariable(String key) {
-		// TODO Implement properly
+		for (
+				Map.Entry<PLBooleanExpression, List<PLStatement>> entry: 
+				this.conditions.entrySet()
+		) {
+			for (PLStatement stmt: entry.getValue()) {
+				System.out.println(key);
+				if (stmt.hasVariable(key)) return true;
+			}
+		}
 		return false;
 	}
 }

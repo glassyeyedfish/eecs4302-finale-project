@@ -2,14 +2,7 @@ TEST program0
 
 	@Test
 	FUNC test0 ()
-		foo(-218, FALSE, 3)
-		bar(TRUE, 0)
-	END FUNC
-
-	@Test
-	FUNC test1 ()
-		bar(3, TRUE)
-		baz(300, TRUE)
+		main( )
 	END FUNC
 	
 END TEST

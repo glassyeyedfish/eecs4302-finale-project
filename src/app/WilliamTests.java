@@ -14,45 +14,20 @@ import pipeline.Processor;
 import pipeline.ProcessorData;
 import proglang.antlr.ProgLangLexer;
 import proglang.antlr.ProgLangParser;
-import proglang.model.PLFunction;
-import proglang.model.PLProgram;
+import proglang.model.*;
 import proglang.visitor.AntlrToProgram;
 import testlang.antlr.TestLangLexer;
 import testlang.antlr.TestLangParser;
+import testlang.model.*;
+import testlang.visitor.AntlrToTLProgram;
 
 public class WilliamTests {
 
 	public static void main(String[] args) {
-		if (args.length != 1) {
-			System.err.print("USAGE: [file name]");
+		if (args.length != 2) {
+			System.err.print("USAGE: [program file] [test file]");
 			System.exit(1);
 		}
-		
-		/*
-		// TL Stuff
-		TLProgram testProgram;
-		{
-			String fileName = args[0];
-			TestLangParser parser = getTLParser(fileName);
-			ParseTree AST = parser.prog();
-			
-			if (ErrorListener.hasError) {
-				System.exit(1);
-			}
-			AntlrToTLProgram visitor = new AntlrToTLProgram();
-			testProgram = visitor.visit(AST);
-		}
-		
-		TLExpression<?> expr = testProgram.getTestFunctions().get(0)
-				.getFunctionCalls().get(0)
-				.getArgs().get(0);
-		
-		if (expr instanceof TLInteger) {
-			System.out.println(((TLInteger) expr).getValue());
-		} else if (expr instanceof TLBoolean) {
-			System.out.println(((TLBoolean) expr).getValue());
-		}
-		*/
 		
 		// PL Stuff
 		PLProgram program;
@@ -68,6 +43,28 @@ public class WilliamTests {
 			program = visitor.visit(AST);
 		}
 		
+		System.out.println(
+				program
+		);
+		
+		// TL Stuff
+		TLProgram testProgram;
+		{
+			String fileName = args[1];
+			TestLangParser parser = getTLParser(fileName);
+			ParseTree AST = parser.prog();
+			
+			if (ErrorListener.hasError) {
+				System.exit(1);
+			}
+			AntlrToTLProgram visitor = new AntlrToTLProgram();
+			testProgram = visitor.visit(AST);
+		}
+		
+		System.out.println(
+				testProgram
+		);
+		
 		Processor proc = new Processor();
 		Map<String, ProcessorData> dataMap = new HashMap<>();
 		
@@ -75,9 +72,11 @@ public class WilliamTests {
 			dataMap.put(entry.getKey(), proc.processPLFunction(entry.getValue()));
 		}
 		
-		System.out.println(
-				dataMap.get("main").allDCPaths
-		);
+		System.out.println("\n ===== RESULTS OF PROCESSOR =====");
+		for (Map.Entry<String, ProcessorData> entry: dataMap.entrySet()) {
+			System.out.println("FUNC: " + entry.getKey());
+			System.out.println("All DC Paths: " + entry.getValue().allDCPaths);
+		}
 	}
 	
 	private static ProgLangParser getPLParser(String fileName) {

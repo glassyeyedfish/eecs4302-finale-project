@@ -15,7 +15,7 @@ test_func: '@Test' 'FUNC' ID '()'
 	'END FUNC'										#TLTestFunc
 	;
 	
-func_call: ID '(' (expr (',' expr)+)? ')'			#TLFunctionCall
+func_call: ID '(' (expr (',' expr)*)? ')'			#TLFunctionCall
 	;
 
 expr: INT_LIT 										#TLInteger

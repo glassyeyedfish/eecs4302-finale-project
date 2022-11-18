@@ -300,25 +300,33 @@ public class TestLangParser extends Parser {
 			match(ID);
 			setState(30);
 			match(T__6);
-			setState(31);
-			expr();
-			setState(34); 
+			setState(39);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			do {
+			if (_la==INT_LIT || _la==BOOL_LIT) {
 				{
-				{
-				setState(32);
-				match(T__7);
-				setState(33);
+				setState(31);
 				expr();
-				}
-				}
-				setState(36); 
+				setState(36);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( _la==T__7 );
-			setState(38);
+				while (_la==T__7) {
+					{
+					{
+					setState(32);
+					match(T__7);
+					setState(33);
+					expr();
+					}
+					}
+					setState(38);
+					_errHandler.sync(this);
+					_la = _input.LA(1);
+				}
+				}
+			}
+
+			setState(41);
 			match(T__8);
 			}
 		}
@@ -383,14 +391,14 @@ public class TestLangParser extends Parser {
 		ExprContext _localctx = new ExprContext(_ctx, getState());
 		enterRule(_localctx, 6, RULE_expr);
 		try {
-			setState(42);
+			setState(45);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case INT_LIT:
 				_localctx = new TLIntegerContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(40);
+				setState(43);
 				match(INT_LIT);
 				}
 				break;
@@ -398,7 +406,7 @@ public class TestLangParser extends Parser {
 				_localctx = new TLBooleanContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(41);
+				setState(44);
 				match(BOOL_LIT);
 				}
 				break;
@@ -418,18 +426,19 @@ public class TestLangParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\21/\4\2\t\2\4\3\t"+
-		"\3\4\4\t\4\4\5\t\5\3\2\3\2\3\2\6\2\16\n\2\r\2\16\2\17\3\2\3\2\3\2\3\3"+
-		"\3\3\3\3\3\3\3\3\6\3\32\n\3\r\3\16\3\33\3\3\3\3\3\4\3\4\3\4\3\4\3\4\6"+
-		"\4%\n\4\r\4\16\4&\3\4\3\4\3\5\3\5\5\5-\n\5\3\5\2\2\6\2\4\6\b\2\2\2.\2"+
-		"\n\3\2\2\2\4\24\3\2\2\2\6\37\3\2\2\2\b,\3\2\2\2\n\13\7\3\2\2\13\r\7\17"+
-		"\2\2\f\16\5\4\3\2\r\f\3\2\2\2\16\17\3\2\2\2\17\r\3\2\2\2\17\20\3\2\2\2"+
-		"\20\21\3\2\2\2\21\22\7\4\2\2\22\23\7\2\2\3\23\3\3\2\2\2\24\25\7\5\2\2"+
-		"\25\26\7\6\2\2\26\27\7\17\2\2\27\31\7\7\2\2\30\32\5\6\4\2\31\30\3\2\2"+
-		"\2\32\33\3\2\2\2\33\31\3\2\2\2\33\34\3\2\2\2\34\35\3\2\2\2\35\36\7\b\2"+
-		"\2\36\5\3\2\2\2\37 \7\17\2\2 !\7\t\2\2!$\5\b\5\2\"#\7\n\2\2#%\5\b\5\2"+
-		"$\"\3\2\2\2%&\3\2\2\2&$\3\2\2\2&\'\3\2\2\2\'(\3\2\2\2()\7\13\2\2)\7\3"+
-		"\2\2\2*-\7\r\2\2+-\7\16\2\2,*\3\2\2\2,+\3\2\2\2-\t\3\2\2\2\6\17\33&,";
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\21\62\4\2\t\2\4\3"+
+		"\t\3\4\4\t\4\4\5\t\5\3\2\3\2\3\2\6\2\16\n\2\r\2\16\2\17\3\2\3\2\3\2\3"+
+		"\3\3\3\3\3\3\3\3\3\6\3\32\n\3\r\3\16\3\33\3\3\3\3\3\4\3\4\3\4\3\4\3\4"+
+		"\7\4%\n\4\f\4\16\4(\13\4\5\4*\n\4\3\4\3\4\3\5\3\5\5\5\60\n\5\3\5\2\2\6"+
+		"\2\4\6\b\2\2\2\62\2\n\3\2\2\2\4\24\3\2\2\2\6\37\3\2\2\2\b/\3\2\2\2\n\13"+
+		"\7\3\2\2\13\r\7\17\2\2\f\16\5\4\3\2\r\f\3\2\2\2\16\17\3\2\2\2\17\r\3\2"+
+		"\2\2\17\20\3\2\2\2\20\21\3\2\2\2\21\22\7\4\2\2\22\23\7\2\2\3\23\3\3\2"+
+		"\2\2\24\25\7\5\2\2\25\26\7\6\2\2\26\27\7\17\2\2\27\31\7\7\2\2\30\32\5"+
+		"\6\4\2\31\30\3\2\2\2\32\33\3\2\2\2\33\31\3\2\2\2\33\34\3\2\2\2\34\35\3"+
+		"\2\2\2\35\36\7\b\2\2\36\5\3\2\2\2\37 \7\17\2\2 )\7\t\2\2!&\5\b\5\2\"#"+
+		"\7\n\2\2#%\5\b\5\2$\"\3\2\2\2%(\3\2\2\2&$\3\2\2\2&\'\3\2\2\2\'*\3\2\2"+
+		"\2(&\3\2\2\2)!\3\2\2\2)*\3\2\2\2*+\3\2\2\2+,\7\13\2\2,\7\3\2\2\2-\60\7"+
+		"\r\2\2.\60\7\16\2\2/-\3\2\2\2/.\3\2\2\2\60\t\3\2\2\2\7\17\33&)/";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {
