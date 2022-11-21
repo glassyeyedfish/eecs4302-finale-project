@@ -1,13 +1,11 @@
 PROGRAM program0
 
 	FUNC main() 
+	
 		INT :: a
-		BOOL :: b
+		a = 1
+		a = a + 1
 		
-		b = b && TRUE
-		a = a + 2
-		PRINT(a)
-		PRINT(b)
 	END FUNC
 	
 END PROGRAM
