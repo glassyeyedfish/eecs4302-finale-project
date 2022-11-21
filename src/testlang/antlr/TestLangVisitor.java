@@ -34,6 +34,20 @@ public interface TestLangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTLFunctionCall(TestLangParser.TLFunctionCallContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code TLAssertEquals}
+	 * labeled alternative in {@link TestLangParser#assrt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTLAssertEquals(TestLangParser.TLAssertEqualsContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TLAssert}
+	 * labeled alternative in {@link TestLangParser#assrt}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTLAssert(TestLangParser.TLAssertContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code TLInteger}
 	 * labeled alternative in {@link TestLangParser#expr}.
 	 * @param ctx the parse tree

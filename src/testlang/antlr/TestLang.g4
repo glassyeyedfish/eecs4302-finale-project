@@ -11,12 +11,16 @@ prog: 'TEST' ID
 	;
 
 test_func: '@Test' 'FUNC' ID '()'
-	(func_call)+
+	(func_call | assrt)+
 	'END FUNC'										#TLTestFunc
 	;
 	
 func_call: ID '(' (expr (',' expr)*)? ')'			#TLFunctionCall
 	;
+	
+assrt: 'ASSERTEQUALS' '(' func_call ',' expr ')'	#TLAssertEquals
+	 | 'ASSERT' '(' func_call ')'					#TLAssert
+	 ;
 
 expr: INT_LIT 										#TLInteger
 	| BOOL_LIT										#TLBoolean
