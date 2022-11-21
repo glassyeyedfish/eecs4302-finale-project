@@ -22,13 +22,7 @@ public class PLIntegerFunctionCall extends PLArithmeticExpression {
 	}
 	
 	public void addArgument(PLExpression<?> arg) {
-		this.addArgument(arg);
-	}
-	
-	@Override
-	public Integer evaluate() {
-		// USE STORE HERE!!!
-		return null;
+		this.arguments.add(arg);
 	}
 
 	@Override
@@ -37,6 +31,12 @@ public class PLIntegerFunctionCall extends PLArithmeticExpression {
 			if (expr.hasVariable(key)) return true;
 		}
 		return false;
+	}
+	
+	@Override
+	public Integer evaluate() {
+		// USE STORE HERE!!!
+		return null;
 	}
 
 }

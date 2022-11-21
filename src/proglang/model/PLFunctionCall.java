@@ -25,7 +25,7 @@ public class PLFunctionCall extends PLStatement {
 	}
 	
 	public void addArgument(PLExpression<?> arg) {
-		this.addArgument(arg);
+		this.arguments.add(arg);
 	}
 
 	@Override

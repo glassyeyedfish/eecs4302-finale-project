@@ -22,13 +22,7 @@ public class PLBooleanFunctionCall extends PLBooleanExpression {
 	}
 	
 	public void addArgument(PLExpression<?> arg) {
-		this.addArgument(arg);
-	}
-	
-	@Override
-	public Boolean evaluate() {
-		// USE STORE HERE!!!
-		return null;
+		this.arguments.add(arg);
 	}
 
 	@Override
@@ -37,6 +31,12 @@ public class PLBooleanFunctionCall extends PLBooleanExpression {
 			if (expr.hasVariable(key)) return true;
 		}
 		return false;
+	}
+	
+	@Override
+	public Boolean evaluate() {
+		// USE STORE HERE!!!
+		return null;
 	}
 	
 }

@@ -20,10 +20,11 @@ import proglang.antlr.ProgLangParser.OrContext;
 import proglang.antlr.ProgLangParser.ParenthesesContext;
 import proglang.antlr.ProgLangParser.SubtractionContext;
 import proglang.antlr.ProgLangParser.VariableContext;
-import proglang.model.BooleanFunction;
-import proglang.model.IntegerFunction;
+import proglang.model.PLBooleanFunction;
+import proglang.model.PLIntegerFunction;
 import proglang.model.PLFunction;
 import proglang.model.PLProgram;
+import proglang.model.PLVoidFunction;
 import proglang.model.expressions.PLAddition;
 import proglang.model.expressions.PLAnd;
 import proglang.model.expressions.PLArithmeticBrackets;
@@ -162,21 +163,58 @@ public class AntlrToExpression extends ProgLangBaseVisitor<PLExpression<?>>{
 	public PLExpression<?> visitFunctionCallInExpression(FunctionCallInExpressionContext ctx) {
 		PLFunction<?> func = parentProg.getFunctions().get(ctx.ID().getText());
 		
-		if (func instanceof IntegerFunction) {
+		if (func instanceof PLIntegerFunction) {
 			PLIntegerFunctionCall funcCall = new PLIntegerFunctionCall(ctx.ID().getText());
 			
-			for (int i = 0; i < ctx.expr().size(); i++) {
-				funcCall.addArgument(visit(ctx.expr(i)));
+			if (ctx.expr().size() == func.getParameterTypes().size()) {
+				for (int i = 0; i < ctx.expr().size(); i++) {
+					PLExpression<?> expr = visit(ctx.expr(i));
+					if (expr instanceof PLArithmeticExpression && func.getParameterTypes().get(i).equals("INT")) {
+						funcCall.addArgument(expr);
+					}
+					else if (expr instanceof PLBooleanExpression && func.getParameterTypes().get(i).equals("BOOL")) {
+						funcCall.addArgument(expr);
+					}
+					else {
+						semanticErrors.add("Error: type mismatch at '" + func.getName() + "' function call (line " + ctx.start.getLine() + ").");
+						break;
+					}
+				}
+			}
+			else {
+				if (ctx.expr().size() < func.getParameterTypes().size())
+					semanticErrors.add("Error: insufficient arguments at '" + func.getName() + "' function call (line " + ctx.start.getLine() + ").");
+				else
+					semanticErrors.add("Error: too many arguments at '" + func.getName() + "' function call (line " + ctx.start.getLine() + ").");
 			}
 			
 			return funcCall;
 		}
-		else if (func instanceof BooleanFunction) {
+		else if (func instanceof PLBooleanFunction) {
 			PLBooleanFunctionCall funcCall = new PLBooleanFunctionCall(ctx.ID().getText());
 			
-			for (int i = 0; i < ctx.expr().size(); i++) {
-				funcCall.addArgument(visit(ctx.expr(i)));
+			if (ctx.expr().size() == func.getParameterTypes().size()) {
+				for (int i = 0; i < ctx.expr().size(); i++) {
+					PLExpression<?> expr = visit(ctx.expr(i));
+					if (expr instanceof PLArithmeticExpression && func.getParameterTypes().get(i).equals("INT")) {
+						funcCall.addArgument(expr);
+					}
+					else if (expr instanceof PLBooleanExpression && func.getParameterTypes().get(i).equals("BOOL")) {
+						funcCall.addArgument(expr);
+					}
+					else {
+						semanticErrors.add("Error: type mismatch at '" + func.getName() + "' function call (line " + ctx.start.getLine() + ").");
+						break;
+					}
+				}
 			}
+			else {
+				if (ctx.expr().size() < func.getParameterTypes().size())
+					semanticErrors.add("Error: insufficient arguments at '" + func.getName() + "' function call (line " + ctx.start.getLine() + ").");
+				else
+					semanticErrors.add("Error: too many arguments at '" + func.getName() + "' function call (line " + ctx.start.getLine() + ").");
+			}
+			
 			return funcCall;
 		}
 		else {

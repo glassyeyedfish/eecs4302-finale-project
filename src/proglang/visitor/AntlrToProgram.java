@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import proglang.antlr.ProgLangBaseVisitor;
+import proglang.antlr.ProgLangParser.FunctionContext;
 import proglang.antlr.ProgLangParser.ProgramContext;
 import proglang.model.PLFunction;
 import proglang.model.PLProgram;
+import proglang.model.PLVoidFunction;
 
 public class AntlrToProgram extends ProgLangBaseVisitor<PLProgram> {
 
@@ -24,10 +26,10 @@ public class AntlrToProgram extends ProgLangBaseVisitor<PLProgram> {
 		antlrToFunction = new AntlrToFunction(semanticErrors, p);
 		
 		for (int i = 0; i < ctx.getChildCount(); i++) {
-			PLFunction<?> func = antlrToFunction.visit(ctx.getChild(i));
+			PLFunction<?> func = antlrToFunction.getFuncSig((FunctionContext) ctx.func(i));
 			if (func != null) {
 				if (p.getFunctions().keySet().contains(func.getName())) {
-					semanticErrors.add("Error: function " + func.getName() + "already declared (line: " + func.getStartLineNum() + ").");
+					semanticErrors.add("Error: function '" + func.getName() + "' already declared (line: " + func.getStartLineNum() + ").");
 				}
 				else {
 					p.addFunction(func);
@@ -35,8 +37,23 @@ public class AntlrToProgram extends ProgLangBaseVisitor<PLProgram> {
 			}
 		}
 		
+		for (int i = 0; i < ctx.getChildCount(); i++) {
+			PLFunction<?> func = antlrToFunction.visit(ctx.getChild(i));
+			if (func != null) {
+				p.addFunction(func);
+			}
+		}
+		
 		if (!p.getFunctions().keySet().contains("main")) {
-			semanticErrors.add("Error: program is missing main().");
+			semanticErrors.add("Error: program is missing function 'main'.");
+		}
+		else {
+			if (!p.getFunctions().get("main").getParameters().isEmpty()) {
+				semanticErrors.add("Error: function 'main' cannot have any parameters.");
+			}
+			if (!(p.getFunctions().get("main") instanceof PLVoidFunction)) {
+				semanticErrors.add("Error: function 'main' cannot have a return type.");
+			}
 		}
 		
 		return p;

@@ -71,10 +71,24 @@ public class AntlrToStatement extends ProgLangBaseVisitor<PLStatement> {
 
 	@Override
 	public PLStatement visitConditional(ConditionalContext ctx) {
-		PLConditional conditional = new PLConditional((PLBooleanExpression) antlrToExpression.visit(ctx.expr()), ctx.getStart().getLine(), ctx.getStop().getLine());
+		PLExpression<?> expression = antlrToExpression.visit(ctx.expr());
 		
-		//to do
-		return conditional;
+		if (expression instanceof PLBooleanExpression) {
+			PLConditional conditional = new PLConditional((PLBooleanExpression) antlrToExpression.visit(ctx.expr()), ctx.getStart().getLine(), ctx.getStop().getLine());
+			
+			for (int i = 0; i < ctx.getChildCount(); i++) {
+				PLStatement stmt = visit(ctx.getChild(i));
+				if (stmt instanceof PLStatement) {
+					conditional.addStatement(stmt);
+				}
+			}
+			
+			return conditional;
+		}
+		else {
+			semanticErrors.add("Error: type mismatch at conditional (line " + ctx.start.getLine() + ").");
+			return null;
+		}
 	}
 
 	@Override
@@ -82,18 +96,26 @@ public class AntlrToStatement extends ProgLangBaseVisitor<PLStatement> {
 		PLFunctionCall funcCall = new PLFunctionCall(ctx.ID().getText(), ctx.start.getLine());
 		PLFunction<?> func = parentProg.getFunctions().get(ctx.ID().getText());
 		
-		
-		for (int i = 0; i < ctx.expr().size(); i++) {
-			PLExpression<?> expr = antlrToExpression.visit(ctx.expr(i));
-			if (expr instanceof PLArithmeticExpression && func.getParameters().keySet().toArray()[i].equals("INT")) {
-				funcCall.addArgument(expr);
+		if (ctx.expr().size() == func.getParameterTypes().size()) {
+			for (int i = 0; i < ctx.expr().size(); i++) {
+				PLExpression<?> expr = antlrToExpression.visit(ctx.expr(i));
+				if (expr instanceof PLArithmeticExpression && func.getParameterTypes().get(i).equals("INT")) {
+					funcCall.addArgument(expr);
+				}
+				else if (expr instanceof PLBooleanExpression && func.getParameterTypes().get(i).equals("BOOL")) {
+					funcCall.addArgument(expr);
+				}
+				else {
+					semanticErrors.add("Error: type mismatch at '" + func.getName() + "' function call (line " + ctx.start.getLine() + ").");
+					break;
+				}
 			}
-			else if (expr instanceof PLBooleanExpression && func.getParameters().keySet().toArray()[i].equals("BOOL")) {
-				funcCall.addArgument(expr);
-			}
-			else {
-				semanticErrors.add("Error: type mismatch at function call (line " + ctx.start.getLine() + ")");
-			}
+		}
+		else {
+			if (ctx.expr().size() < func.getParameterTypes().size())
+				semanticErrors.add("Error: insufficient arguments at '" + func.getName() + "' function call (line " + ctx.start.getLine() + ").");
+			else
+				semanticErrors.add("Error: too many arguments at '" + func.getName() + "' function call (line " + ctx.start.getLine() + ").");
 		}
 		
 		return funcCall;

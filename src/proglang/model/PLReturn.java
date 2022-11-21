@@ -8,6 +8,7 @@ public class PLReturn<T> extends PLStatement {
 	
 	public PLReturn(PLExpression<T> expr, int lineNum) {
 		super(lineNum);
+		this.expr = expr;
 	}
 	
 	public T evaluate() {
