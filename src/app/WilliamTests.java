@@ -44,7 +44,9 @@ public class WilliamTests {
 		}
 		
 		System.out.println(
-				program
+				program.getFunctions().get("main")
+				.getStatements()
+				
 		);
 		
 		// TL Stuff
@@ -64,6 +66,7 @@ public class WilliamTests {
 		System.out.println(
 				testProgram
 		);
+		
 		
 		Processor proc = new Processor();
 		Map<String, ProcessorData> dataMap = new HashMap<>();

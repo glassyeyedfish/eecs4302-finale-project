@@ -13,6 +13,14 @@ public class PLFunction<T> extends PLBlock {
 	private List<PLStatement> instructions;
 	private PLReturn<T> rtrnStmt;
 	
+	public PLReturn<T> getRtrnStmt() {
+		return rtrnStmt;
+	}
+
+	public void setRtrnStmt(PLReturn<T> rtrnStmt) {
+		this.rtrnStmt = rtrnStmt;
+	}
+
 	public PLFunction(String id, int startLineNum, int endLineNum) {
 		super(startLineNum, endLineNum);
 		this.id = id;

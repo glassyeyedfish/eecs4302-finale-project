@@ -116,7 +116,7 @@ public class AntlrToFunction extends ProgLangBaseVisitor<PLFunction<?>> {
 			if (stmt instanceof PLDeclaration) {
 				func.addDeclaration(((PLDeclaration) stmt));
 			}
-			else {
+			else if (stmt instanceof PLStatement) {
 				func.addStatement(stmt);
 			}
 		}
