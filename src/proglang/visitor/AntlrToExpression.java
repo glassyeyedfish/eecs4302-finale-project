@@ -166,13 +166,13 @@ public class AntlrToExpression extends ProgLangBaseVisitor<PLExpression<?>>{
 		if (func instanceof PLIntegerFunction) {
 			PLIntegerFunctionCall funcCall = new PLIntegerFunctionCall(ctx.ID().getText());
 			
-			if (ctx.expr().size() == func.getParameterTypes().size()) {
+			if (ctx.expr().size() == func.getParameters().size()) {
 				for (int i = 0; i < ctx.expr().size(); i++) {
 					PLExpression<?> expr = visit(ctx.expr(i));
-					if (expr instanceof PLArithmeticExpression && func.getParameterTypes().get(i).equals("INT")) {
+					if (expr instanceof PLArithmeticExpression && func.getParameters().values().toArray()[i].equals("INT")) {
 						funcCall.addArgument(expr);
 					}
-					else if (expr instanceof PLBooleanExpression && func.getParameterTypes().get(i).equals("BOOL")) {
+					else if (expr instanceof PLBooleanExpression && func.getParameters().values().toArray()[i].equals("BOOL")) {
 						funcCall.addArgument(expr);
 					}
 					else {
@@ -182,7 +182,7 @@ public class AntlrToExpression extends ProgLangBaseVisitor<PLExpression<?>>{
 				}
 			}
 			else {
-				if (ctx.expr().size() < func.getParameterTypes().size())
+				if (ctx.expr().size() < func.getParameters().size())
 					semanticErrors.add("Error: insufficient arguments at '" + func.getName() + "' function call (line " + ctx.start.getLine() + ").");
 				else
 					semanticErrors.add("Error: too many arguments at '" + func.getName() + "' function call (line " + ctx.start.getLine() + ").");
@@ -193,13 +193,13 @@ public class AntlrToExpression extends ProgLangBaseVisitor<PLExpression<?>>{
 		else if (func instanceof PLBooleanFunction) {
 			PLBooleanFunctionCall funcCall = new PLBooleanFunctionCall(ctx.ID().getText());
 			
-			if (ctx.expr().size() == func.getParameterTypes().size()) {
+			if (ctx.expr().size() == func.getParameters().size()) {
 				for (int i = 0; i < ctx.expr().size(); i++) {
 					PLExpression<?> expr = visit(ctx.expr(i));
-					if (expr instanceof PLArithmeticExpression && func.getParameterTypes().get(i).equals("INT")) {
+					if (expr instanceof PLArithmeticExpression && func.getParameters().values().toArray()[i].equals("INT")) {
 						funcCall.addArgument(expr);
 					}
-					else if (expr instanceof PLBooleanExpression && func.getParameterTypes().get(i).equals("BOOL")) {
+					else if (expr instanceof PLBooleanExpression && func.getParameters().values().toArray()[i].equals("BOOL")) {
 						funcCall.addArgument(expr);
 					}
 					else {
@@ -209,7 +209,7 @@ public class AntlrToExpression extends ProgLangBaseVisitor<PLExpression<?>>{
 				}
 			}
 			else {
-				if (ctx.expr().size() < func.getParameterTypes().size())
+				if (ctx.expr().size() < func.getParameters().size())
 					semanticErrors.add("Error: insufficient arguments at '" + func.getName() + "' function call (line " + ctx.start.getLine() + ").");
 				else
 					semanticErrors.add("Error: too many arguments at '" + func.getName() + "' function call (line " + ctx.start.getLine() + ").");
