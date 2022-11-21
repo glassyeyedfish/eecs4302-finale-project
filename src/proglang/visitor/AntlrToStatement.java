@@ -96,13 +96,13 @@ public class AntlrToStatement extends ProgLangBaseVisitor<PLStatement> {
 		PLFunctionCall funcCall = new PLFunctionCall(ctx.ID().getText(), ctx.start.getLine());
 		PLFunction<?> func = parentProg.getFunctions().get(ctx.ID().getText());
 		
-		if (ctx.expr().size() == func.getParameterTypes().size()) {
+		if (ctx.expr().size() == func.getParameters().size()) {
 			for (int i = 0; i < ctx.expr().size(); i++) {
 				PLExpression<?> expr = antlrToExpression.visit(ctx.expr(i));
-				if (expr instanceof PLArithmeticExpression && func.getParameterTypes().get(i).equals("INT")) {
+				if (expr instanceof PLArithmeticExpression && func.getParameters().values().toArray()[i].equals("INT")) {
 					funcCall.addArgument(expr);
 				}
-				else if (expr instanceof PLBooleanExpression && func.getParameterTypes().get(i).equals("BOOL")) {
+				else if (expr instanceof PLBooleanExpression && func.getParameters().values().toArray()[i].equals("BOOL")) {
 					funcCall.addArgument(expr);
 				}
 				else {
@@ -112,7 +112,7 @@ public class AntlrToStatement extends ProgLangBaseVisitor<PLStatement> {
 			}
 		}
 		else {
-			if (ctx.expr().size() < func.getParameterTypes().size())
+			if (ctx.expr().size() < func.getParameters().size())
 				semanticErrors.add("Error: insufficient arguments at '" + func.getName() + "' function call (line " + ctx.start.getLine() + ").");
 			else
 				semanticErrors.add("Error: too many arguments at '" + func.getName() + "' function call (line " + ctx.start.getLine() + ").");

@@ -136,7 +136,7 @@ public class AntlrToFunction extends ProgLangBaseVisitor<PLFunction<?>> {
 					
 					for (int i = 0; i < ctx.attr_decl().size(); i++) {
 						if (func.getStartLineNum() == ctx.attr_decl(i).getStart().getLine()) {
-							func.addParameterType(((AttributeDeclContext) ctx.attr_decl(i)).TYPE().getText());
+							func.addParameter(((AttributeDeclContext) ctx.attr_decl(i)).ID().getText(), ((AttributeDeclContext) ctx.attr_decl(i)).TYPE().getText());
 						}
 					}
 					
@@ -147,7 +147,7 @@ public class AntlrToFunction extends ProgLangBaseVisitor<PLFunction<?>> {
 					
 					for (int i = 0; i < ctx.attr_decl().size(); i++) {
 						if (func.getStartLineNum() == ctx.attr_decl(i).getStart().getLine()) {
-							func.addParameterType(((AttributeDeclContext) ctx.attr_decl(i)).TYPE().getText());
+							func.addParameter(((AttributeDeclContext) ctx.attr_decl(i)).ID().getText(), ((AttributeDeclContext) ctx.attr_decl(i)).TYPE().getText());
 						}
 					}
 					
@@ -159,7 +159,7 @@ public class AntlrToFunction extends ProgLangBaseVisitor<PLFunction<?>> {
 				
 				for (int i = 0; i < ctx.attr_decl().size(); i++) {
 					if (func.getStartLineNum() == ctx.attr_decl(i).getStart().getLine()) {
-						func.addParameterType(((AttributeDeclContext) ctx.attr_decl(i)).TYPE().getText());
+						func.addParameter(((AttributeDeclContext) ctx.attr_decl(i)).ID().getText(), ((AttributeDeclContext) ctx.attr_decl(i)).TYPE().getText());
 					}
 				}
 				

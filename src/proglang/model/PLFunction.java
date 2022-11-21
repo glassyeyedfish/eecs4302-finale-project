@@ -9,9 +9,8 @@ import java.util.Map;
 public class PLFunction<T> extends PLBlock {
 	private String id;
 	private Map<String, PLDeclaration> declarations;
-	private Map<String, PLDeclaration> parameters;
+	private Map<String, String> parameters;
 	private List<PLStatement> instructions;
-	private List<String> parameterTypes;
 	private PLReturn<T> rtrnStmt;
 	
 	public PLFunction(String id, int startLineNum, int endLineNum) {
@@ -20,7 +19,6 @@ public class PLFunction<T> extends PLBlock {
 		this.instructions = new ArrayList<>();
 		this.declarations = new HashMap<>();
 		this.parameters = new LinkedHashMap<>();
-		this.parameterTypes = new ArrayList<>();
 	}
 	
 	public String getName() {
@@ -35,26 +33,16 @@ public class PLFunction<T> extends PLBlock {
 		return this.instructions;
 	}
 	
-	public Map<String, PLDeclaration> getParameters() {
+	public Map<String, String> getParameters() {
 		return this.parameters;
-	}
-	
-	public List<String> getParameterTypes() {
-		return this.parameterTypes;
 	}
 	
 	public void addDeclaration(PLDeclaration decl) {
 		this.declarations.put(decl.getId(), decl);
 	}
 	
-	public void addParameter(PLDeclaration decl) {
-		this.declarations.put(id, decl);
-		this.parameters.put(id, decl);
-		this.parameterTypes.add(decl.getType());
-	}
-	
-	public void addParameterType(String type) {
-		this.parameterTypes.add(type);
+	public void addParameter(String id, String type) {
+		this.parameters.put(id, type);
 	}
 	
 	public void addStatement(PLStatement stmt) {
