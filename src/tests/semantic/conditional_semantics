@@ -1,0 +1,11 @@
+PROGRAM conditional_semantics
+
+	FUNC main()
+		INT :: a
+		
+		IF (a) THEN
+		END IF
+		
+	END FUNC
+
+END PROGRAM
