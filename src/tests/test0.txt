@@ -3,6 +3,7 @@ TEST program0
 	@Test
 	FUNC test0 ()
 		main( )
+		plus_one( )
 	END FUNC
 	
 END TEST

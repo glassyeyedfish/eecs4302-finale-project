@@ -15,6 +15,12 @@ PROGRAM program0
 		c = TRUE
 		b = b || c
 		
+		IF (b && !c) THEN
+			PRINT(a)
+			PRINT(b)
+			PRINT(c)
+		END IF
+		
 	END FUNC
 	
 END PROGRAM

@@ -52,7 +52,7 @@ public class DCPath {
 		this.isCUse = isCUse;
 	}
 
-	public boolean ispUseCondition() {
+	public boolean getPUseCondition() {
 		return pUseCondition;
 	}
 

@@ -42,6 +42,12 @@ public class App {
 			}
 			AntlrToProgram visitor = new AntlrToProgram();
 			program = visitor.visit(AST);
+			if (!visitor.getSemanticErrors().isEmpty()) {
+				for (String msg: visitor.getSemanticErrors()) {
+					System.err.println(msg);
+				}
+				System.exit(1);
+			}
 		}
 		
 //		System.out.println(
@@ -81,7 +87,7 @@ public class App {
 		
 		System.out.println("\n ===== RESULTS OF PROCESSOR =====");
 		for (Map.Entry<String, ProcessorData> entry: dataMap.entrySet()) {
-			System.out.println("Function:            " + entry.getKey());
+			System.out.println("\nFunction:            " + entry.getKey());
 			System.out.println("All DC Paths:        " + entry.getValue().allDCPaths);
 			System.out.println("All Statements:      " + entry.getValue().allStatements);
 			System.out.println("All Decisions:       " + entry.getValue().allDecisions);
@@ -92,13 +98,13 @@ public class App {
 		 */
 		
 		Interpreter itrp = new Interpreter();
-		System.out.println("\n ===== RESULTS OF INTERPRETER =====");
 		for (TLTestFunc tf: testProgram.getTestFunctions()) {
 			itrp.interpret(tf, program, dataMap);
 		}
 		
+		System.out.println("\n ===== RESULTS OF INTERPRETER =====");
 		for (Map.Entry<String, ProcessorData> entry: dataMap.entrySet()) {
-			System.out.println("Function:            " + entry.getKey());
+			System.out.println("\nFunction:            " + entry.getKey());
 			System.out.println("Covered DC Paths:    " + entry.getValue().coveredDCPaths);
 			System.out.println("Covered Statements:  " + entry.getValue().coveredStatements);
 			System.out.println("Covered Decisions:   " + entry.getValue().coveredDecisions);
