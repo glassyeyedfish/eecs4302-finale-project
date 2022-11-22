@@ -54,6 +54,7 @@ public class Processor {
 		
 		// Sort line numbers
 		data.allStatements.sort(Comparator.naturalOrder());
+		data.allDecisions.sort(Comparator.naturalOrder());
 		
 		return data;
 	}
@@ -162,19 +163,50 @@ public class Processor {
 	 * Code Coverage generators.
 	 */
 	public void generateAllDefs(ProcessorData data) {
-		Set<String> coveredVars = new HashSet();
+		// See what needs to be covered
+		for (DCPath path: data.allDCPaths) {
+			if (!data.requiredForAllDefs.contains(path.getId())) {
+				data.requiredForAllDefs.add(path.getId());
+			}
+		}
 		
-		// Find all covered definitions
+		// See if everything was actually covered
 		for (DCPath path: data.coveredDCPaths) {
-			coveredVars.add(path.getId());
+			if (!data.coveredForAllDefs.contains(path.getId())) {
+				data.coveredForAllDefs.add(path.getId());
+			}
 		}
 	}
 
 	public void generateAllCUses(ProcessorData data) {
-		// TODO implement
+		// See what needs to be covered
+		for (DCPath path: data.allDCPaths) {
+			if (!data.requiredForAllCUses.contains(path) && path.isCUse()) {
+				data.requiredForAllCUses.add(path);
+			}
+		}
+		
+		// See if everything was actually covered
+		for (DCPath path: data.coveredDCPaths) {
+			if (!data.coveredForAllCUses.contains(path) && path.isCUse()) {
+				data.coveredForAllCUses.add(path);
+			}
+		}
 	}
 
 	public void generateAllPUses(ProcessorData data) {
-		// TODO implement
+		// See what needs to be covered
+		for (DCPath path: data.allDCPaths) {
+			if (!data.requiredForAllPUses.contains(path) && !path.isCUse()) {
+				data.requiredForAllPUses.add(path);
+			}
+		}
+		
+		// See if everything was actually covered
+		for (DCPath path: data.coveredDCPaths) {
+			if (!data.coveredForAllPUses.contains(path) && !path.isCUse()) {
+				data.coveredForAllPUses.add(path);
+			}
+		}
 	}
 }

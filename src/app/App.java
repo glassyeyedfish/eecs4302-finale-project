@@ -104,10 +104,22 @@ public class App {
 		
 		System.out.println("\n ===== RESULTS OF INTERPRETER =====");
 		for (Map.Entry<String, ProcessorData> entry: dataMap.entrySet()) {
+			proc.generateAllDefs(entry.getValue());
+			proc.generateAllCUses(entry.getValue());
+			proc.generateAllPUses(entry.getValue());
+			
 			System.out.println("\nFunction:            " + entry.getKey());
 			System.out.println("Covered DC Paths:    " + entry.getValue().coveredDCPaths);
 			System.out.println("Covered Statements:  " + entry.getValue().coveredStatements);
-			System.out.println("Covered Decisions:   " + entry.getValue().coveredDecisions);
+			System.out.println("Covered Decisions T: " + entry.getValue().coveredDecisionsTrue);
+			System.out.println("Covered Decisions F: " + entry.getValue().coveredDecisionsFalse);
+			
+			System.out.println("\nRequired All Defs:   " + entry.getValue().requiredForAllDefs);
+			System.out.println("Covered All Defs:    " + entry.getValue().coveredForAllDefs);
+			System.out.println("Required All CUses:  " + entry.getValue().requiredForAllCUses);
+			System.out.println("Covered All CUses:   " + entry.getValue().coveredForAllCUses);
+			System.out.println("Required All PUses:  " + entry.getValue().requiredForAllPUses);
+			System.out.println("Covered All PUses:   " + entry.getValue().coveredForAllPUses);
 		}
 		
 		

@@ -51,7 +51,9 @@ public class Interpreter {
 		
 		// Sort line numbers
 		for (Map.Entry<String, ProcessorData> entry: dataMap.entrySet()) {
-			entry.getValue().allStatements.sort(Comparator.naturalOrder());
+			entry.getValue().coveredStatements.sort(Comparator.naturalOrder());
+			entry.getValue().coveredDecisionsTrue.sort(Comparator.naturalOrder());
+			entry.getValue().coveredDecisionsFalse.sort(Comparator.naturalOrder());
 		}
 	}
 	
@@ -82,6 +84,9 @@ public class Interpreter {
 			PLConditional cnd = (PLConditional) stmt;
 			
 			if (cnd.getExpression().evaluate()) {
+				// control flow coverage
+				dataMap.get(func.getName()).coverDecisionAt(stmt.getLineNum(), true);
+				
 				// data flow coverage
 				dataMap.get(func.getName()).coverPathAt(cnd.getLineNum(), true);
 				
@@ -90,6 +95,9 @@ public class Interpreter {
 					interpretStatement(func, innerStmt, dataMap);
 				}
 			} else {
+				// control flow coverage
+				dataMap.get(func.getName()).coverDecisionAt(stmt.getLineNum(), false);
+				
 				// data flow coverage
 				dataMap.get(func.getName()).coverPathAt(cnd.getLineNum(), false);
 			}

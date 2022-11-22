@@ -13,9 +13,9 @@ PROGRAM program0
 		b = b && FALSE
 		
 		c = TRUE
-		b = b || c
+		b = b && FALSE
 		
-		IF (b && !c) THEN
+		IF (b) THEN
 			PRINT(a)
 			PRINT(b)
 			PRINT(c)
