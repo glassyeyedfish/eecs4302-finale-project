@@ -4,39 +4,35 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Store {
-    private static Store instance;
-    private Map<String, Integer> intVariables;
-    private Map<String, Boolean> boolVariables;
+    private static Map<String, Integer> intVariables;
+    private static Map<String, Boolean> boolVariables;
     
-    private Store(){
+    public static void addVariable(String id, String type) {
+    	if (type.equals("BOOL")) {
+    		boolVariables.put(id, null);
+    	} else if (type.equals("INT")) {
+    		intVariables.put(id, null);
+    	}
+    }
+    
+    public static void setVariable(String id, Integer val) {
+    	intVariables.put(id, val);
+    }
+    
+    public static void setVariable(String id, Boolean val) {
+    	boolVariables.put(id, val);
+    }
+    
+    public static int getIntVariable(String id) {
+    	return intVariables.get(id);
+    }
+    
+    public static boolean getBoolVariable(String id) {
+    	return boolVariables.get(id);
+    }
+    
+    public static void reset() {
     	intVariables = new HashMap<>();
     	boolVariables = new HashMap<>();
-    }
-    
-    public static synchronized Store getInstance() {
-        if (instance == null) {
-            instance = new Store();
-        }
-        return instance;
-    }
-    
-    public void addVariable(String id, int val) {
-    	this.intVariables.put(id, val);
-    }
-    
-    public void addVariable(String id, boolean val) {
-    	this.boolVariables.put(id, val);
-    }
-    
-    public int getIntVariable(String id) {
-    	return this.intVariables.get(id);
-    }
-    
-    public boolean getBoolVariable(String id) {
-    	return this.boolVariables.get(id);
-    }
-    
-    public void reset() {
-    	instance = null;
     }
 }

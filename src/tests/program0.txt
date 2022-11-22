@@ -3,8 +3,17 @@ PROGRAM program0
 	FUNC main() 
 	
 		INT :: a
+		BOOL :: b
+		BOOL :: c
+		
 		a = 1
 		a = a + 1
+		
+		b = TRUE
+		b = b && FALSE
+		
+		c = TRUE
+		b = b || c
 		
 	END FUNC
 	

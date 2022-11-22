@@ -15,7 +15,7 @@ public class PLBooleanVariable extends PLBooleanExpression {
 
 	@Override
 	public Boolean evaluate() {
-		return Store.getInstance().getBoolVariable(id);
+		return Store.getBoolVariable(id);
 	}
 
 	@Override
