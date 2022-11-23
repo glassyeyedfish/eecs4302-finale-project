@@ -2,7 +2,7 @@ TEST test1
 
 	@Test
 	FUNC test0 ()
-		main( )
+		foo( )
 	END FUNC
 
 END TEST

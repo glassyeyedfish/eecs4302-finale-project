@@ -1,5 +1,27 @@
 PROGRAM program1
-	BOOL :: a
-	INT :: b
-	a = TRUE
+
+	FUNC main() 
+	
+		INT :: a
+		BOOL :: b
+		INT :: c
+		
+		a = 1
+		a = a + 1
+		
+		b = TRUE
+		b = b || TRUE
+		
+		c = 1
+		
+		IF (b && TRUE) THEN
+			IF (!b) THEN
+				PRINT(a)
+				PRINT(b)
+				PRINT(c)
+			END IF
+		END IF
+			
+	END FUNC
+
 END PROGRAM

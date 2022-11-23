@@ -1,6 +1,14 @@
 PROGRAM program2
-	BOOL :: a
-	INT :: b
-	a = TRUE
-	b = 42
+
+	FUNC main() 
+	
+		INT :: a
+		BOOL :: b
+		INT :: c
+		
+		a = 1
+		a = (a + 1) + (2 * 2 * a + 4)
+			
+	END FUNC
+
 END PROGRAM
