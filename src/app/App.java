@@ -1,8 +1,11 @@
 package app;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.StringJoiner;
 import java.util.Map.Entry;
 
 import org.antlr.v4.runtime.CharStream;
@@ -10,7 +13,8 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import coverage.CoverageReport;
+import coverage.ProgramCoverageData;
+import html.HTML;
 import pipeline.Interpreter;
 import pipeline.Processor;
 import pipeline.ProcessorData;
@@ -31,11 +35,13 @@ public class App {
 			System.exit(1);
 		}
 		
+		String programFileName = args[0];
+		String testFileName = args[1];
+		
 		// PL Stuff
 		PLProgram program;
 		{
-			String fileName = args[0];
-			ProgLangParser parser = getPLParser(fileName);
+			ProgLangParser parser = getPLParser(programFileName);
 			ParseTree AST = parser.prog();
 			
 			if (ErrorListener.hasError) {
@@ -60,8 +66,7 @@ public class App {
 		// TL Stuff
 		TLProgram testProgram;
 		{
-			String fileName = args[1];
-			TestLangParser parser = getTLParser(fileName);
+			TestLangParser parser = getTLParser(testFileName);
 			ParseTree AST = parser.prog();
 			
 			if (ErrorListener.hasError) {
@@ -75,7 +80,11 @@ public class App {
 //				testProgram
 //		);
 		
-		CoverageReport report = new CoverageReport();
+		ProgramCoverageData coverage = new ProgramCoverageData();
+		coverage.programName = program.getName();
+		
+		coverage.programSource = readFile(programFileName);
+		coverage.testSource = readFile(testFileName);
 		
 		/*
 		 * PROCESSOR STUFF
@@ -83,16 +92,18 @@ public class App {
 		Processor proc = new Processor();
 		Map<String, ProcessorData> dataMap = new HashMap<>();
 		
+		StringJoiner formatted = new StringJoiner("\n");
+		
 		for (Entry<String, PLFunction> entry: program.getFunctions().entrySet()) {
 			dataMap.put(entry.getKey(), proc.processPLFunction(entry.getValue()));
 		}
 		
-		System.out.println("\n ===== RESULTS OF PROCESSOR =====");
+		formatted.add("\n ===== RESULTS OF PROCESSOR =====");
 		for (Map.Entry<String, ProcessorData> entry: dataMap.entrySet()) {
-			System.out.println("\nFunction:            " + entry.getKey());
-			System.out.println("All DC Paths:        " + entry.getValue().allDCPaths);
-			System.out.println("All Statements:      " + entry.getValue().allStatements);
-			System.out.println("All Decisions:       " + entry.getValue().allDecisions);
+			formatted.add("\nFunction:            " + entry.getKey());
+			formatted.add("All DC Paths:        " + entry.getValue().allDCPaths);
+			formatted.add("All Statements:      " + entry.getValue().allStatements);
+			formatted.add("All Decisions:       " + entry.getValue().allDecisions);
 		}
 		
 		/*
@@ -104,27 +115,33 @@ public class App {
 			itrp.interpret(tf, program, dataMap);
 		}
 		
-		System.out.println("\n ===== RESULTS OF INTERPRETER =====");
+		formatted.add("\n ===== RESULTS OF INTERPRETER =====");
 		for (Map.Entry<String, ProcessorData> entry: dataMap.entrySet()) {
 			proc.generateAllDefs(entry.getValue());
 			proc.generateAllCUses(entry.getValue());
 			proc.generateAllPUses(entry.getValue());
 			
-			System.out.println("\nFunction:            " + entry.getKey());
-			System.out.println("Covered DC Paths:    " + entry.getValue().coveredDCPaths);
-			System.out.println("Covered Statements:  " + entry.getValue().coveredStatements);
-			System.out.println("Covered Decisions T: " + entry.getValue().coveredDecisionsTrue);
-			System.out.println("Covered Decisions F: " + entry.getValue().coveredDecisionsFalse);
+			formatted.add("\nFunction:            " + entry.getKey());
+			formatted.add("Covered DC Paths:    " + entry.getValue().coveredDCPaths);
+			formatted.add("Covered Statements:  " + entry.getValue().coveredStatements);
+			formatted.add("Covered Decisions T: " + entry.getValue().coveredDecisionsTrue);
+			formatted.add("Covered Decisions F: " + entry.getValue().coveredDecisionsFalse);
 			
-			System.out.println("\nRequired All Defs:   " + entry.getValue().requiredForAllDefs);
-			System.out.println("Covered All Defs:    " + entry.getValue().coveredForAllDefs);
-			System.out.println("Required All CUses:  " + entry.getValue().requiredForAllCUses);
-			System.out.println("Covered All CUses:   " + entry.getValue().coveredForAllCUses);
-			System.out.println("Required All PUses:  " + entry.getValue().requiredForAllPUses);
-			System.out.println("Covered All PUses:   " + entry.getValue().coveredForAllPUses);
+			formatted.add("\nRequired All Defs:   " + entry.getValue().requiredForAllDefs);
+			formatted.add("Covered All Defs:    " + entry.getValue().coveredForAllDefs);
+			formatted.add("Required All CUses:  " + entry.getValue().requiredForAllCUses);
+			formatted.add("Covered All CUses:   " + entry.getValue().coveredForAllCUses);
+			formatted.add("Required All PUses:  " + entry.getValue().requiredForAllPUses);
+			formatted.add("Covered All PUses:   " + entry.getValue().coveredForAllPUses);
 		}
 		
+		System.out.println(formatted.toString());
+
+		coverage.rawData = formatted.toString();
+		coverage.dataMap = dataMap;
 		
+		HTML html = new HTML(coverage);
+		html.outputToFile("index");
 	}
 	
 	private static ProgLangParser getPLParser(String fileName) {
@@ -159,6 +176,15 @@ public class App {
 			e.printStackTrace();
 		}
 		return parser;	
+	}
+	
+	private static String readFile(String filename) {
+		try {			
+			return new String(Files.readAllBytes(Paths.get(filename)));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 }

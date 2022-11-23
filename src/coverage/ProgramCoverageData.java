@@ -2,24 +2,32 @@ package coverage;
 
 import java.util.*;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
-// import com.google.gson.annotations.SerializedName;
 
 import pipeline.ProcessorData;
 
 public class ProgramCoverageData {
 	@Expose
-	String programName;
+	public String programName;
 	
 	@Expose
-	String programSource;
+	public String programSource;
 	
 	@Expose
-	String testSource;
+	public String testSource;
 	
 	@Expose
-	Map<String, ProcessorData> dataMap;
+	public Map<String, ProcessorData> dataMap;
 	
 	@Expose
-	String rawData;
+	public String rawData;
+	
+	public ProgramCoverageData() {}
+	
+	public String toJson() {
+		Gson gson = new GsonBuilder().disableHtmlEscaping().excludeFieldsWithoutExposeAnnotation().create();
+		return gson.toJson(this);
+	}
 }
