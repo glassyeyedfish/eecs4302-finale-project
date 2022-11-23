@@ -1,13 +1,14 @@
 package coverage;
-
+/*
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-
+*/
 public class CoverageReport {
+	/*
 	List<ProgramCoverageData> programs;
 	
 	public CoverageReport() {
@@ -15,9 +16,9 @@ public class CoverageReport {
 	}
 	
 	public void addProgram(String prettyPrint, List<Integer> coverageLines, HashSet<String> allDefsCoverage) {
-		/* TODO: clean up method signatures, starting with changings how various coverages originate
-			from within PLProcessor
-		 */
+		// TODO: clean up method signatures, starting with changings how various coverages originate
+		//	from within PLProcessor
+		
 		this.addProgram(new ProgramCoverageData(prettyPrint, coverageLines, allDefsCoverage));
 	}
 	
@@ -36,5 +37,5 @@ public class CoverageReport {
 			System.out.println("Coverage: " + prog.coverageLines);
 			System.out.println("All-defs coverage: " + prog.allDefsCoverage);
 		}
-	}
+	}*/
 }

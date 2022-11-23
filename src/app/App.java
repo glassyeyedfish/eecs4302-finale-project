@@ -10,6 +10,7 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
+import coverage.CoverageReport;
 import pipeline.Interpreter;
 import pipeline.Processor;
 import pipeline.ProcessorData;
@@ -74,6 +75,7 @@ public class App {
 //				testProgram
 //		);
 		
+		CoverageReport report = new CoverageReport();
 		
 		/*
 		 * PROCESSOR STUFF

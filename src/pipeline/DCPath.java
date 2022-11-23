@@ -1,12 +1,19 @@
 package pipeline;
 
+import com.google.gson.annotations.Expose;
+
 public class DCPath {
+	@Expose
 	private int lineFrom;
+	@Expose
 	private int lineTo;
 	
+	@Expose
 	private boolean isCUse;
+	@Expose
 	private boolean pUseCondition;
 	
+	@Expose
 	private String id;
 	
 	public DCPath(int lineFrom, String id) {

@@ -1,26 +1,38 @@
 PROGRAM program0
 
+	FUNC foo()
+		INT :: a
+		a = 1
+		a = a
+		
+		IF (FALSE) THEN
+			PRINT(a)
+		END IF
+		
+	END FUNC
+
 	FUNC main() 
 	
 		INT :: a
 		BOOL :: b
-		BOOL :: c
+		INT :: c
 		
 		a = 1
 		a = a + 1
 		
 		b = TRUE
-		b = b && FALSE
+		b = b || TRUE
 		
-		c = TRUE
-		b = b && FALSE
+		c = 1
 		
-		IF (b) THEN
+		foo()
+		
+		IF (b && FALSE) THEN
 			PRINT(a)
 			PRINT(b)
 			PRINT(c)
 		END IF
-		
+			
 	END FUNC
 	
 END PROGRAM
