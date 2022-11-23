@@ -1,0 +1,8 @@
+TEST test1
+
+	@Test
+	FUNC test0 ()
+		foo( )
+	END FUNC
+
+END TEST

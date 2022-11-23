@@ -2,40 +2,32 @@ package coverage;
 
 import java.util.*;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+
+import pipeline.ProcessorData;
 
 public class ProgramCoverageData {
 	@Expose
-	List<String> lines;
-	@Expose
-	@SerializedName("coverage")
-	List<Integer> coverageLines;
-
-	@Expose
-	@SerializedName("all_defs_coverage")
-	HashSet<String> allDefsCoverage;
-
-	String prettyPrint;
+	public String programName;
 	
-	public ProgramCoverageData(String prettyPrint, List<Integer> lines, HashSet<String> allDefsCoverage) {
-		this.prettyPrint = prettyPrint;
-		this.lines = this.getLinesFromPrettyPrint(prettyPrint);
-		this.coverageLines = lines;
-		this.allDefsCoverage = allDefsCoverage;
-	}
+	@Expose
+	public String programSource;
 	
-	private List<String> getLinesFromPrettyPrint(String prettyPrint) {
-		List<String> result = new ArrayList<>();
-		
-		String[] lines = prettyPrint.split("\n");
-		
-		for (String line: lines) {
-			// ignore the line number for now since its sequential...
-			// TODO: create a better data structure to store the data
-			result.add(line.split("\t")[1]);
-		}
-		
-		return result;
+	@Expose
+	public String testSource;
+	
+	@Expose
+	public Map<String, ProcessorData> dataMap;
+	
+	@Expose
+	public String rawData;
+	
+	public ProgramCoverageData() {}
+	
+	public String toJson() {
+		Gson gson = new GsonBuilder().disableHtmlEscaping().excludeFieldsWithoutExposeAnnotation().create();
+		return gson.toJson(this);
 	}
 }

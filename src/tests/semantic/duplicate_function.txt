@@ -1,0 +1,9 @@
+PROGRAM duplicate_function
+
+	FUNC main()
+	END FUNC
+	
+	FUNC main()
+	END FUNC
+
+END PROGRAM

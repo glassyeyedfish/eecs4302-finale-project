@@ -1,4 +1,13 @@
-TEST PROGRAM test0
-	RUN program0
-	RUN program3
-END TEST PROGRAM
+TEST program0
+
+	@Test
+	FUNC test0 ()
+		main( )
+	END FUNC
+	
+	@Test
+	FUNC test1 ()
+		foo( )
+	END FUNC
+	
+END TEST

@@ -1,5 +1,0 @@
-PROGRAM program1
-	BOOL :: a
-	INT :: b
-	a = TRUE
-END PROGRAM

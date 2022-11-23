@@ -6,9 +6,9 @@ import java.util.stream.Collectors;
 import coverage.*;
 
 public class HTML {
-	CoverageReport data;
+	ProgramCoverageData data;
 	
-	public HTML(CoverageReport data) {
+	public HTML(ProgramCoverageData data) {
 		this.data = data;
 	}
 	
