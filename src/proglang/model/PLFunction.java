@@ -53,6 +53,10 @@ public class PLFunction<T> extends PLBlock {
 		this.parameters.put(id, type);
 	}
 	
+	public void setParameter(Map<String, String> parameters) {
+		this.parameters = parameters;
+	}
+	
 	public void addStatement(PLStatement stmt) {
 		this.instructions.add(stmt);
 	}

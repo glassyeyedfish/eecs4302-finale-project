@@ -2,6 +2,8 @@ package proglang.visitor;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import proglang.antlr.ProgLangBaseVisitor;
 import proglang.antlr.ProgLangParser.FunctionContext;
@@ -19,6 +21,7 @@ public class AntlrToProgram extends ProgLangBaseVisitor<PLProgram> {
 		semanticErrors = new ArrayList<>();
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public PLProgram visitProgram(ProgramContext ctx) {
 		PLProgram p = new PLProgram(ctx.ID().getText(), ctx.getStart().getLine(), ctx.getStop().getLine());
@@ -40,6 +43,7 @@ public class AntlrToProgram extends ProgLangBaseVisitor<PLProgram> {
 		for (int i = 0; i < ctx.getChildCount(); i++) {
 			PLFunction<?> func = antlrToFunction.visit(ctx.getChild(i));
 			if (func != null) {
+				func.setParameter(p.getFunctions().get(func.getName()).getParameters());
 				p.addFunction(func);
 			}
 		}
