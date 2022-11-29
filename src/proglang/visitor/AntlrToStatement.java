@@ -46,9 +46,23 @@ public class AntlrToStatement extends ProgLangBaseVisitor<PLStatement> {
 	public PLStatement visitAttributeAsgmt(AttributeAsgmtContext ctx) {
 		if (parentFunc.getVariables().containsKey(ctx.ID().getText())) {
 			if (parentFunc.getVariables().get(ctx.ID().getText()).getType().equals("INT")) {
+				if (antlrToExpression.visit(ctx.expr()) == null) {
+					return null;
+				}
+				else if (!(antlrToExpression.visit(ctx.expr()) instanceof PLArithmeticExpression)) {
+					semanticErrors.add("Error: type mismatch cannot assign a BOOL to an INT (line: " + ctx.getStart().getLine() + ").");
+					return null;
+				}
 				return new PLAssignment<Integer>(ctx.ID().getText(), (PLArithmeticExpression) antlrToExpression.visit(ctx.expr()), ctx.getStart().getLine());
 			}
 			else if (parentFunc.getVariables().get(ctx.ID().getText()).getType().equals("BOOL")) {
+				if (antlrToExpression.visit(ctx.expr()) == null) {
+					return null;
+				}
+				else if (!(antlrToExpression.visit(ctx.expr()) instanceof PLBooleanExpression)) {
+					semanticErrors.add("Error: type mismatch cannot assign a INT to an BOOL (line: " + ctx.getStart().getLine() + ").");
+					return null;
+				}
 				return new PLAssignment<Boolean>(ctx.ID().getText(), (PLBooleanExpression) antlrToExpression.visit(ctx.expr()), ctx.getStart().getLine());
 			}
 		}

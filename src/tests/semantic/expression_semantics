@@ -1,0 +1,28 @@
+PROGRAM expression_semantics
+
+	FUNC foo() :: INT
+	END FUNC
+
+	FUNC main() 
+	
+		INT :: a
+		BOOL :: b
+		
+		a = TRUE
+		a = 1 * TRUE
+		a = TRUE * 1
+		a = 1 - FALSE
+		a = FALSE + 1
+		
+		b = 1
+		b = 1 < TRUE
+		b = 1 <= FALSE
+		b = FALSE >= 1
+		b = 1 > TRUE
+		b = 1 == TRUE
+		b = !1
+		
+		b = foo()
+	END FUNC
+
+END PROGRAM

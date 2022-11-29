@@ -21,10 +21,9 @@ import proglang.antlr.ProgLangParser.ParenthesesContext;
 import proglang.antlr.ProgLangParser.SubtractionContext;
 import proglang.antlr.ProgLangParser.VariableContext;
 import proglang.model.PLBooleanFunction;
-import proglang.model.PLIntegerFunction;
 import proglang.model.PLFunction;
+import proglang.model.PLIntegerFunction;
 import proglang.model.PLProgram;
-import proglang.model.PLVoidFunction;
 import proglang.model.expressions.PLAddition;
 import proglang.model.expressions.PLAnd;
 import proglang.model.expressions.PLArithmeticBrackets;
@@ -63,16 +62,43 @@ public class AntlrToExpression extends ProgLangBaseVisitor<PLExpression<?>>{
 
 	@Override
 	public PLExpression<?> visitMultiplication(MultiplicationContext ctx) {
+		PLExpression<?> left = visit(ctx.expr(0));
+		PLExpression<?> right = visit(ctx.expr(1));
+		if (left == null || right == null) {
+			return null;
+		}
+		else if (!(left instanceof PLArithmeticExpression) || !(right instanceof PLArithmeticExpression)) {
+			this.semanticErrors.add("Error: type mismatch at '*' expression (line: " + ctx.getStart().getLine() + ").");
+			return null;
+		}
 		return new PLMultiplication((PLArithmeticExpression) visit(ctx.expr(0)), (PLArithmeticExpression) visit(ctx.expr(1)));
 	}
 
 	@Override
 	public PLExpression<?> visitAddition(AdditionContext ctx) {
-		return new PLAddition((PLArithmeticExpression) visit(ctx.expr(0)), (PLArithmeticExpression) visit(ctx.expr(1)));
+		PLExpression<?> left = visit(ctx.expr(0));
+		PLExpression<?> right = visit(ctx.expr(1));
+		if (left == null || right == null) {
+			return null;
+		}
+		else if (!(left instanceof PLArithmeticExpression) || !(right instanceof PLArithmeticExpression)) {
+			this.semanticErrors.add("Error: type mismatch at '+' expression (line: " + ctx.getStart().getLine() + ").");
+			return null;
+		}
+		return new PLAddition((PLArithmeticExpression) left, (PLArithmeticExpression) right);
 	}
 
 	@Override
 	public PLExpression<?> visitLessThanOrEqualTo(LessThanOrEqualToContext ctx) {
+		PLExpression<?> left = visit(ctx.expr(0));
+		PLExpression<?> right = visit(ctx.expr(1));
+		if (left == null || right == null) {
+			return null;
+		}
+		else if (!(left instanceof PLArithmeticExpression) || !(right instanceof PLArithmeticExpression)) {
+			this.semanticErrors.add("Error: type mismatch at '<=' expression (line: " + ctx.getStart().getLine() + ").");
+			return null;
+		}
 		return new PLLessThanOrEqualTo((PLArithmeticExpression) visit(ctx.expr(0)), (PLArithmeticExpression) visit(ctx.expr(1)));
 	}
 
@@ -94,21 +120,57 @@ public class AntlrToExpression extends ProgLangBaseVisitor<PLExpression<?>>{
 
 	@Override
 	public PLExpression<?> visitOr(OrContext ctx) {
+		PLExpression<?> left = visit(ctx.expr(0));
+		PLExpression<?> right = visit(ctx.expr(1));
+		if (left == null || right == null) {
+			return null;
+		}
+		else if (!(left instanceof PLBooleanExpression) || !(right instanceof PLBooleanExpression)) {
+			this.semanticErrors.add("Error: type mismatch at '||' expression (line: " + ctx.getStart().getLine() + ").");
+			return null;
+		}
 		return new PLOr((PLBooleanExpression) visit(ctx.expr(0)), (PLBooleanExpression) visit(ctx.expr(1)));
 	}
 
 	@Override
 	public PLExpression<?> visitNotEqualTo(NotEqualToContext ctx) {
+		PLExpression<?> left = visit(ctx.expr(0));
+		PLExpression<?> right = visit(ctx.expr(1));
+		if (left == null || right == null) {
+			return null;
+		}
+		else if (!(left instanceof PLArithmeticExpression) || !(right instanceof PLArithmeticExpression)) {
+			this.semanticErrors.add("Error: type mismatch at '!=' expression (line: " + ctx.getStart().getLine() + ").");
+			return null;
+		}
 		return new PLNotEqualTo((PLArithmeticExpression) visit(ctx.expr(0)), (PLArithmeticExpression) visit(ctx.expr(1)));
 	}
 
 	@Override
 	public PLExpression<?> visitGreaterThanOrEqualTo(GreaterThanOrEqualToContext ctx) {
+		PLExpression<?> left = visit(ctx.expr(0));
+		PLExpression<?> right = visit(ctx.expr(1));
+		if (left == null || right == null) {
+			return null;
+		}
+		else if (!(left instanceof PLArithmeticExpression) || !(right instanceof PLArithmeticExpression)) {
+			this.semanticErrors.add("Error: type mismatch at '>=' expression (line: " + ctx.getStart().getLine() + ").");
+			return null;
+		}
 		return new PLGreaterThanOrEqualTo((PLArithmeticExpression) visit(ctx.expr(0)), (PLArithmeticExpression) visit(ctx.expr(1)));
 	}
 
 	@Override
 	public PLExpression<?> visitEqualTo(EqualToContext ctx) {
+		PLExpression<?> left = visit(ctx.expr(0));
+		PLExpression<?> right = visit(ctx.expr(1));
+		if (left == null || right == null) {
+			return null;
+		}
+		else if (!(left instanceof PLArithmeticExpression) || !(right instanceof PLArithmeticExpression)) {
+			this.semanticErrors.add("Error: type mismatch at '==' expression (line: " + ctx.getStart().getLine() + ").");
+			return null;
+		}
 		return new PLEqualTo((PLArithmeticExpression) visit(ctx.expr(0)), (PLArithmeticExpression) visit(ctx.expr(1)));
 	}
 
@@ -119,26 +181,70 @@ public class AntlrToExpression extends ProgLangBaseVisitor<PLExpression<?>>{
 
 	@Override
 	public PLExpression<?> visitNot(NotContext ctx) {
+		PLExpression<?> left = visit(ctx.expr());
+		if (left == null) {
+			return null;
+		}
+		else if (!(left instanceof PLBooleanExpression)) {
+			this.semanticErrors.add("Error: type mismatch at '!' expression (line: " + ctx.getStart().getLine() + ").");
+			return null;
+		}
 		return new PLNot((PLBooleanExpression) visit(ctx.expr()));
 	}
 
 	@Override
 	public PLExpression<?> visitLessThan(LessThanContext ctx) {
+		PLExpression<?> left = visit(ctx.expr(0));
+		PLExpression<?> right = visit(ctx.expr(1));
+		if (left == null || right == null) {
+			return null;
+		}
+		else if (!(left instanceof PLArithmeticExpression) || !(right instanceof PLArithmeticExpression)) {
+			this.semanticErrors.add("Error: type mismatch at '<' expression (line: " + ctx.getStart().getLine() + ").");
+			return null;
+		}
 		return new PLLessThan((PLArithmeticExpression) visit(ctx.expr(0)), (PLArithmeticExpression) visit(ctx.expr(1)));
 	}
 
 	@Override
 	public PLExpression<?> visitSubtraction(SubtractionContext ctx) {
+		PLExpression<?> left = visit(ctx.expr(0));
+		PLExpression<?> right = visit(ctx.expr(1));
+		if (left == null || right == null) {
+			return null;
+		}
+		else if (!(left instanceof PLArithmeticExpression) || !(right instanceof PLArithmeticExpression)) {
+			this.semanticErrors.add("Error: type mismatch at '-' expression (line: " + ctx.getStart().getLine() + ").");
+			return null;
+		}
 		return new PLSubtraction((PLArithmeticExpression) visit(ctx.expr(0)), (PLArithmeticExpression) visit(ctx.expr(1)));
 	}	
 
 	@Override
 	public PLExpression<?> visitGreaterThan(GreaterThanContext ctx) {
+		PLExpression<?> left = visit(ctx.expr(0));
+		PLExpression<?> right = visit(ctx.expr(1));
+		if (left == null || right == null) {
+			return null;
+		}
+		else if (!(left instanceof PLArithmeticExpression) || !(right instanceof PLArithmeticExpression)) {
+			this.semanticErrors.add("Error: type mismatch at '>' expression (line: " + ctx.getStart().getLine() + ").");
+			return null;
+		}
 		return new PLGreaterThan((PLArithmeticExpression) visit(ctx.expr(0)), (PLArithmeticExpression) visit(ctx.expr(1)));
 	}
 
 	@Override
 	public PLExpression<?> visitAnd(AndContext ctx) {
+		PLExpression<?> left = visit(ctx.expr(0));
+		PLExpression<?> right = visit(ctx.expr(1));
+		if (left == null || right == null) {
+			return null;
+		}
+		else if (!(left instanceof PLBooleanExpression) || !(right instanceof PLBooleanExpression)) {
+			this.semanticErrors.add("Error: type mismatch at '&&' expression (line: " + ctx.getStart().getLine() + ").");
+			return null;
+		}
 		return new PLAnd((PLBooleanExpression) visit(ctx.expr(0)), (PLBooleanExpression) visit(ctx.expr(1)));
 	}
 
