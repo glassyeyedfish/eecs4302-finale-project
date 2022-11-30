@@ -21,6 +21,7 @@ import pipeline.ProcessorData;
 import proglang.antlr.ProgLangLexer;
 import proglang.antlr.ProgLangParser;
 import proglang.model.*;
+import proglang.model.expressions.*;
 import proglang.visitor.AntlrToProgram;
 import testlang.antlr.TestLangLexer;
 import testlang.antlr.TestLangParser;
@@ -37,6 +38,9 @@ public class App {
 		
 		String programFileName = args[0];
 		String testFileName = args[1];
+		
+		
+		
 		
 		// PL Stuff
 		PLProgram program;
@@ -58,10 +62,13 @@ public class App {
 		}
 		
 //		System.out.println(
-//				program.getFunctions().get("main")
-//				.getStatements()
+//				((PLIntegerFunctionCall) ((PLAssignment<?>) program.getFunctions().get("main")
+//				.getStatements().get(0)).getExpression()).getArguments()
 //				
 //		);
+		
+		
+		
 		
 		// TL Stuff
 		TLProgram testProgram;
@@ -86,59 +93,60 @@ public class App {
 		coverage.programSource = readFile(programFileName);
 		coverage.testSource = readFile(testFileName);
 		
+		
+		
+		
 		/*
 		 * PROCESSOR STUFF
 		 */
 		Processor proc = new Processor();
-		Map<String, ProcessorData> dataMap = new HashMap<>();
+		ProcessorData data = proc.processPLProgram(program);
 		
 		StringJoiner formatted = new StringJoiner("\n");
 		
-		for (Entry<String, PLFunction> entry: program.getFunctions().entrySet()) {
-			dataMap.put(entry.getKey(), proc.processPLFunction(entry.getValue()));
-		}
-		
 		formatted.add("\n ===== RESULTS OF PROCESSOR =====");
-		for (Map.Entry<String, ProcessorData> entry: dataMap.entrySet()) {
-			formatted.add("\nFunction:            " + entry.getKey());
-			formatted.add("All DC Paths:        " + entry.getValue().allDCPaths);
-			formatted.add("All Statements:      " + entry.getValue().allStatements);
-			formatted.add("All Decisions:       " + entry.getValue().allDecisions);
-		}
+		formatted.add("All DC Paths:        " + data.allDCPaths);
+		formatted.add("All Statements:      " + data.allStatements);
+		formatted.add("All Decisions:       " + data.allDecisions);
+		
+		
+		
 		
 		/*
 		 * INTERPRETER STUFF
 		 */
 		
 		Interpreter itrp = new Interpreter();
-		for (TLTestFunc tf: testProgram.getTestFunctions()) {
-			itrp.interpret(tf, program, dataMap);
-		}
+		itrp.interpret(testProgram, program, data);
 		
 		formatted.add("\n ===== RESULTS OF INTERPRETER =====");
-		for (Map.Entry<String, ProcessorData> entry: dataMap.entrySet()) {
-			proc.generateAllDefs(entry.getValue());
-			proc.generateAllCUses(entry.getValue());
-			proc.generateAllPUses(entry.getValue());
-			
-			formatted.add("\nFunction:            " + entry.getKey());
-			formatted.add("Covered DC Paths:    " + entry.getValue().coveredDCPaths);
-			formatted.add("Covered Statements:  " + entry.getValue().coveredStatements);
-			formatted.add("Covered Decisions T: " + entry.getValue().coveredDecisionsTrue);
-			formatted.add("Covered Decisions F: " + entry.getValue().coveredDecisionsFalse);
-			
-			formatted.add("\nRequired All Defs:   " + entry.getValue().requiredForAllDefs);
-			formatted.add("Covered All Defs:    " + entry.getValue().coveredForAllDefs);
-			formatted.add("Required All CUses:  " + entry.getValue().requiredForAllCUses);
-			formatted.add("Covered All CUses:   " + entry.getValue().coveredForAllCUses);
-			formatted.add("Required All PUses:  " + entry.getValue().requiredForAllPUses);
-			formatted.add("Covered All PUses:   " + entry.getValue().coveredForAllPUses);
-		}
+		proc.generateAllDefs(data);
+		proc.generateAllCUses(data);
+		proc.generateAllPUses(data);
+		
+		formatted.add("Covered DC Paths:    " + data.coveredDCPaths);
+		formatted.add("Covered Statements:  " + data.coveredStatements);
+		formatted.add("Covered Decisions T: " + data.coveredDecisionsTrue);
+		formatted.add("Covered Decisions F: " + data.coveredDecisionsFalse);
+		
+		formatted.add("\nRequired All Defs:   " + data.requiredForAllDefs);
+		formatted.add("Covered All Defs:    " + data.coveredForAllDefs);
+		formatted.add("Required All CUses:  " + data.requiredForAllCUses);
+		formatted.add("Covered All CUses:   " + data.coveredForAllCUses);
+		formatted.add("Required All PUses:  " + data.requiredForAllPUses);
+		formatted.add("Covered All PUses:   " + data.coveredForAllPUses);
 		
 		System.out.println(formatted.toString());
+		
+		
+		
+		
+		/*
+		 * FRONT END STUFF
+		 */
 
 		coverage.rawData = formatted.toString();
-		coverage.dataMap = dataMap;
+		coverage.data = data;
 		
 		HTML html = new HTML(coverage);
 		html.outputToFile("index");

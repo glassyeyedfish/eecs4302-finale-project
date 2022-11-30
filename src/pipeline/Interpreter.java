@@ -4,8 +4,8 @@ import java.util.Comparator;
 import java.util.Map;
 
 import proglang.model.*;
-import testlang.model.TLFunctionCall;
-import testlang.model.TLTestFunc;
+import proglang.model.expressions.*;
+import testlang.model.*;
 
 public class Interpreter {
 	
@@ -16,60 +16,82 @@ public class Interpreter {
 	 *  - coveredStatements;
 	 */
 	public void interpret(
-			TLTestFunc testfunc, 
+			TLProgram testProg, 
 			PLProgram prog, 
-			Map<String, ProcessorData> dataMap
+			ProcessorData data
 	) {
-		// Run each function call.
-		for (TLFunctionCall call: testfunc.getFunctionCalls()) {
-			if (prog.getFunctions().containsKey(call.getName())) {
-				PLFunction<?> func = prog.getFunctions().get(call.getName());
-				
-				dataMap.get(func.getName()).coverStatementAt(func.getStartLineNum());
-				
-				// Reset the store
-				Store.reset();
-				
-				// Load all variables into the store.
-				for (Map.Entry<String, PLDeclaration> entry: func.getVariables().entrySet()) {
-					// control flow coverage
-					dataMap.get(func.getName()).coverStatementAt(entry.getValue().getLineNum());
+		// Run each test function.
+		
+		for (TLTestFunc testfunc: testProg.getTestFunctions()) {
+			// Run each function call.
+			for (TLFunctionCall call: testfunc.getFunctionCalls()) {
+				if (prog.getFunctions().containsKey(call.getName())) {
+					PLFunction<?> func = prog.getFunctions().get(call.getName());
 					
-					Store.addVariable(entry.getKey(), entry.getValue().getType());
-				}
-				
-				// Run all instructions in the function
-				for (PLStatement stmt: func.getStatements()) {
-					interpretStatement(func, stmt, dataMap);
-				}
-				
-				if (func.getRtrnStmt() != null) {
-					interpretStatement(func, func.getRtrnStmt(), dataMap);
+					// Reset the store
+					Store.reset();
+					
+					interpretFunction(func, data, prog);
 				}
 			}
 		}
 		
 		// Sort line numbers
-		for (Map.Entry<String, ProcessorData> entry: dataMap.entrySet()) {
-			entry.getValue().coveredStatements.sort(Comparator.naturalOrder());
-			entry.getValue().coveredDecisionsTrue.sort(Comparator.naturalOrder());
-			entry.getValue().coveredDecisionsFalse.sort(Comparator.naturalOrder());
-		}
+		data.coveredStatements.sort(Comparator.naturalOrder());
+		data.coveredDecisionsTrue.sort(Comparator.naturalOrder());
+		data.coveredDecisionsFalse.sort(Comparator.naturalOrder());
 	}
+	
+	private void interpretFunction(
+			PLFunction<?> func,
+			ProcessorData data,
+			PLProgram prog
+	) {
+		// control flow coverage
+		data.coverStatementAt(func.getStartLineNum());
+		
+		// update call stack at the beginning of a function
+		Store.push(func.getName());
+		
+		// Load all declarations into the store.
+		for (Map.Entry<String, PLDeclaration> entry: func.getVariables().entrySet()) {
+			
+			if (!func.getParameters().containsKey(entry.getKey())) {
+				// control flow coverage
+				data.coverStatementAt(entry.getValue().getLineNum());
+				
+				Store.addVariable(entry.getKey(), entry.getValue().getType());
+			}
+		}
+		
+		// Run all instructions in the function
+		for (PLStatement stmt: func.getStatements()) {
+			interpretStatement(func, stmt, data, prog);
+		}
+		
+		if (func.getRtrnStmt() != null) {
+			interpretStatement(func, func.getRtrnStmt(), data, prog);
+		}
+		
+		// update call stack when function call is ended
+		Store.pop();
+	}
+	
 	
 	private void interpretStatement(
 			PLFunction<?> func,
 			PLStatement stmt,
-			Map<String, ProcessorData> dataMap
+			ProcessorData data,
+			PLProgram prog
 	) {
 		// control flow coverage
-		dataMap.get(func.getName()).coverStatementAt(stmt.getLineNum());
+		data.coverStatementAt(stmt.getLineNum());
 		
 		if (stmt instanceof PLAssignment) {
 			PLAssignment<?> a = (PLAssignment<?>) stmt;
 			
 			// data flow coverage
-			dataMap.get(func.getName()).coverPathAt(a.getLineNum());
+			data.coverPathAt(a.getLineNum());
 			
 			if (a.evaluate() instanceof Integer) {
 				Store.setVariable(a.getId(), (Integer) a.evaluate());
@@ -79,28 +101,54 @@ public class Interpreter {
 		} else if (stmt instanceof PLPrint || stmt instanceof PLReturn<?>) {
 			// TODO Actually print something, maybe?
 			// data flow coverage
-			dataMap.get(func.getName()).coverPathAt(stmt.getLineNum());
+			data.coverPathAt(stmt.getLineNum());
 		} else if (stmt instanceof PLConditional) {
 			PLConditional cnd = (PLConditional) stmt;
 			
 			if (cnd.getExpression().evaluate()) {
 				// control flow coverage
-				dataMap.get(func.getName()).coverDecisionAt(stmt.getLineNum(), true);
+				data.coverDecisionAt(stmt.getLineNum(), true);
 				
 				// data flow coverage
-				dataMap.get(func.getName()).coverPathAt(cnd.getLineNum(), true);
+				data.coverPathAt(cnd.getLineNum(), true);
 				
 				// eval everything in the if-block
 				for (PLStatement innerStmt: cnd.getStatements()) {
-					interpretStatement(func, innerStmt, dataMap);
+					interpretStatement(func, innerStmt, data, prog);
 				}
 			} else {
 				// control flow coverage
-				dataMap.get(func.getName()).coverDecisionAt(stmt.getLineNum(), false);
+				data.coverDecisionAt(stmt.getLineNum(), false);
 				
 				// data flow coverage
-				dataMap.get(func.getName()).coverPathAt(cnd.getLineNum(), false);
+				data.coverPathAt(cnd.getLineNum(), false);
 			}
+		} else if (stmt instanceof PLFunctionCall) {
+			// data flow coverage
+			data.coverPathAt(stmt.getLineNum());
+			
+			// set up
+			PLFunctionCall call = (PLFunctionCall) stmt;
+			PLFunction<?> nextFunc = prog.getFunctions().get(((PLFunctionCall) stmt).getId());
+			
+			Store.push(nextFunc.getName());
+			int i = 0;
+			for (Map.Entry<String, String> entry: nextFunc.getParameters().entrySet()) {
+				Store.addVariable(entry.getKey(), entry.getValue());
+				
+				PLExpression<?> a = call.getArguments().get(i);
+				
+				if (a.evaluate() instanceof Integer) {
+					Store.setVariable(entry.getKey(), (Integer) a.evaluate());
+				} else if (a.evaluate() instanceof Boolean) {
+					Store.setVariable(entry.getKey(), (Boolean) a.evaluate());
+				}
+				
+				i++;
+			}
+			Store.pop();
+			
+			interpretFunction(nextFunc, data, prog);
 		}
 	}
 }

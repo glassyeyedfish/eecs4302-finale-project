@@ -5,9 +5,4 @@ TEST program0
 		main( )
 	END FUNC
 	
-	@Test
-	FUNC test1 ()
-		foo( )
-	END FUNC
-	
 END TEST
