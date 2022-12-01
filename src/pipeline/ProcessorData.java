@@ -1,7 +1,9 @@
 package pipeline;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.google.gson.annotations.Expose;
 
@@ -48,6 +50,14 @@ public class ProcessorData {
 	public List<DCPath> coveredForAllPUses;
 	@Expose
 	public List<DCPath> requiredForAllPUses;
+	
+	/*
+	 * Data for assertions
+	 */
+	@Expose
+	public Map<String, List<Boolean>> assertionResults;
+	@Expose
+	public Map<String, List<Integer>> assertionLineNumbers;
 	
 	public void coverPathAt(int lineNum) {
 		for (DCPath path: this.allDCPaths) {
@@ -111,5 +121,8 @@ public class ProcessorData {
 		
 		this.coveredForAllPUses = new ArrayList<>();
 		this.requiredForAllPUses = new ArrayList<>();
+		
+		this.assertionResults = new HashMap<>();
+		this.assertionLineNumbers = new HashMap<>();
 	}
 }

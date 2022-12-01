@@ -4,20 +4,16 @@ PROGRAM program0
 		return a
 	END FUNC
 	
-	FUNC bar(BOOL :: b, BOOL :: a)
-		BOOL :: c
-		IF (b) THEN
-			b = b
-		END IF
-		IF (a) THEN
-			a = a
-		END IF
+	FUNC bar(INT :: a)
+		PRINT(a)
 	END FUNC
 
 	FUNC main() 
 		INT :: a
-		a = foo(a)	
-		bar(FALSE, TRUE)
+		a = 17 * 24
+		IF (TRUE && FALSE) THEN
+			PRINT(a)
+		END IF
 	END FUNC
 	
 END PROGRAM

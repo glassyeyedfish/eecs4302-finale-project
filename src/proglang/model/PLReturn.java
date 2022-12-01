@@ -19,4 +19,12 @@ public class PLReturn<T> extends PLStatement {
 	public boolean hasVariable(String key) {
 		return expr.hasVariable(key);
 	}
+
+	public PLExpression<T> getExpr() {
+		return expr;
+	}
+
+	public void setExpr(PLExpression<T> expr) {
+		this.expr = expr;
+	}
 }

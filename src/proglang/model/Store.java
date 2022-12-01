@@ -1,6 +1,8 @@
 package proglang.model;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -49,17 +51,42 @@ public class Store {
     
     public static void push(String name) {
     	callStack = name + ":" + callStack;
-    	System.out.println("Push: " + callStack);
+    	//System.out.println("Push: " + callStack);
     }
     
     public static void pop() {
     	callStack = callStack.substring(callStack.indexOf(':') + 1);
-    	System.out.println("Pop: " + callStack);
+    	//System.out.println("Pop: " + callStack);
+    }
+    
+    // OPTIONAL pop unsused variables so the Store doesn't get bloated.
+    // Currently not working...
+    // TODO Fix!
+    public static void popVars() {
+    	List<String> culledInts = new ArrayList<>();
+    	for (Map.Entry<String, Integer> entry: intVariables.entrySet()) {
+    		if (entry.getKey().indexOf(callStack) != -1) {
+    			culledInts.add(entry.getKey());
+    		}
+    	}
+    	for (String s: culledInts) intVariables.remove(s);
+    	
+    	List<String> culledBools = new ArrayList<>();
+    	for (Map.Entry<String, Boolean> entry: boolVariables.entrySet()) {
+    		if (entry.getKey().indexOf(callStack) != -1) {
+    			culledBools.add(entry.getKey());
+    		}
+    	}
+    	for (String s: culledBools) boolVariables.remove(s);
     }
     
     public static void reset() {
     	callStack = "";
     	intVariables = new HashMap<>();
     	boolVariables = new HashMap<>();
+    }
+    
+    public static String print() {
+    	return intVariables.toString() + " & " + boolVariables.toString();
     }
 }

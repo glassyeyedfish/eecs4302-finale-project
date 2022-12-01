@@ -138,7 +138,7 @@ public class App {
 		
 		System.out.println(formatted.toString());
 		
-		
+		System.out.println(Store.print());
 		
 		
 		/*
