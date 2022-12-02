@@ -27,8 +27,8 @@ public class AntlrToTLTestFunc extends TestLangBaseVisitor<TLTestFunc> {
 		List<TLFunctionCall> functionCalls = new ArrayList<>();
 		List<TLAssertion> assertions = new ArrayList<>();
 		
-		int startLineNum = 0;
-		int endLineNum = 0;
+		int startLineNum = ctx.getStart().getLine();
+		int endLineNum = ctx.getStop().getLine();
 		
 		for (Func_callContext call: ctx.func_call()) {
 			functionCalls.add((TLFunctionCall) sVisitor.visit((TLFunctionCallContext) call));

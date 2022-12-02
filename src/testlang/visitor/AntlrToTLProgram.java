@@ -12,8 +12,6 @@ import testlang.model.TLTestFunc;
 
 public class AntlrToTLProgram extends TestLangBaseVisitor<TLProgram> {
 	
-	public static int currentLineNum;
-	
 	private AntlrToTLTestFunc tfVisitor;
 	
 	public AntlrToTLProgram() {
@@ -23,12 +21,10 @@ public class AntlrToTLProgram extends TestLangBaseVisitor<TLProgram> {
 	@Override
 	public TLProgram visitTLProgram(TLProgramContext ctx) {
 		
-		currentLineNum = 1;
-		
 		// Data needed
 		String name = ctx.ID().getText();
 		List<TLTestFunc> testFunctions = new ArrayList<>();
-		int startLineNum = currentLineNum;
+		int startLineNum = ctx.getStart().getLine();
 		
 		// Scraping the tree for functions
 		tfVisitor = new AntlrToTLTestFunc();
@@ -37,7 +33,7 @@ public class AntlrToTLProgram extends TestLangBaseVisitor<TLProgram> {
 			testFunctions.add(tfVisitor.visit((TLTestFuncContext) func));
 		}
 		
-		int endLineNum = currentLineNum;
+		int endLineNum = ctx.getStop().getLine();
 		
 		// Build the thing and shoot it off
 		return new TLProgram(name, testFunctions, startLineNum, endLineNum);

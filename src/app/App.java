@@ -84,7 +84,7 @@ public class App {
 		}
 		
 //		System.out.println(
-//				testProgram
+//				testProgram.getTestFunctions().get(0).getAssertions().get(0)
 //		);
 		
 		ProgramCoverageData coverage = new ProgramCoverageData();
@@ -135,6 +135,13 @@ public class App {
 		formatted.add("Covered All CUses:   " + data.coveredForAllCUses);
 		formatted.add("Required All PUses:  " + data.requiredForAllPUses);
 		formatted.add("Covered All PUses:   " + data.coveredForAllPUses);
+		
+		/*
+		 * ASSERTION STUFF
+		 */
+		
+		formatted.add("\n ===== RESULTS OF TESTS =====");
+		formatted.add(data.assertionResults.toString());
 		
 		System.out.println(formatted.toString());
 		

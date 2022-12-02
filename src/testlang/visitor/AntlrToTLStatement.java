@@ -26,7 +26,7 @@ public class AntlrToTLStatement extends TestLangBaseVisitor<TLStatement> {
 	public TLFunctionCall visitTLFunctionCall(TLFunctionCallContext ctx) {
 		String name = ctx.ID().getText();
 		List<TLExpression<?>> args = new ArrayList<>();
-		int lineNum = AntlrToTLProgram.currentLineNum;
+		int lineNum = ctx.getStart().getLine();
 		
 		for (ExprContext a: ctx.expr()) {
 			args.add(eVisitor.visit(a));
@@ -39,7 +39,7 @@ public class AntlrToTLStatement extends TestLangBaseVisitor<TLStatement> {
 	public TLStatement visitTLAssertEquals(TLAssertEqualsContext ctx) {
 		TLFunctionCall left = visitTLFunctionCall((TLFunctionCallContext) ctx.func_call());
 		TLExpression<?> right = eVisitor.visit(ctx.expr());
-		int lineNum = AntlrToTLProgram.currentLineNum;
+		int lineNum = ctx.getStart().getLine();
 		
 		return new TLAssertEquals(left, right, lineNum);
 	}
@@ -47,7 +47,7 @@ public class AntlrToTLStatement extends TestLangBaseVisitor<TLStatement> {
 	@Override
 	public TLStatement visitTLAssert(TLAssertContext ctx) {
 		TLFunctionCall left = visitTLFunctionCall((TLFunctionCallContext) ctx.func_call());
-		int lineNum = AntlrToTLProgram.currentLineNum;
+		int lineNum = ctx.getStart().getLine();
 
 		return new TLAssert(left, lineNum);
 	}

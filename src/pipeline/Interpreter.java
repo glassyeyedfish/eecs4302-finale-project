@@ -10,15 +10,7 @@ import testlang.model.expressions.*;
 public class Interpreter {
 	
 	/*
-	 * This giant, hideous, but hopefully well documented class is the
-	 * treacherous, beating heart of this operation. It's the place where my 
-	 * dreams of clean code and brevity have gone to die in favor of a 
-	 * tedious and simplistic slog through all the tasks necessary to make 
-	 * this god forsaken compiler work.
-	 * 
-	 * Here's to all the sleep I lost writing this entire class.
-	 * 
-	 * Cheers.
+	 * The treacherous, beating heart of this operation.
 	 */
 	
 	/*
@@ -62,6 +54,36 @@ public class Interpreter {
 			 */
 			
 			for (TLFunctionCall call: testFunc.getFunctionCalls()) {
+				/*
+				 * Find the function that needs to be called.
+				 */
+				PLFunction<?> func = prog.getFunctions().get(call.getName());
+				
+				/*
+				 * Add parameters to the Store
+				 */
+				Store.push(func.getName());
+				int i = 0;
+				for (
+						Map.Entry<String, String> paramEntry: 
+						func.getParameters().entrySet()
+				) {
+					Store.addVariable(paramEntry.getKey(), paramEntry.getValue());
+					Store.pop();
+					EvalResult fr = evalExpr(call.getArgs().get(i), prog, data);
+					Store.push(func.getName());
+					if (paramEntry.getValue().equals("INT")) {
+						Store.setVariable(paramEntry.getKey(), fr.i);
+					} else {
+						Store.setVariable(paramEntry.getKey(), fr.b);
+					}
+					i++;
+				}
+				Store.pop();
+				
+				/*
+				 * Run the function
+				 */
 				interpretTLFunctionCall(call, prog, data);
 			}
 			
@@ -115,9 +137,98 @@ public class Interpreter {
 			TLAssert a = (TLAssert) asrt;
 			TLFunctionCall call = a.getLeft();
 			
+			/*
+			 * Find the function that needs to be called.
+			 */
+			PLFunction<?> func = prog.getFunctions().get(call.getName());
+			
+			/*
+			 * Add parameters to the Store
+			 */
+			Store.push(func.getName());
+			int i = 0;
+			for (
+					Map.Entry<String, String> paramEntry: 
+					func.getParameters().entrySet()
+			) {
+				Store.addVariable(paramEntry.getKey(), paramEntry.getValue());
+				Store.pop();
+				EvalResult fr = evalExpr(call.getArgs().get(i), prog, data);
+				Store.push(func.getName());
+				if (paramEntry.getValue().equals("INT")) {
+					Store.setVariable(paramEntry.getKey(), fr.i);
+				} else {
+					Store.setVariable(paramEntry.getKey(), fr.b);
+				}
+				i++;
+			}
+			Store.pop();
+			
+			/*
+			 * Run the function
+			 */
+			interpretTLFunctionCall(call, prog, data);
+			
+			/*
+			 * Add Assertion Result
+			 */
+			data.addAssertionResult(
+					call.getName(), this.returnResult.b, a.getLineNum());
+			
+			
 			
 		} else if (asrt instanceof TLAssertEquals) {
 			TLAssertEquals a = (TLAssertEquals) asrt;
+			TLFunctionCall call = a.getLeft();
+			
+			/*
+			 * Find the function that needs to be called.
+			 */
+			PLFunction<?> func = prog.getFunctions().get(call.getName());
+			
+			/*
+			 * Add parameters to the Store
+			 */
+			Store.push(func.getName());
+			int i = 0;
+			for (
+					Map.Entry<String, String> paramEntry: 
+					func.getParameters().entrySet()
+			) {
+				Store.addVariable(paramEntry.getKey(), paramEntry.getValue());
+				Store.pop();
+				EvalResult fr = evalExpr(call.getArgs().get(i), prog, data);
+				Store.push(func.getName());
+				if (paramEntry.getValue().equals("INT")) {
+					Store.setVariable(paramEntry.getKey(), fr.i);
+				} else {
+					Store.setVariable(paramEntry.getKey(), fr.b);
+				}
+				i++;
+			}
+			Store.pop();
+			
+			/*
+			 * Run the function
+			 */
+			interpretTLFunctionCall(call, prog, data);
+			
+			/*
+			 * Add the assertion result.
+			 */
+			if (this.returnResult.isInt) {
+				data.addAssertionResult(
+						call.getName(), 
+						this.returnResult.i == evalExpr(a.getRight(), prog, data).i, 
+						a.getLineNum());
+			} else {
+				data.addAssertionResult(
+						call.getName(), 
+						this.returnResult.b == evalExpr(a.getRight(), prog, data).b, 
+						a.getLineNum());
+				
+			}
+			
 			
 			
 			
@@ -579,6 +690,7 @@ public class Interpreter {
 			ProcessorData data
 	) {
 		EvalResult r = new EvalResult();
+		System.out.println(expr);
 		
 		/*
 		 * Figure out which of the following expressions is being eval'd:
@@ -590,7 +702,7 @@ public class Interpreter {
 			r.isInt = false;
 			r.b = e.getValue();
 			
-		} if (expr instanceof TLInteger) {
+		} else if (expr instanceof TLInteger) {
 			TLInteger e = (TLInteger) expr;
 			r.isInt = true;
 			r.i = e.getValue();

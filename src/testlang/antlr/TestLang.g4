@@ -10,12 +10,12 @@ prog: 'TEST' ID
 	EOF  											#TLProgram
 	;
 
-test_func: '@Test' 'FUNC' ID '()'
+test_func: '@Test' 'FUNC' ID '(' ')'
 	(func_call | assrt)+
 	'END FUNC'										#TLTestFunc
 	;
 	
-func_call: ID '(' (expr (',' expr)*)? ')'			#TLFunctionCall
+func_call: ID '(' ((expr ',')* expr)? ')'			#TLFunctionCall
 	;
 	
 assrt: 'ASSERTEQUALS' '(' func_call ',' expr ')'	#TLAssertEquals

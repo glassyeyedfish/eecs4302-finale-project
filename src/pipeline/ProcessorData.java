@@ -55,9 +55,7 @@ public class ProcessorData {
 	 * Data for assertions
 	 */
 	@Expose
-	public Map<String, List<Boolean>> assertionResults;
-	@Expose
-	public Map<String, List<Integer>> assertionLineNumbers;
+	public Map<String, List<AssertionResult>> assertionResults;
 	
 	public void coverPathAt(int lineNum) {
 		for (DCPath path: this.allDCPaths) {
@@ -102,6 +100,13 @@ public class ProcessorData {
 			
 		}
 	}
+	
+	public void addAssertionResult(String name, Boolean isSuccess, int lineNum) {
+		if (!this.assertionResults.containsKey(name)) {
+			this.assertionResults.put(name, new ArrayList<>());
+		}
+		this.assertionResults.get(name).add(new AssertionResult(isSuccess, lineNum));
+	}
 
 	public ProcessorData() {
 		this.allDCPaths = new ArrayList<>();
@@ -123,6 +128,5 @@ public class ProcessorData {
 		this.requiredForAllPUses = new ArrayList<>();
 		
 		this.assertionResults = new HashMap<>();
-		this.assertionLineNumbers = new HashMap<>();
 	}
 }
