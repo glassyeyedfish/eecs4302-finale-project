@@ -1,27 +1,22 @@
 PROGRAM program0
 
-	FUNC fib(INT :: n) :: INT
-	
-		IF (n <= 2) THEN
-			n = 1
-		END IF
-		
-		IF (n > 2) THEN
-			n = fib(n - 1) + fib(n - 2)
-		END IF
-	
-		RETURN n
-	
-	END FUNC
-
 	FUNC main() 
-		BOOL :: a
+	
+		INT :: a
+		BOOL :: b
 		
-		a = FALSE
-		a = TRUE && a
+		a = 1
+		b = TRUE
 		
-		PRINT(fib(10))
-		PRINT(a)
+		PRINT( (1 + a * 33) + (48 - a * 2) )
+		PRINT( a == 1 )
+		
+		PRINT( 1 < 2 )
+		PRINT( 3 <= 2 )
+		
+		PRINT( b && TRUE )
+		PRINT( b && FALSE )
+		PRINT( (b && TRUE) || (b && FALSE) )
 		
 	END FUNC
 	

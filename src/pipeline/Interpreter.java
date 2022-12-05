@@ -269,6 +269,14 @@ public class Interpreter {
 				func.getVariables().entrySet()
 		) {
 			if (!func.getParameters().containsKey(declEntry.getKey())) {
+				/*
+				 * Update Processor Data
+				 */
+				data.coverStatementAt(declEntry.getValue().getLineNum());
+				
+				/*
+				 * Add to store.
+				 */
 				Store.addVariable(declEntry.getKey(), declEntry.getValue().getType());
 			}
 		}

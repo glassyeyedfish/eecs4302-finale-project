@@ -1,7 +1,7 @@
 TEST program0
 
 	@Test
-	FUNC test0 ()
+	FUNC test0()
 		main()
 	END FUNC
 	
