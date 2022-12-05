@@ -42,9 +42,7 @@ public class ProcessorData {
 	@Expose
 	public List<String> requiredForAllDefs;
 	@Expose
-	public List<Integer> coveredAllDefsLineNums;
-	@Expose
-	public List<Integer> requiredAllDefsLineNums;
+	public List<Integer> allDefsLineNums;
 	
 	@Expose
 	public List<DCPath> coveredForAllCUses;
@@ -132,8 +130,7 @@ public class ProcessorData {
 		this.coveredForAllDefs = new ArrayList<>();
 		this.requiredForAllDefs = new ArrayList<>();
 		
-		this.coveredAllDefsLineNums = new ArrayList<>();
-		this.requiredAllDefsLineNums = new ArrayList<>();
+		this.allDefsLineNums = new ArrayList<>();
 		
 		this.coveredForAllCUses = new ArrayList<>();
 		this.requiredForAllCUses = new ArrayList<>();

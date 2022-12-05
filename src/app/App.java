@@ -121,7 +121,7 @@ public class App {
 		itrp.interpret(testProgram, program, data);
 		
 		formatted.add("\n ===== RESULTS OF INTERPRETER =====");
-		proc.generateAllDefs(data);
+		proc.generateAllDefs(data, program);
 		proc.generateAllCUses(data);
 		proc.generateAllPUses(data);
 		
@@ -132,8 +132,7 @@ public class App {
 		
 		formatted.add("\nRequired All Defs:   " + data.requiredForAllDefs);
 		formatted.add("Covered All Defs:    " + data.coveredForAllDefs);
-		formatted.add("Required All Defs #  " + data.requiredAllDefsLineNums);
-		formatted.add("Covered All Defs #   " + data.coveredAllDefsLineNums);
+		formatted.add("All Defs Line Nums:  " + data.allDefsLineNums);
 		formatted.add("Required All CUses:  " + data.requiredForAllCUses);
 		formatted.add("Covered All CUses:   " + data.coveredForAllCUses);
 		formatted.add("Required All PUses:  " + data.requiredForAllPUses);
@@ -147,8 +146,6 @@ public class App {
 		formatted.add(data.assertionResults.toString());
 		
 		System.out.println(formatted.toString());
-		
-		System.out.println(Store.print());
 		
 		
 		/*

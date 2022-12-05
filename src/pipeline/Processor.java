@@ -164,12 +164,23 @@ public class Processor {
 	/*
 	 * Code Coverage generators.
 	 */
-	public void generateAllDefs(ProcessorData data) {
+	public void generateAllDefs(ProcessorData data, PLProgram prog) {
 		// See what needs to be covered
 		for (DCPath path: data.allDCPaths) {
 			if (!data.requiredForAllDefs.contains(path.getId())) {
 				data.requiredForAllDefs.add(path.getId());
 			}
+		}
+		
+		// Add those line numbers.
+		for (String s: data.requiredForAllDefs) {
+			String funcName = s.substring(0, s.indexOf(':'));
+			String varName = s.substring(s.indexOf(':') + 1);
+			
+			int lineNum = ((PLDeclaration) prog.getFunctions().get(funcName)
+					.getVariables().get(varName)).getLineNum();
+			
+			data.allDefsLineNums.add(lineNum);
 		}
 		
 		// See if everything was actually covered
