@@ -1,4 +1,4 @@
-package proglang.model;
+package pipeline;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -69,7 +69,9 @@ public class Store {
     			culledInts.add(entry.getKey());
     		}
     	}
-    	for (String s: culledInts) intVariables.remove(s);
+    	for (String s: culledInts) {
+    		intVariables.remove(s);
+    	}
     	
     	List<String> culledBools = new ArrayList<>();
     	for (Map.Entry<String, Boolean> entry: boolVariables.entrySet()) {
@@ -77,7 +79,12 @@ public class Store {
     			culledBools.add(entry.getKey());
     		}
     	}
-    	for (String s: culledBools) boolVariables.remove(s);
+    	for (String s: culledBools) {
+    		boolVariables.remove(s);
+    	}
+    	
+
+		//System.out.println(Store.print());
     }
     
     public static void reset() {

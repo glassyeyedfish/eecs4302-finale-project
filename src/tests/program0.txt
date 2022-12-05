@@ -1,11 +1,28 @@
 PROGRAM program0
 
-	FUNC truthy() :: INT
-		return 1
+	FUNC fib(INT :: n) :: INT
+	
+		IF (n <= 2) THEN
+			n = 1
+		END IF
+		
+		IF (n > 2) THEN
+			n = fib(n - 1) + fib(n - 2)
+		END IF
+	
+		RETURN n
+	
 	END FUNC
 
 	FUNC main() 
-		PRINT(truthy())
+		BOOL :: a
+		
+		a = FALSE
+		a = TRUE && a
+		
+		PRINT(fib(10))
+		PRINT(a)
+		
 	END FUNC
 	
 END PROGRAM

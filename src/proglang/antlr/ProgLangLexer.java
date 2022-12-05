@@ -44,7 +44,7 @@ public class ProgLangLexer extends Lexer {
 	private static String[] makeLiteralNames() {
 		return new String[] {
 			null, "'PROGRAM'", "'END PROGRAM'", "'FUNC'", "'('", "','", "')'", "'::'", 
-			"'return'", "'END'", "'='", "'PRINT'", "'IF'", "'THEN'", "'*'", "'+'", 
+			"'RETURN'", "'END'", "'='", "'PRINT'", "'IF'", "'THEN'", "'*'", "'+'", 
 			"'-'", "'>'", "'<'", "'>='", "'<='", "'=='", "'!='", "'&&'", "'||'", 
 			"'!'"
 		};
@@ -151,7 +151,7 @@ public class ProgLangLexer extends Lexer {
 		"LM\7\"\2\2MN\7R\2\2NO\7T\2\2OP\7Q\2\2PQ\7I\2\2QR\7T\2\2RS\7C\2\2ST\7O"+
 		"\2\2T\6\3\2\2\2UV\7H\2\2VW\7W\2\2WX\7P\2\2XY\7E\2\2Y\b\3\2\2\2Z[\7*\2"+
 		"\2[\n\3\2\2\2\\]\7.\2\2]\f\3\2\2\2^_\7+\2\2_\16\3\2\2\2`a\7<\2\2ab\7<"+
-		"\2\2b\20\3\2\2\2cd\7t\2\2de\7g\2\2ef\7v\2\2fg\7w\2\2gh\7t\2\2hi\7p\2\2"+
+		"\2\2b\20\3\2\2\2cd\7T\2\2de\7G\2\2ef\7V\2\2fg\7W\2\2gh\7T\2\2hi\7P\2\2"+
 		"i\22\3\2\2\2jk\7G\2\2kl\7P\2\2lm\7F\2\2m\24\3\2\2\2no\7?\2\2o\26\3\2\2"+
 		"\2pq\7R\2\2qr\7T\2\2rs\7K\2\2st\7P\2\2tu\7V\2\2u\30\3\2\2\2vw\7K\2\2w"+
 		"x\7H\2\2x\32\3\2\2\2yz\7V\2\2z{\7J\2\2{|\7G\2\2|}\7P\2\2}\34\3\2\2\2~"+

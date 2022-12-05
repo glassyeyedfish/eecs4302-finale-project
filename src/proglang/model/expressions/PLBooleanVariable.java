@@ -1,6 +1,6 @@
 package proglang.model.expressions;
 
-import proglang.model.Store;
+import pipeline.Store;
 
 public class PLBooleanVariable extends PLBooleanExpression {
 	private String id;

@@ -1,6 +1,6 @@
 package proglang.model.expressions;
 
-import proglang.model.Store;
+import pipeline.Store;
 
 public class PLIntegerVariable extends PLArithmeticExpression {
 	private String id;

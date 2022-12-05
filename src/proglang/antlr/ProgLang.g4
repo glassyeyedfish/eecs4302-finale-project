@@ -14,7 +14,7 @@ func:	'FUNC' ID
 		('::' TYPE)?
 		(attr_decl)*
 		(attr_asgmt | prnt | if_block | func_call)*
-		('return' expr)?
+		('RETURN' expr)?
 		'END' 'FUNC'								# Function
 	;
 	

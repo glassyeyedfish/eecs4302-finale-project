@@ -94,6 +94,8 @@ public class Interpreter {
 				interpretTLAssertion(asrt, prog, data);
 			}
 		}
+		
+		data.sort();
 	}
 
 	
@@ -283,6 +285,12 @@ public class Interpreter {
 		 * Handle return statement.
 		 */
 		if (func.getRtrnStmt() != null) {
+			/*
+			 * Update Processor Data
+			 */
+			data.coverStatementAt(func.getRtrnStmt().getLineNum());
+			data.coverPathAt(func.getRtrnStmt().getLineNum());
+			
 			this.returnResult = evalExpr(func.getRtrnStmt().getExpr(), prog, data);
 		}
 		
@@ -290,6 +298,7 @@ public class Interpreter {
 		/*
 		 * Pop from the call stack.
 		 */
+		Store.popVars();
 		Store.pop();
 	}
 

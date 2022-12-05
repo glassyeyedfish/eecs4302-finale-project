@@ -2,9 +2,7 @@ TEST program0
 
 	@Test
 	FUNC test0 ()
-		ASSERTEQUALS(truthy(), 1)
-		ASSERTEQUALS(truthy(), 2)
-		ASSERTEQUALS(truthy(), 3)
+		main()
 	END FUNC
 	
 END TEST

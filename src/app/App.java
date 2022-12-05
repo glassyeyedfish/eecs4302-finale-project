@@ -18,6 +18,7 @@ import html.HTML;
 import pipeline.Interpreter;
 import pipeline.Processor;
 import pipeline.ProcessorData;
+import pipeline.Store;
 import proglang.antlr.ProgLangLexer;
 import proglang.antlr.ProgLangParser;
 import proglang.model.*;
@@ -131,6 +132,8 @@ public class App {
 		
 		formatted.add("\nRequired All Defs:   " + data.requiredForAllDefs);
 		formatted.add("Covered All Defs:    " + data.coveredForAllDefs);
+		formatted.add("Required All Defs #  " + data.requiredAllDefsLineNums);
+		formatted.add("Covered All Defs #   " + data.coveredAllDefsLineNums);
 		formatted.add("Required All CUses:  " + data.requiredForAllCUses);
 		formatted.add("Covered All CUses:   " + data.coveredForAllCUses);
 		formatted.add("Required All PUses:  " + data.requiredForAllPUses);

@@ -1,6 +1,7 @@
 package pipeline;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +41,10 @@ public class ProcessorData {
 	public List<String> coveredForAllDefs;
 	@Expose
 	public List<String> requiredForAllDefs;
+	@Expose
+	public List<Integer> coveredAllDefsLineNums;
+	@Expose
+	public List<Integer> requiredAllDefsLineNums;
 	
 	@Expose
 	public List<DCPath> coveredForAllCUses;
@@ -107,6 +112,12 @@ public class ProcessorData {
 		}
 		this.assertionResults.get(name).add(new AssertionResult(isSuccess, lineNum));
 	}
+	
+	public void sort() {
+		this.coveredStatements.sort(Comparator.naturalOrder());
+		this.coveredDecisionsTrue.sort(Comparator.naturalOrder());
+		this.coveredDecisionsFalse.sort(Comparator.naturalOrder());
+	}
 
 	public ProcessorData() {
 		this.allDCPaths = new ArrayList<>();
@@ -120,6 +131,9 @@ public class ProcessorData {
 		
 		this.coveredForAllDefs = new ArrayList<>();
 		this.requiredForAllDefs = new ArrayList<>();
+		
+		this.coveredAllDefsLineNums = new ArrayList<>();
+		this.requiredAllDefsLineNums = new ArrayList<>();
 		
 		this.coveredForAllCUses = new ArrayList<>();
 		this.requiredForAllCUses = new ArrayList<>();
