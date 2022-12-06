@@ -140,6 +140,12 @@ public class Processor {
 				 * we are finished searching the if statement.
 				 */
 				
+				/*
+				 * Condition EOL add
+				 */
+				if (!data.allStatements.contains(((PLConditional) stmt).getEndLineNum()))
+					data.allStatements.add(((PLConditional) stmt).getEndLineNum());
+				
 				int preLineFrom = path.getLineFrom();
 				
 				for (PLStatement innerStmt: ((PLConditional) stmt).getStatements()) {
@@ -147,7 +153,6 @@ public class Processor {
 				}
 				
 				path.setLineFrom(preLineFrom);
-			} else if (stmt instanceof PLFunctionCall) {
 			}
 		}
 		

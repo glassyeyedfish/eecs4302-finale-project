@@ -255,6 +255,7 @@ public class Interpreter {
 		 * Update Processor Data
 		 */
 		data.coverStatementAt(func.getStartLineNum());
+		data.coverStatementAt(func.getEndLineNum());
 		
 		/*
 		 * Push this function onto the call stack!
