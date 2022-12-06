@@ -91,7 +91,7 @@ public class Interpreter {
 			 * Run each assertion.
 			 */
 			for (TLAssertion asrt: testFunc.getAssertions()) {
-				interpretTLAssertion(asrt, prog, data);
+				interpretTLAssertion(asrt, prog, data, testFunc.getName());
 			}
 		}
 		
@@ -128,7 +128,8 @@ public class Interpreter {
 	private void interpretTLAssertion(
 			TLAssertion asrt, 
 			PLProgram prog, 
-			ProcessorData data
+			ProcessorData data,
+			String funcName
 	) {
 		/*
 		 * Figure out which of the following assertion is being tested:
@@ -175,7 +176,8 @@ public class Interpreter {
 			 * Add Assertion Result
 			 */
 			data.addAssertionResult(
-					call.getName(), this.returnResult.b, a.getLineNum());
+					call.getName(), this.returnResult.b, a.getLineNum(),
+					funcName);
 			
 			
 			
@@ -222,12 +224,14 @@ public class Interpreter {
 				data.addAssertionResult(
 						call.getName(), 
 						this.returnResult.i == evalExpr(a.getRight(), prog, data).i, 
-						a.getLineNum());
+						a.getLineNum(),
+						funcName);
 			} else {
 				data.addAssertionResult(
 						call.getName(), 
 						this.returnResult.b == evalExpr(a.getRight(), prog, data).b, 
-						a.getLineNum());
+						a.getLineNum(),
+						funcName);
 				
 			}
 			

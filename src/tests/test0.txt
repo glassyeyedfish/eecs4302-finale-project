@@ -3,6 +3,7 @@ TEST fibonacci
 	@Test
 	FUNC test0()
 		main()
+		ASSERTEQUALS(fib(6), 8)
 	END FUNC
 	
 END TEST

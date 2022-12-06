@@ -7,14 +7,17 @@ public class AssertionResult {
 	public Boolean isSuccess;
 	@Expose
 	public Integer lineNum;
+	@Expose
+	public String funcName;
 	
-	public AssertionResult(Boolean isSuccess, Integer lineNum) {
+	public AssertionResult(Boolean isSuccess, Integer lineNum, String funcName) {
 		this.isSuccess = isSuccess;
 		this.lineNum = lineNum;
+		this.funcName = funcName;
 	}
 	
 	@Override
 	public String toString() {
-		return "(" + isSuccess + " @ " + lineNum + ")";
+		return "(" + isSuccess + " @ " + lineNum + " in " + funcName + ")";
 	}
 }

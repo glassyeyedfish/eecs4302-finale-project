@@ -104,11 +104,11 @@ public class ProcessorData {
 		}
 	}
 	
-	public void addAssertionResult(String name, Boolean isSuccess, int lineNum) {
+	public void addAssertionResult(String name, Boolean isSuccess, int lineNum, String funcName) {
 		if (!this.assertionResults.containsKey(name)) {
 			this.assertionResults.put(name, new ArrayList<>());
 		}
-		this.assertionResults.get(name).add(new AssertionResult(isSuccess, lineNum));
+		this.assertionResults.get(name).add(new AssertionResult(isSuccess, lineNum, funcName));
 	}
 	
 	public void sort() {
