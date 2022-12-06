@@ -31,7 +31,7 @@ TYPE: 'INT' | 'BOOL' ;
 INT_LIT: '0'|'-'?[1-9][0-9]*;
 BOOL_LIT: 'TRUE'|'FALSE';
 
-ID: [a-z][a-z0-9_]*;
+ID: [a-z][a-zA-Z0-9_]*;
 
 COMMENT: '!!' ~[\r\n]* -> skip ;
 WS: [ \t\n\r]+ -> skip ;
