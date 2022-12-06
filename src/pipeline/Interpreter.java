@@ -347,11 +347,15 @@ public class Interpreter {
 			
 		} else if (stmt instanceof PLConditional) {
 			PLConditional s = (PLConditional) stmt;
+			
+			data.coverStatementAt(s.getEndLineNum());
+			
 			if (evalExpr(s.getExpression(), prog, data).b) {
 				/*
 				 * Update Processor Data
 				 */
 				data.coverPathAt(stmt.getLineNum(), true);
+				data.coverDecisionAt(stmt.getLineNum(), true);
 				
 				/*
 				 * Run statements inside if block
@@ -365,6 +369,7 @@ public class Interpreter {
 				 * Update Processor Data
 				 */
 				data.coverPathAt(stmt.getLineNum(), false);
+				data.coverDecisionAt(stmt.getLineNum(), false);
 				
 			}
 		

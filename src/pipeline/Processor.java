@@ -154,6 +154,19 @@ public class Processor {
 				
 				path.setLineFrom(preLineFrom);
 			}
+		} else {
+			if (stmt instanceof PLConditional) {
+				if (!data.allStatements.contains(((PLConditional) stmt).getEndLineNum()))
+					data.allStatements.add(((PLConditional) stmt).getEndLineNum());
+				
+				int preLineFrom = path.getLineFrom();
+				
+				for (PLStatement innerStmt: ((PLConditional) stmt).getStatements()) {
+					processPLStatement(entry, innerStmt, data, path);
+				}
+				
+				path.setLineFrom(preLineFrom);
+			}
 		}
 		
 		/*
