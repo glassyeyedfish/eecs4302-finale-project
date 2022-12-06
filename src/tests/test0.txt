@@ -1,4 +1,4 @@
-TEST program0
+TEST fibonacci
 
 	@Test
 	FUNC test0()

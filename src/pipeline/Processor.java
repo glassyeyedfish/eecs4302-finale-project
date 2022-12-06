@@ -24,6 +24,8 @@ public class Processor {
 			// Function's line number
 			if (!data.allStatements.contains(func.getStartLineNum()))
 				data.allStatements.add(func.getStartLineNum());
+			if (!data.allStatements.contains(func.getEndLineNum()))
+				data.allStatements.add(func.getEndLineNum());
 			
 			/* 
 			 * Loop through each of the declarations and function parameters to 
