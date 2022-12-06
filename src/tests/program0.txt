@@ -1,38 +1,13 @@
 PROGRAM fibonacci
 
-	FUNC fib(INT :: n) :: INT
-		IF (n <= 2) THEN
-			n = 1
-		END IF
-	
-		IF (n > 2) THEN
-			n = fib(n - 1) + fib(n - 2)
-		END IF
-	
-		RETURN n
-	END FUNC
-	
-	!! entry point of program execution
 	FUNC main()
 	
-		INT :: a
-		BOOL :: b
-		BOOL :: c
+		getTrue()
 		
-		c = TRUE
-		
-		IF ((!b && c) && getTrue()) THEN
-			IF (a == 0 || FALSE) THEN
-				printFib(6)
-			END IF
-		END IF
-	END FUNC
-	
-	FUNC printFib(INT :: n)
-		PRINT(fib(n))
 	END FUNC
 	
 	FUNC getTrue() :: BOOL
+		PRINT(TRUE)
 		RETURN TRUE
 	END FUNC
 

@@ -31,7 +31,9 @@ public class Processor {
 			 * Loop through each of the declarations and function parameters to 
 			 * start each DCPath.
 			 */
+			boolean ranOnce = false;
 			for (Map.Entry<String, PLDeclaration> entry: func.getVariables().entrySet()) {
+				ranOnce = true;
 				// control flow coverage
 				if (!data.allStatements.contains(entry.getValue().getLineNum()))
 					data.allStatements.add(entry.getValue().getLineNum());
@@ -53,6 +55,20 @@ public class Processor {
 					processPLStatement(entry, func.getRtrnStmt(), data, path);
 				}
 			}
+			if (!ranOnce) {
+				/*
+				 * Loop thorugh each statement in the function and...
+				 * 	- Add each statement as a new DCPath if it's a c-use or p-use
+				 *  - Start a new DCPath when we've hit a definition.
+				 */
+				for (PLStatement stmt: func.getStatements()) {
+					processPLStatement(null, stmt, data, null);
+				}
+				
+				if (func.getRtrnStmt() != null) {
+					processPLStatement(null, func.getRtrnStmt(), data, null);
+				}
+			}
 		}
 		
 		// Sort line numbers
@@ -68,13 +84,6 @@ public class Processor {
 			ProcessorData data,
 			DCPath path
 	) {
-//		System.out.println(stmt.getLineNum() + " : " + stmt);
-//		
-//		if (stmt instanceof PLAssignment) {
-//			PLAssignment<?> a = (PLAssignment<?>) stmt;
-//			System.out.println(((PLIntegerFunctionCall) a.getExpression()).getArguments());
-//		}
-		
 		/*
 		 * This is a three step process
 		 * 
@@ -118,7 +127,7 @@ public class Processor {
 		if (!data.allStatements.contains(stmt.getLineNum()))
 			data.allStatements.add(stmt.getLineNum());
 		
-		if (stmt.hasVariable(entry.getKey())) {
+		if (entry != null && stmt.hasVariable(entry.getKey())) {
 			
 			
 			// data flow coverage
