@@ -1,0 +1,8 @@
+TEST program1
+
+	@Test
+	FUNC test0()
+		main()
+	END FUNC
+	
+END TEST
