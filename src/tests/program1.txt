@@ -1,4 +1,4 @@
-PROGRAM program1
+PROGRAM program0
 
 	FUNC main() 
 	
@@ -13,10 +13,6 @@ PROGRAM program1
 		
 		PRINT( 1 < 2 )
 		PRINT( 3 <= 2 )
-		
-		IF (TRUE) THEN
-			PRINT(1)
-		END IF
 		
 		PRINT( b && TRUE )
 		PRINT( b && FALSE )

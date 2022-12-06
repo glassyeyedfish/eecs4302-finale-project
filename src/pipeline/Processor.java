@@ -88,11 +88,12 @@ public class Processor {
 		 * Here is where we check for P-Uses
 		 */
 		if (stmt instanceof PLConditional) {
+			if (!data.allStatements.contains(stmt.getLineNum()))
+				data.allStatements.add(stmt.getLineNum());
 			
 			if (((PLConditional) stmt).getExpression().hasVariable(entry.getKey())) {
 				// control flow coverage
-				if (!data.allStatements.contains(stmt.getLineNum()))
-					data.allStatements.add(stmt.getLineNum());
+				
 				if (!data.allDecisions.contains(stmt.getLineNum()))
 					data.allDecisions.add(stmt.getLineNum());
 				
@@ -111,10 +112,12 @@ public class Processor {
 		/*
 		 * Here is where we check for C-Uses
 		 */
+		// control flow coverage
+		if (!data.allStatements.contains(stmt.getLineNum()))
+			data.allStatements.add(stmt.getLineNum());
+		
 		if (stmt.hasVariable(entry.getKey())) {
-			// control flow coverage
-			if (!data.allStatements.contains(stmt.getLineNum()))
-				data.allStatements.add(stmt.getLineNum());
+			
 			
 			// data flow coverage
 			if (
