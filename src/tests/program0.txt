@@ -61,7 +61,6 @@ PROGRAM program3
 	FUNC main()
 		
 		PRINT(max(1, 2, 3))
-		PRINT(max(2, 1, 3))
 		
 	END FUNC
 	
