@@ -1,0 +1,37 @@
+TEST example_10_complex_test_cases
+
+	@Test
+	FUNC test_max()
+	
+		ASSERTEQUALS(max(3, 5, 100), 100)
+		ASSERTEQUALS(max(33, 55, 44), 55)
+		ASSERTEQUALS(max(-3, -4, -5), -3)
+	
+	END FUNC
+	
+	@Test
+	FUNC test_fib()
+	
+		ASSERTEQUALS(fib(1), 1)
+		ASSERTEQUALS(fib(6), 8)
+		ASSERTEQUALS(fib(-1), 1)
+	
+	END FUNC
+
+	@Test
+	FUNC test_gcd()
+	
+		ASSERTEQUALS(gcd(24, 16), 7)
+		ASSERTEQUALS(gcd(24, 16), 8)
+		
+	END FUNC
+	
+	@Test
+	FUNC test_lcm()
+	
+		ASSERTEQUALS(lcm(24, 16), 48)
+		ASSERTEQUALS(lcm(16, 24), 48)
+	
+	END FUNC
+	
+END TEST

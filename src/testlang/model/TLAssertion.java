@@ -8,6 +8,8 @@ public class TLAssertion extends TLStatement {
 	
 	public TLAssertion(TLFunctionCall left, TLExpression<?> right, int lineNum) {
 		super(lineNum);
+		this.left = left;
+		this.right = right;
 	}
 	
 	public TLFunctionCall getLeft() {

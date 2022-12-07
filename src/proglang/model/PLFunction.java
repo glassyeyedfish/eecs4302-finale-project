@@ -8,7 +8,11 @@ import java.util.Map;
 
 public class PLFunction<T> extends PLBlock {
 	private String id;
+	
+	// Map ID to DECL
 	private Map<String, PLDeclaration> declarations;
+	
+	// Map ID to TYPE
 	private Map<String, String> parameters;
 	private List<PLStatement> instructions;
 	private PLReturn<T> rtrnStmt;

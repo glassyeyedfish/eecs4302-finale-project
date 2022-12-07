@@ -1,0 +1,26 @@
+PROGRAM example_1_assignment
+
+    FUNC main()
+    
+        INT :: a
+        BOOL :: b
+
+        !! print INT default value
+        PRINT(a)
+
+        !! print BOOL default value
+        PRINT(b)
+
+        !! assign 'a'
+        a = (a + 1) + (2 * (2 * a) + 4)
+
+        !! assign 'b'
+        b = TRUE || FALSE
+
+        !! output
+        PRINT(a)
+        PRINT(b)
+        
+    END FUNC
+    
+END PROGRAM

@@ -1,0 +1,10 @@
+TEST example_1_assignment
+
+	@Test
+	FUNC test_1()
+	
+		main()
+		
+	END FUNC
+	
+END TEST

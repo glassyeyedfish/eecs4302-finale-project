@@ -1,0 +1,73 @@
+PROGRAM example_6_division_modulo
+
+    !! This function returns the result of n / d = q.
+    !! It can be used since our language has no native
+    !! division operation.
+    !!
+    !! Since our language has no loops, this must be
+    !! done using recursion.
+    
+    FUNC divide(INT :: n, INT :: d) :: INT
+        
+        RETURN divideHelper(n, d, 0)
+        
+    END FUNC
+    
+    FUNC divideHelper(INT :: a, INT :: b, INT :: q) :: INT
+    
+        IF (a >= b) THEN
+            q = divideHelper(a - b, b, q) + 1
+        END IF
+        
+        RETURN q
+    
+    END FUNC
+    
+    
+    
+    !! This function returns the result of n % d = r.
+    !! It can be used since our language has no native
+    !! modulo operation.
+    !!
+    !! Since our language has no loops, this must be
+    !! done using recursion.
+    
+    FUNC modulo(INT :: n, INT :: d) :: INT
+        
+        RETURN moduloHelper(n, d, 0)
+        
+    END FUNC
+    
+    FUNC moduloHelper(INT :: a, INT :: b, INT :: r) :: INT
+    
+        IF (a >= b) THEN
+            r = moduloHelper(a - b, b, r)
+        END IF
+        
+        IF (a < b) THEN
+        	r = a
+        END IF
+        
+        RETURN r
+    
+    END FUNC
+
+
+
+    FUNC main()
+        
+        PRINT(divide(1, 1))     	!! 1
+        PRINT(modulo(1, 1))     	!! 0
+        
+        PRINT(divide(100, 10))    	!! 10
+        PRINT(modulo(100, 10))    	!! 0
+        
+        PRINT(divide(1000, 3))  	!! 333
+        PRINT(modulo(1000, 3))  	!! 1
+        
+        PRINT(divide(300, 71))		!! 4
+        PRINT(modulo(300, 71))		!! 16
+        
+    END FUNC
+    
+END PROGRAM

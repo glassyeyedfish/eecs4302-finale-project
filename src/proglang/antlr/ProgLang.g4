@@ -14,7 +14,7 @@ func:	'FUNC' ID
 		('::' TYPE)?
 		(attr_decl)*
 		(attr_asgmt | prnt | if_block | func_call)*
-		('return' expr)?
+		('RETURN' expr)?
 		'END' 'FUNC'								# Function
 	;
 	
@@ -57,6 +57,6 @@ expr: '(' expr ')'									# Parentheses
 TYPE: 'INT' | 'BOOL' ;
 INT: '0'|'-'?[1-9][0-9]*;
 BOOL: 'TRUE'|'FALSE';
-ID: [a-z][a-z0-9_]*;
+ID: [a-z][a-zA-Z0-9_]*;
 COMMENT: '!!' ~[\r\n]* -> skip ;
 WS: [ \t\n\r]+ -> skip ;

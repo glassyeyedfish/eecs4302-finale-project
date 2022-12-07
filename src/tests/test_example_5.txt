@@ -1,0 +1,21 @@
+TEST example_5_assertions
+
+	@Test
+	FUNC test_1()
+	
+		ASSERT(negate(TRUE))
+		ASSERTEQUALS(add(1, 1), 3)
+		ASSERTEQUALS(multiply(3, 4), -12)
+		
+	END FUNC
+	
+	@Test
+	FUNC test_2()
+	
+		ASSERT(negate(FALSE))
+		ASSERTEQUALS(add(1, 1), 2)
+		ASSERTEQUALS(multiply(3, 4), 12)
+		
+	END FUNC
+	
+END TEST

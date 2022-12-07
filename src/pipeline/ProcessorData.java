@@ -1,7 +1,10 @@
 package pipeline;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.google.gson.annotations.Expose;
 
@@ -38,6 +41,8 @@ public class ProcessorData {
 	public List<String> coveredForAllDefs;
 	@Expose
 	public List<String> requiredForAllDefs;
+	@Expose
+	public List<Integer> allDefsLineNums;
 	
 	@Expose
 	public List<DCPath> coveredForAllCUses;
@@ -49,21 +54,32 @@ public class ProcessorData {
 	@Expose
 	public List<DCPath> requiredForAllPUses;
 	
+	/*
+	 * Data for assertions
+	 */
+	@Expose
+	public Map<String, List<AssertionResult>> assertionResults;
+	
 	public void coverPathAt(int lineNum) {
 		for (DCPath path: this.allDCPaths) {
-			if (path.getLineTo() == lineNum && !this.coveredDCPaths.contains(path)) {
+			if (
+					path.getLineTo() == lineNum 
+					&& !this.coveredDCPaths.contains(path)
+					&& path.isCUse()
+		) {
 				this.coveredDCPaths.add(path);
 			}
 		}
 	}
 	
 	public void coverPathAt(int lineNum, boolean cond) {
+		
 		for (DCPath path: this.allDCPaths) {
 			if (
 					path.getLineTo() == lineNum 
 					&& !this.coveredDCPaths.contains(path)
-					&& !path.isCUse()
 					&& path.getPUseCondition() == cond
+					&& !path.isCUse()
 			) {
 				this.coveredDCPaths.add(path);
 			}
@@ -92,6 +108,19 @@ public class ProcessorData {
 			
 		}
 	}
+	
+	public void addAssertionResult(String name, Boolean isSuccess, int lineNum, String funcName) {
+		if (!this.assertionResults.containsKey(name)) {
+			this.assertionResults.put(name, new ArrayList<>());
+		}
+		this.assertionResults.get(name).add(new AssertionResult(isSuccess, lineNum, funcName));
+	}
+	
+	public void sort() {
+		this.coveredStatements.sort(Comparator.naturalOrder());
+		this.coveredDecisionsTrue.sort(Comparator.naturalOrder());
+		this.coveredDecisionsFalse.sort(Comparator.naturalOrder());
+	}
 
 	public ProcessorData() {
 		this.allDCPaths = new ArrayList<>();
@@ -106,10 +135,14 @@ public class ProcessorData {
 		this.coveredForAllDefs = new ArrayList<>();
 		this.requiredForAllDefs = new ArrayList<>();
 		
+		this.allDefsLineNums = new ArrayList<>();
+		
 		this.coveredForAllCUses = new ArrayList<>();
 		this.requiredForAllCUses = new ArrayList<>();
 		
 		this.coveredForAllPUses = new ArrayList<>();
 		this.requiredForAllPUses = new ArrayList<>();
+		
+		this.assertionResults = new HashMap<>();
 	}
 }

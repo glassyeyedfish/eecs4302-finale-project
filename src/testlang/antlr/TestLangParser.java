@@ -20,8 +20,7 @@ public class TestLangParser extends Parser {
 		new PredictionContextCache();
 	public static final int
 		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
-		T__9=10, T__10=11, TYPE=12, INT_LIT=13, BOOL_LIT=14, ID=15, COMMENT=16, 
-		WS=17;
+		T__9=10, TYPE=11, INT_LIT=12, BOOL_LIT=13, ID=14, COMMENT=15, WS=16;
 	public static final int
 		RULE_prog = 0, RULE_test_func = 1, RULE_func_call = 2, RULE_assrt = 3, 
 		RULE_expr = 4;
@@ -34,15 +33,15 @@ public class TestLangParser extends Parser {
 
 	private static String[] makeLiteralNames() {
 		return new String[] {
-			null, "'TEST'", "'END TEST'", "'@Test'", "'FUNC'", "'()'", "'END FUNC'", 
-			"'('", "','", "')'", "'ASSERTEQUALS'", "'ASSERT'"
+			null, "'TEST'", "'END TEST'", "'@Test'", "'FUNC'", "'('", "')'", "'END FUNC'", 
+			"','", "'ASSERTEQUALS'", "'ASSERT'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, null, null, null, null, null, null, null, null, null, null, null, 
-			"TYPE", "INT_LIT", "BOOL_LIT", "ID", "COMMENT", "WS"
+			null, null, null, null, null, null, null, null, null, null, null, "TYPE", 
+			"INT_LIT", "BOOL_LIT", "ID", "COMMENT", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -232,24 +231,26 @@ public class TestLangParser extends Parser {
 			match(ID);
 			setState(23);
 			match(T__4);
-			setState(26); 
+			setState(24);
+			match(T__5);
+			setState(27); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
-				setState(26);
+				setState(27);
 				_errHandler.sync(this);
 				switch (_input.LA(1)) {
 				case ID:
 					{
-					setState(24);
+					setState(25);
 					func_call();
 					}
 					break;
+				case T__8:
 				case T__9:
-				case T__10:
 					{
-					setState(25);
+					setState(26);
 					assrt();
 					}
 					break;
@@ -257,12 +258,12 @@ public class TestLangParser extends Parser {
 					throw new NoViableAltException(this);
 				}
 				}
-				setState(28); 
+				setState(29); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__9) | (1L << T__10) | (1L << ID))) != 0) );
-			setState(30);
-			match(T__5);
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__8) | (1L << T__9) | (1L << ID))) != 0) );
+			setState(31);
+			match(T__6);
 			}
 		}
 		catch (RecognitionException re) {
@@ -316,41 +317,44 @@ public class TestLangParser extends Parser {
 		enterRule(_localctx, 4, RULE_func_call);
 		int _la;
 		try {
+			int _alt;
 			_localctx = new TLFunctionCallContext(_localctx);
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(32);
-			match(ID);
 			setState(33);
-			match(T__6);
-			setState(42);
+			match(ID);
+			setState(34);
+			match(T__4);
+			setState(44);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==INT_LIT || _la==BOOL_LIT) {
 				{
-				setState(34);
-				expr();
-				setState(39);
+				setState(40);
 				_errHandler.sync(this);
-				_la = _input.LA(1);
-				while (_la==T__7) {
-					{
-					{
-					setState(35);
-					match(T__7);
-					setState(36);
-					expr();
+				_alt = getInterpreter().adaptivePredict(_input,3,_ctx);
+				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
+					if ( _alt==1 ) {
+						{
+						{
+						setState(35);
+						expr();
+						setState(36);
+						match(T__7);
+						}
+						} 
 					}
-					}
-					setState(41);
+					setState(42);
 					_errHandler.sync(this);
-					_la = _input.LA(1);
+					_alt = getInterpreter().adaptivePredict(_input,3,_ctx);
 				}
+				setState(43);
+				expr();
 				}
 			}
 
-			setState(44);
-			match(T__8);
+			setState(46);
+			match(T__5);
 			}
 		}
 		catch (RecognitionException re) {
@@ -421,39 +425,39 @@ public class TestLangParser extends Parser {
 		AssrtContext _localctx = new AssrtContext(_ctx, getState());
 		enterRule(_localctx, 6, RULE_assrt);
 		try {
-			setState(58);
+			setState(60);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
-			case T__9:
+			case T__8:
 				_localctx = new TLAssertEqualsContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(46);
-				match(T__9);
-				setState(47);
-				match(T__6);
 				setState(48);
-				func_call();
-				setState(49);
-				match(T__7);
-				setState(50);
-				expr();
-				setState(51);
 				match(T__8);
+				setState(49);
+				match(T__4);
+				setState(50);
+				func_call();
+				setState(51);
+				match(T__7);
+				setState(52);
+				expr();
+				setState(53);
+				match(T__5);
 				}
 				break;
-			case T__10:
+			case T__9:
 				_localctx = new TLAssertContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(53);
-				match(T__10);
-				setState(54);
-				match(T__6);
 				setState(55);
-				func_call();
+				match(T__9);
 				setState(56);
-				match(T__8);
+				match(T__4);
+				setState(57);
+				func_call();
+				setState(58);
+				match(T__5);
 				}
 				break;
 			default:
@@ -521,14 +525,14 @@ public class TestLangParser extends Parser {
 		ExprContext _localctx = new ExprContext(_ctx, getState());
 		enterRule(_localctx, 8, RULE_expr);
 		try {
-			setState(62);
+			setState(64);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case INT_LIT:
 				_localctx = new TLIntegerContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(60);
+				setState(62);
 				match(INT_LIT);
 				}
 				break;
@@ -536,7 +540,7 @@ public class TestLangParser extends Parser {
 				_localctx = new TLBooleanContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(61);
+				setState(63);
 				match(BOOL_LIT);
 				}
 				break;
@@ -556,23 +560,24 @@ public class TestLangParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\23C\4\2\t\2\4\3\t"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3\22E\4\2\t\2\4\3\t"+
 		"\3\4\4\t\4\4\5\t\5\4\6\t\6\3\2\3\2\3\2\6\2\20\n\2\r\2\16\2\21\3\2\3\2"+
-		"\3\2\3\3\3\3\3\3\3\3\3\3\3\3\6\3\35\n\3\r\3\16\3\36\3\3\3\3\3\4\3\4\3"+
-		"\4\3\4\3\4\7\4(\n\4\f\4\16\4+\13\4\5\4-\n\4\3\4\3\4\3\5\3\5\3\5\3\5\3"+
-		"\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\5\5=\n\5\3\6\3\6\5\6A\n\6\3\6\2\2\7\2\4"+
-		"\6\b\n\2\2\2D\2\f\3\2\2\2\4\26\3\2\2\2\6\"\3\2\2\2\b<\3\2\2\2\n@\3\2\2"+
-		"\2\f\r\7\3\2\2\r\17\7\21\2\2\16\20\5\4\3\2\17\16\3\2\2\2\20\21\3\2\2\2"+
-		"\21\17\3\2\2\2\21\22\3\2\2\2\22\23\3\2\2\2\23\24\7\4\2\2\24\25\7\2\2\3"+
-		"\25\3\3\2\2\2\26\27\7\5\2\2\27\30\7\6\2\2\30\31\7\21\2\2\31\34\7\7\2\2"+
-		"\32\35\5\6\4\2\33\35\5\b\5\2\34\32\3\2\2\2\34\33\3\2\2\2\35\36\3\2\2\2"+
-		"\36\34\3\2\2\2\36\37\3\2\2\2\37 \3\2\2\2 !\7\b\2\2!\5\3\2\2\2\"#\7\21"+
-		"\2\2#,\7\t\2\2$)\5\n\6\2%&\7\n\2\2&(\5\n\6\2\'%\3\2\2\2(+\3\2\2\2)\'\3"+
-		"\2\2\2)*\3\2\2\2*-\3\2\2\2+)\3\2\2\2,$\3\2\2\2,-\3\2\2\2-.\3\2\2\2./\7"+
-		"\13\2\2/\7\3\2\2\2\60\61\7\f\2\2\61\62\7\t\2\2\62\63\5\6\4\2\63\64\7\n"+
-		"\2\2\64\65\5\n\6\2\65\66\7\13\2\2\66=\3\2\2\2\678\7\r\2\289\7\t\2\29:"+
-		"\5\6\4\2:;\7\13\2\2;=\3\2\2\2<\60\3\2\2\2<\67\3\2\2\2=\t\3\2\2\2>A\7\17"+
-		"\2\2?A\7\20\2\2@>\3\2\2\2@?\3\2\2\2A\13\3\2\2\2\t\21\34\36),<@";
+		"\3\2\3\3\3\3\3\3\3\3\3\3\3\3\3\3\6\3\36\n\3\r\3\16\3\37\3\3\3\3\3\4\3"+
+		"\4\3\4\3\4\3\4\7\4)\n\4\f\4\16\4,\13\4\3\4\5\4/\n\4\3\4\3\4\3\5\3\5\3"+
+		"\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\5\5?\n\5\3\6\3\6\5\6C\n\6\3\6\2"+
+		"\2\7\2\4\6\b\n\2\2\2F\2\f\3\2\2\2\4\26\3\2\2\2\6#\3\2\2\2\b>\3\2\2\2\n"+
+		"B\3\2\2\2\f\r\7\3\2\2\r\17\7\20\2\2\16\20\5\4\3\2\17\16\3\2\2\2\20\21"+
+		"\3\2\2\2\21\17\3\2\2\2\21\22\3\2\2\2\22\23\3\2\2\2\23\24\7\4\2\2\24\25"+
+		"\7\2\2\3\25\3\3\2\2\2\26\27\7\5\2\2\27\30\7\6\2\2\30\31\7\20\2\2\31\32"+
+		"\7\7\2\2\32\35\7\b\2\2\33\36\5\6\4\2\34\36\5\b\5\2\35\33\3\2\2\2\35\34"+
+		"\3\2\2\2\36\37\3\2\2\2\37\35\3\2\2\2\37 \3\2\2\2 !\3\2\2\2!\"\7\t\2\2"+
+		"\"\5\3\2\2\2#$\7\20\2\2$.\7\7\2\2%&\5\n\6\2&\'\7\n\2\2\')\3\2\2\2(%\3"+
+		"\2\2\2),\3\2\2\2*(\3\2\2\2*+\3\2\2\2+-\3\2\2\2,*\3\2\2\2-/\5\n\6\2.*\3"+
+		"\2\2\2./\3\2\2\2/\60\3\2\2\2\60\61\7\b\2\2\61\7\3\2\2\2\62\63\7\13\2\2"+
+		"\63\64\7\7\2\2\64\65\5\6\4\2\65\66\7\n\2\2\66\67\5\n\6\2\678\7\b\2\28"+
+		"?\3\2\2\29:\7\f\2\2:;\7\7\2\2;<\5\6\4\2<=\7\b\2\2=?\3\2\2\2>\62\3\2\2"+
+		"\2>9\3\2\2\2?\t\3\2\2\2@C\7\16\2\2AC\7\17\2\2B@\3\2\2\2BA\3\2\2\2C\13"+
+		"\3\2\2\2\t\21\35\37*.>B";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

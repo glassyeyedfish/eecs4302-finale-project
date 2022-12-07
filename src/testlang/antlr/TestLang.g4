@@ -10,12 +10,12 @@ prog: 'TEST' ID
 	EOF  											#TLProgram
 	;
 
-test_func: '@Test' 'FUNC' ID '()'
+test_func: '@Test' 'FUNC' ID '(' ')'
 	(func_call | assrt)+
 	'END FUNC'										#TLTestFunc
 	;
 	
-func_call: ID '(' (expr (',' expr)*)? ')'			#TLFunctionCall
+func_call: ID '(' ((expr ',')* expr)? ')'			#TLFunctionCall
 	;
 	
 assrt: 'ASSERTEQUALS' '(' func_call ',' expr ')'	#TLAssertEquals
@@ -31,7 +31,7 @@ TYPE: 'INT' | 'BOOL' ;
 INT_LIT: '0'|'-'?[1-9][0-9]*;
 BOOL_LIT: 'TRUE'|'FALSE';
 
-ID: [a-z][a-z0-9_]*;
+ID: [a-z][a-zA-Z0-9_]*;
 
 COMMENT: '!!' ~[\r\n]* -> skip ;
 WS: [ \t\n\r]+ -> skip ;

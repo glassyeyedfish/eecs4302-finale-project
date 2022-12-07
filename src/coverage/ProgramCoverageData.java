@@ -19,7 +19,7 @@ public class ProgramCoverageData {
 	public String testSource;
 	
 	@Expose
-	public Map<String, ProcessorData> dataMap;
+	public ProcessorData data;
 	
 	@Expose
 	public String rawData;

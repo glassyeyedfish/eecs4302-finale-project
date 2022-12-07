@@ -37,7 +37,7 @@ public class ProgLangParser extends Parser {
 	private static String[] makeLiteralNames() {
 		return new String[] {
 			null, "'PROGRAM'", "'END PROGRAM'", "'FUNC'", "'('", "','", "')'", "'::'", 
-			"'return'", "'END'", "'='", "'PRINT'", "'IF'", "'THEN'", "'*'", "'+'", 
+			"'RETURN'", "'END'", "'='", "'PRINT'", "'IF'", "'THEN'", "'*'", "'+'", 
 			"'-'", "'>'", "'<'", "'>='", "'<='", "'=='", "'!='", "'&&'", "'||'", 
 			"'!'"
 		};

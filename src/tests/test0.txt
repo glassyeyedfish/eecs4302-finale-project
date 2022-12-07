@@ -1,13 +1,8 @@
 TEST program0
 
 	@Test
-	FUNC test0 ()
-		main( )
-	END FUNC
-	
-	@Test
-	FUNC test1 ()
-		foo( )
+	FUNC test0()
+		main()
 	END FUNC
 	
 END TEST

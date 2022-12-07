@@ -1,0 +1,75 @@
+PROGRAM example_7_max
+
+	!! This function returns highest between three numbers.
+	
+	!! It may not be the most elegant solution to this problem,
+	!! but it demonstrates that our language can handle a lot of
+	!! nested if statements
+	
+	!! It is also used to display different possible results for 
+	!! the coverage criteria, based on a more vs less comprehensive
+	!! test program
+	
+	FUNC max(INT :: a, INT :: b, INT :: c) :: INT
+	
+		INT :: result
+	
+		IF (a > b) THEN
+		
+			IF (b > c) THEN
+			
+				IF (a > c) THEN
+					result = a
+				END IF
+				
+				IF (a <= c) THEN
+					result = b
+				END IF
+			
+			END IF
+			
+			IF (b <= c) THEN
+			
+				IF (a > c) THEN
+					result = a
+				END IF
+				
+				IF (a <= c) THEN
+					result = c
+				END IF
+			
+			END IF
+		
+		END IF
+		
+		IF (a <= b) THEN
+		
+			IF (b > c) THEN
+				result = b
+			END IF
+			
+			IF (b <= c) THEN
+				result = c
+			END IF
+		
+		END IF
+		
+		RETURN result
+	
+	END FUNC
+
+	FUNC main()
+		
+		PRINT(max(1, 2, 3))
+		PRINT(max(1, 3, 2))
+		
+		PRINT(max(2, 1, 3))
+		PRINT(max(2, 3, 1))
+		
+		PRINT(max(3, 1, 2))
+		PRINT(max(3, 2, 1))
+		
+		
+	END FUNC
+	
+END PROGRAM

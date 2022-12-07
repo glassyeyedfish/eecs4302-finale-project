@@ -1,7 +1,7 @@
 PROGRAM main_function_semantics
 
 	FUNC main(INT :: a) :: BOOL
-		return TRUE
+		RETURN TRUE
 	END FUNC
 
 END PROGRAM
