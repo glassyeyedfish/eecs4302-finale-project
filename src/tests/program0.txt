@@ -1,4 +1,4 @@
-PROGRAM example_9_gcd_lcm
+PROGRAM example_10_complex_test_cases
 
     FUNC gcd(INT :: a, INT :: b) :: INT
     
