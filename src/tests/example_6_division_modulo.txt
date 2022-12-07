@@ -1,4 +1,4 @@
-PROGRAM program0
+PROGRAM example_6_division_modulo
 
     !! This function returns the result of n / d = q.
     !! It can be used since our language has no native
@@ -38,17 +38,17 @@ PROGRAM program0
         
     END FUNC
     
-    FUNC moduloHelper(INT :: a, INT :: b, INT :: q) :: INT
+    FUNC moduloHelper(INT :: a, INT :: b, INT :: r) :: INT
     
         IF (a >= b) THEN
-            q = moduloHelper(a - b, b, q)
+            r = moduloHelper(a - b, b, r)
         END IF
         
         IF (a < b) THEN
-        	q = a
+        	r = a
         END IF
         
-        RETURN q
+        RETURN r
     
     END FUNC
 

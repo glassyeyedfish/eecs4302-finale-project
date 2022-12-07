@@ -1,0 +1,25 @@
+PROGRAM example_2_conditional
+
+    FUNC main()
+    
+    	INT :: a
+        BOOL :: b
+        
+        a = 42
+        b = TRUE
+
+        !! if statement with true conditional
+        IF (b) THEN
+            IF (TRUE) THEN
+            	PRINT(b)
+            END IF
+        END IF
+
+        !!  if statement with false conditional (skipped)
+        IF (!b) THEN
+            PRINT(a)
+        END IF
+        
+    END FUNC
+    
+END PROGRAM

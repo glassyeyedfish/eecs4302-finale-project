@@ -1,4 +1,4 @@
-PROGRAM program3
+PROGRAM example_7_max
 
 	!! This function returns highest between three numbers.
 	

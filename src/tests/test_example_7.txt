@@ -1,0 +1,10 @@
+TEST example_7_max
+
+	@Test
+	FUNC test_1()
+	
+		main()
+		
+	END FUNC
+	
+END TEST

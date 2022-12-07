@@ -26,10 +26,6 @@ PROGRAM example_9_gcd_lcm
 	
 	!! Empty main and the division/modulo functions.
     FUNC main()
-    
-    	PRINT(gcd(24, 16))
-    	PRINT(lcm(24, 16))
-    
     END FUNC
     
     FUNC divide(INT :: n, INT :: d) :: INT

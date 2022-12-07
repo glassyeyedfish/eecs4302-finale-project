@@ -1,0 +1,20 @@
+PROGRAM example_8_fibonacci
+
+    FUNC fib(INT :: n) :: INT
+    
+    	IF (n <= 2) THEN
+			n = 1
+		END IF
+		
+		IF (n > 2) THEN
+			n = fib(n - 1) + fib(n - 2)
+		END IF
+		
+		RETURN n
+    
+    END FUNC
+
+    FUNC main()
+    END FUNC
+    
+END PROGRAM

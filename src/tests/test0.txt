@@ -3,10 +3,6 @@ TEST program0
 	@Test
 	FUNC test0()
 		main()
-		
-		!!ASSERTEQUALS(max(1, 2, 3), 1)
-		!!ASSERTEQUALS(max(1, 2, 3), 2)
-		!!ASSERTEQUALS(max(1, 2, 3), 3)
 	END FUNC
 	
 END TEST

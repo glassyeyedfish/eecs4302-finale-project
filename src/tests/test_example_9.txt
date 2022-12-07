@@ -1,0 +1,23 @@
+TEST example_9_gcd_lcm
+
+	@Test
+	FUNC test_1()
+	
+		ASSERTEQUALS(gcd(1, 1), 1)
+		ASSERTEQUALS(lcm(1, 1), 1)
+		
+		ASSERTEQUALS(gcd(3, 4), 1)
+		ASSERTEQUALS(lcm(3, 4), 12)
+		
+		ASSERTEQUALS(gcd(3, 6), 3)
+		ASSERTEQUALS(lcm(3, 6), 6)
+		
+		ASSERTEQUALS(gcd(6, 3), 3)
+		ASSERTEQUALS(lcm(6, 3), 6)
+		
+		ASSERTEQUALS(gcd(24, 16), 8)
+		ASSERTEQUALS(lcm(24, 16), 48)
+		
+	END FUNC
+	
+END TEST

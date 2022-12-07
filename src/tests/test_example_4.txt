@@ -1,0 +1,10 @@
+TEST example_4_function_returns
+
+	@Test
+	FUNC test_1()
+	
+		main()
+		
+	END FUNC
+	
+END TEST

@@ -1,0 +1,19 @@
+TEST example_8_fibonacci
+
+	@Test
+	FUNC test_1()
+	
+		ASSERTEQUALS(fib(1), 1)
+		ASSERTEQUALS(fib(2), 1)
+		ASSERTEQUALS(fib(3), 2)
+		ASSERTEQUALS(fib(4), 3)
+		ASSERTEQUALS(fib(5), 5)
+		ASSERTEQUALS(fib(6), 8)
+		ASSERTEQUALS(fib(7), 13)
+		ASSERTEQUALS(fib(8), 21)
+		ASSERTEQUALS(fib(9), 34)
+		ASSERTEQUALS(fib(10), 55)
+		
+	END FUNC
+	
+END TEST

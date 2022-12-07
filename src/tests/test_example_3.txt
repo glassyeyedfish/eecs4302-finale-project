@@ -1,0 +1,10 @@
+TEST example_3_functions
+
+	@Test
+	FUNC test_1()
+	
+		main()
+		
+	END FUNC
+	
+END TEST

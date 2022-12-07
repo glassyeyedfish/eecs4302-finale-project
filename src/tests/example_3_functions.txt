@@ -1,0 +1,52 @@
+PROGRAM example_3_functions
+
+    FUNC min(INT :: x, INT :: y) :: INT
+    
+        INT :: min
+
+        IF (x <= y) THEN
+            min = x
+        END IF
+
+        IF (y <= x) THEN
+            min = y
+        END IF
+
+        RETURN min
+        
+    END FUNC
+
+    !! boolean function
+    FUNC getTrue() :: BOOL
+    
+        RETURN TRUE
+        
+    END FUNC
+
+    !! void function (no return type)
+    FUNC printTwo()
+        PRINT(2)
+    END FUNC
+
+    FUNC main()
+    
+        INT :: x
+        INT :: y
+        INT :: min
+
+        x = 1
+        y = 2
+        
+        !! call function and it will return the min value of x and y
+        min = min(x, y)
+        PRINT(min)
+
+        !! execute void function
+        printTwo()
+
+        !! execute function and discard return value
+        getTrue()
+    
+    END FUNC
+    
+END PROGRAM

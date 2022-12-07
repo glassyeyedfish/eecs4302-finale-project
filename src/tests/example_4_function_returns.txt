@@ -1,0 +1,43 @@
+PROGRAM example_4_function_returns
+
+    FUNC max(INT :: x, INT :: y) :: INT
+    
+        INT :: max
+
+        IF (x >= y) THEN
+            max = x
+        END IF
+
+        IF (y >= x) THEN
+            max = y
+        END IF
+
+        RETURN max
+        
+    END FUNC
+
+    FUNC callMax(INT :: x, INT :: y) :: INT
+    
+        !! function call can be used in return statements
+        RETURN max(x, y)
+        
+    END FUNC
+
+    FUNC main()
+    
+        INT :: x
+
+        !! function call can be used in print statements
+        PRINT(callMax(1, 2))
+
+        !! function call can be used in assignments and within other function calls
+        x = callMax(callMax(1, 2), 3)
+
+        !! function call can be used in conditional statements
+        IF (callMax(10, x) == 10) THEN
+            PRINT(x) 
+        END IF
+        
+    END FUNC
+    
+END PROGRAM

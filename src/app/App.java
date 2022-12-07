@@ -145,7 +145,7 @@ public class App {
 		formatted.add("\n ===== RESULTS OF TESTS =====");
 		formatted.add(data.assertionResults.toString());
 		
-		System.out.println(formatted.toString());
+		//System.out.println(formatted.toString());
 		
 		
 		/*

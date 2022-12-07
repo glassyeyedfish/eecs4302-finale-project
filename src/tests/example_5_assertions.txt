@@ -1,0 +1,24 @@
+PROGRAM example_5_assertions
+
+    FUNC add(INT :: a, INT :: b) :: INT
+    
+    	RETURN a + b
+    	
+    END FUNC
+    
+    FUNC multiply(INT :: a, INT :: b) :: INT
+    
+    	RETURN a * b
+    	
+    END FUNC
+    
+    FUNC negate(BOOL :: b) :: BOOL
+    
+    	RETURN !b
+    	
+    END FUNC
+
+    FUNC main()
+    END FUNC
+    
+END PROGRAM
