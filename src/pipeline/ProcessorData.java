@@ -62,19 +62,24 @@ public class ProcessorData {
 	
 	public void coverPathAt(int lineNum) {
 		for (DCPath path: this.allDCPaths) {
-			if (path.getLineTo() == lineNum && !this.coveredDCPaths.contains(path)) {
+			if (
+					path.getLineTo() == lineNum 
+					&& !this.coveredDCPaths.contains(path)
+					&& path.isCUse()
+		) {
 				this.coveredDCPaths.add(path);
 			}
 		}
 	}
 	
 	public void coverPathAt(int lineNum, boolean cond) {
+		
 		for (DCPath path: this.allDCPaths) {
 			if (
 					path.getLineTo() == lineNum 
 					&& !this.coveredDCPaths.contains(path)
-					&& !path.isCUse()
 					&& path.getPUseCondition() == cond
+					&& !path.isCUse()
 			) {
 				this.coveredDCPaths.add(path);
 			}

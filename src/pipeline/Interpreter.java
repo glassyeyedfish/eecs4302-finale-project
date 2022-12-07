@@ -717,7 +717,6 @@ public class Interpreter {
 			ProcessorData data
 	) {
 		EvalResult r = new EvalResult();
-		System.out.println(expr);
 		
 		/*
 		 * Figure out which of the following expressions is being eval'd:
