@@ -26,7 +26,8 @@ public class HTML {
 	
 	public void outputToFile(String fileName) {
 		String template = this.getTemplate();
-		template = template.replace(">>>json<<<", this.data.toJson());
+		String jsonData = this.data.toJson();
+		template = template.replace(">>>json<<<", jsonData);
 
 		try {			
 			FileWriter html = new FileWriter(fileName + ".html");
