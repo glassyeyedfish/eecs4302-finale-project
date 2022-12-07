@@ -4,7 +4,7 @@ PROGRAM bool_function_semantics
 	END FUNC
 	
 	FUNC foo(BOOL :: b) :: BOOL
-		return 1
+		RETURN 1
 	END FUNC
 	
 	FUNC bar(INT :: b) :: BOOL

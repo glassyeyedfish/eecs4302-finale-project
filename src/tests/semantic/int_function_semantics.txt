@@ -4,7 +4,7 @@ PROGRAM int_function_semantics
 	END FUNC
 	
 	FUNC foo(INT :: a) :: INT
-		return TRUE
+		RETURN TRUE
 	END FUNC
 	
 	FUNC bar(INT :: a) :: INT

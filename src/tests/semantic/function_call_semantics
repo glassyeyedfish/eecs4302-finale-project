@@ -26,7 +26,7 @@ PROGRAM function_call_semantics
 	END FUNC
 	
 	FUNC foo(INT :: a, BOOL :: b) :: INT
-		return a
+		RETURN a
 	END FUNC
 	
 	FUNC bar()
