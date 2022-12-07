@@ -1,8 +1,0 @@
-TEST program0
-
-	@Test
-	FUNC test0()
-		main()
-	END FUNC
-	
-END TEST
